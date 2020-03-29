@@ -1,4 +1,4 @@
-﻿namespace CoreService.Framework.Contracts.Domain
+﻿namespace Pumpkin.Contract.Interfaces
 {
     public interface IEntity<T,TId> : IDataModel where T : class
     {

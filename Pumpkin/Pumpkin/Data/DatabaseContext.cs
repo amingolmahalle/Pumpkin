@@ -1,4 +1,4 @@
-namespace Pumpkin.Core.Data
+namespace Pumpkin.Data
 {
     public class DatabaseContext
     {

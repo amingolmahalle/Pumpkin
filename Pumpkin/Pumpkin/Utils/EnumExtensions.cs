@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 
-namespace Pumpkin.Core.Utils
+namespace Pumpkin.Utils
 {
     public static class EnumExtensions
     {

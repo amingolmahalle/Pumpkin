@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CoreService.Framework.Contracts.Domain
+namespace Pumpkin.Contract.Interfaces
 {
     public interface IHasChangeHistory
     {

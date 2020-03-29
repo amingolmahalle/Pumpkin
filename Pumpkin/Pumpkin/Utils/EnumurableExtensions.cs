@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Pumpkin.Core.Utils
+namespace Pumpkin.Utils
 {
     public static class EnumurableExtensions
     {

@@ -19,8 +19,21 @@
             <e p="IUnitOfWork.cs" t="Include" />
           </e>
           <e p="Logging" t="Include" />
+          <e p="Security" t="Include">
+            <e p="AuthenticationType.cs" t="Include" />
+            <e p="GatewayType.cs" t="Include" />
+            <e p="ICurrentRequest.cs" t="Include" />
+          </e>
         </e>
-        <e p="Core" t="Include" />
+        <e p="Core" t="Include">
+          <e p="RequestWrapper" t="Include">
+            <e p="APIResponse.cs" t="Include" />
+            <e p="ApiError.cs" t="Include" />
+            <e p="ApiException.cs" t="Include" />
+            <e p="ResponseMessageEnum.cs" t="Include" />
+            <e p="ValidationError.cs" t="Include" />
+          </e>
+        </e>
         <e p="Data" t="Include">
           <e p="DatabaseContext.cs" t="Include" />
         </e>
@@ -34,9 +47,18 @@
           <e p="TypeExtensions.cs" t="Include" />
         </e>
         <e p="Web" t="Include">
-          <e p="BaseClasses" t="Include" />
+          <e p="Authorization" t="Include">
+            <e p="CurrentRequest.cs" t="Include" />
+          </e>
+          <e p="BaseClasses" t="Include">
+            <e p="BaseApiController.cs" t="Include" />
+          </e>
           <e p="Hosting" t="Include">
             <e p="RootStartup.cs" t="Include" />
+          </e>
+          <e p="RequestWrapper" t="Include">
+            <e p="ApiRequestInterceptor.cs" t="Include" />
+            <e p="ApiRequestInterceptorExtension.cs" t="Include" />
           </e>
         </e>
         <e p="bin" t="ExcludeRecursive" />
@@ -50,6 +72,9 @@
       </e>
       <e p="Pumpkin.sln" t="IncludeFlat" />
       <e p="Sample.Test" t="IncludeRecursive">
+        <e p="Controllers" t="Include">
+          <e p="ValueController.cs" t="Include" />
+        </e>
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">
           <e p="launchSettings.json" t="Include" />
@@ -59,6 +84,14 @@
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
+        <e p="mono_crash.mem.10535.1.blob" t="Include" />
+        <e p="mono_crash.mem.25520.1.blob" t="Include" />
+        <e p="mono_crash.mem.4978.1.blob" t="Include" />
+        <e p="mono_crash.mem.5685.1.blob" t="Include" />
+        <e p="mono_crash.mem.5864.1.blob" t="Include" />
+        <e p="mono_crash.mem.6099.1.blob" t="Include" />
+        <e p="mono_crash.mem.6399.1.blob" t="Include" />
+        <e p="mono_crash.mem.6682.1.blob" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">

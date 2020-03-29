@@ -1,7 +1,7 @@
 using System;
 using Newtonsoft.Json;
 
-namespace Pumpkin.Core.Utils
+namespace Pumpkin.Utils
 {
     public static class StringExtensions
     {

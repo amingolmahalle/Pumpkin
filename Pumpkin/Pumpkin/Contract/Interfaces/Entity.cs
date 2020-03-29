@@ -1,4 +1,4 @@
-﻿namespace CoreService.Framework.Contracts.Domain
+﻿namespace Pumpkin.Contract.Interfaces
 {
     public abstract class Entity<T> : Entity<T,int>, IEntity<T> where T : class
     {

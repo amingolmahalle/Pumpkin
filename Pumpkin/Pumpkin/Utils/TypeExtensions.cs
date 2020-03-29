@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Pumpkin.Core.Utils
+namespace Pumpkin.Utils
 {
         public static class TypeExtensions
         {

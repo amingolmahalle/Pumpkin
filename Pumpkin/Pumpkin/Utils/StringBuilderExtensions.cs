@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace Pumpkin.Core.Utils
+namespace Pumpkin.Utils
 {
     public static class StringBuilderExtensions
     {

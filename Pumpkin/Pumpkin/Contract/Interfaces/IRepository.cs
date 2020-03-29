@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace CoreService.Framework.Contracts.Domain
+namespace Pumpkin.Contract.Interfaces
 {
     public interface IRepository<T> : IRepository<T,int> where T : class,IEntity<T>, IAggregateRoot
     {

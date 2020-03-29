@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 
-namespace Pumpkin.Core.Utils
+namespace Pumpkin.Utils
 {
     public static class Guard
     {

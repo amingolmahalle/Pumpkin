@@ -5,14 +5,23 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="LightInject" Version="6.3.2" />
+      <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.8" />
+      <PackageReference Include="Microsoft.NETCore.App" Version="2.2.8" />
       <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Contract\Caching" />
       <Folder Include="Contract\Logging" />
-      <Folder Include="Core" />
-      <Folder Include="Web\BaseClasses" />
+      <Folder Include="Core\RequestWrapper" />
+      <Folder Include="Web\RequestWrapper" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=3.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+        <HintPath>..\..\..\..\..\..\usr\share\dotnet\packs\Microsoft.AspNetCore.App.Ref\3.1.2\ref\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>
