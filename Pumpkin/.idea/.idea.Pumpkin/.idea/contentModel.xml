@@ -4,12 +4,57 @@
     <e p="$USER_HOME$/.Rider2019.3/system/extResources" t="IncludeRecursive" />
     <e p="$USER_HOME$/.Rider2019.3/system/resharper-host/local/Transient/ReSharperHost/v193/SolutionCaches/_Pumpkin.781919638.00" t="ExcludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeFlat">
-      <e p="Pumpkin.Core" t="IncludeRecursive">
+      <e p="Pumpkin" t="IncludeRecursive">
+        <e p="Contract" t="Include">
+          <e p="Caching" t="Include" />
+          <e p="Interfaces" t="Include">
+            <e p="Entity.cs" t="Include" />
+            <e p="IAggregateRoot.cs" t="Include" />
+            <e p="IArchivingByDelete.cs" t="Include" />
+            <e p="ICachable.cs" t="Include" />
+            <e p="IConcurrencyToken.cs" t="Include" />
+            <e p="IEntity.cs" t="Include" />
+            <e p="IHasChangeHistory.cs" t="Include" />
+            <e p="IRepository.cs" t="Include" />
+            <e p="IUnitOfWork.cs" t="Include" />
+          </e>
+          <e p="Logging" t="Include" />
+        </e>
+        <e p="Core" t="Include" />
+        <e p="Data" t="Include">
+          <e p="DatabaseContext.cs" t="Include" />
+        </e>
+        <e p="Pumpkin.csproj" t="IncludeRecursive" />
+        <e p="Utils" t="Include">
+          <e p="EnumExtensions.cs" t="Include" />
+          <e p="EnumurableExtensions.cs" t="Include" />
+          <e p="Guard.cs" t="Include" />
+          <e p="StringBuilderExtensions.cs" t="Include" />
+          <e p="StringExtensions.cs" t="Include" />
+          <e p="TypeExtensions.cs" t="Include" />
+        </e>
+        <e p="Web" t="Include">
+          <e p="BaseClasses" t="Include" />
+          <e p="Hosting" t="Include">
+            <e p="RootStartup.cs" t="Include" />
+          </e>
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="Pumpkin.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="Pumpkin.sln" t="IncludeFlat" />
+      <e p="Sample.Test" t="IncludeRecursive">
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">
           <e p="launchSettings.json" t="Include" />
         </e>
-        <e p="Pumpkin.Core.csproj" t="IncludeRecursive" />
+        <e p="Sample.Test.csproj" t="IncludeRecursive" />
         <e p="Startup.cs" t="Include" />
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
@@ -17,12 +62,11 @@
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
-              <e p="Pumpkin.Core.AssemblyInfo.cs" t="Include" />
+              <e p="Sample.Test.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
         </e>
       </e>
-      <e p="Pumpkin.sln" t="IncludeFlat" />
       <e p="packages" t="ExcludeRecursive" />
     </e>
   </component>

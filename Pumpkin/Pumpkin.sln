@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pumpkin.Core", "Pumpkin.Core\Pumpkin.Core.csproj", "{6978D9DC-9706-4842-ABCA-0643487C4AB4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Test", "Sample.Test\Sample.Test.csproj", "{BAD553E6-F578-4C33-B5AC-5A134858AEB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pumpkin", "Pumpkin\Pumpkin.csproj", "{E1D8443B-2471-40C2-9DD6-7F10D72E81B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -8,9 +10,13 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6978D9DC-9706-4842-ABCA-0643487C4AB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6978D9DC-9706-4842-ABCA-0643487C4AB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6978D9DC-9706-4842-ABCA-0643487C4AB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6978D9DC-9706-4842-ABCA-0643487C4AB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAD553E6-F578-4C33-B5AC-5A134858AEB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAD553E6-F578-4C33-B5AC-5A134858AEB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAD553E6-F578-4C33-B5AC-5A134858AEB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAD553E6-F578-4C33-B5AC-5A134858AEB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1D8443B-2471-40C2-9DD6-7F10D72E81B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1D8443B-2471-40C2-9DD6-7F10D72E81B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1D8443B-2471-40C2-9DD6-7F10D72E81B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1D8443B-2471-40C2-9DD6-7F10D72E81B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
