@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Pumpkin.Core;
 using Pumpkin.Web.RequestWrapper;
 
 namespace Pumpkin.Web.Hosting
@@ -39,6 +40,8 @@ namespace Pumpkin.Web.Hosting
             builder.AddAuthorization();
 
             builder.AddCors();
+
+            services.NeedToInstallConfig();
         }
 
         public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -3,8 +3,8 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using LightInject;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Pumpkin.Contract.Security;
 using Pumpkin.Core.RequestWrapper;
@@ -17,17 +17,8 @@ namespace Pumpkin.Web.RequestWrapper
     {
         private readonly RequestDelegate _next;
 
-        private readonly Scope _scope;
-
         public ApiRequestInterceptor(RequestDelegate next)
         {
-            IServiceContainer container = new ServiceContainer(new ContainerOptions
-            {
-                EnableVariance = false
-            });
-
-            _scope = container.BeginScope();
-
             _next = next;
         }
 
@@ -94,46 +85,50 @@ namespace Pumpkin.Web.RequestWrapper
 
         private void InterceptRequest(HttpContext context)
         {
-            //var builder = (IBuilder) context.Items["Builder"];
-            var request = (CurrentRequest) _scope.GetInstance(typeof(ICurrentRequest));
+            var service = new ServiceCollection()
+                .AddScoped<ICurrentRequest, CurrentRequest>();
 
+            var serviceProvider = service.BuildServiceProvider();
+
+            var currentRequest = serviceProvider.GetService<CurrentRequest>();
+            
             foreach (var header in context.Request.Headers.Where(it => it.Key.ToLower().StartsWith("request")))
             {
-                request.Headers[header.Key.ToLower()] = header.Value;
+                currentRequest.Headers[header.Key.ToLower()] = header.Value;
             }
 
-            if (!request.HasHeader("request-gateway"))
+            if (!currentRequest.HasHeader("request-gateway"))
                 throw new Exception($"empty header detected [request-gateway]");
 
-            request.Gateway = request.GetEnumHeader<GatewayType>("request-gateway");
-            request.UserSessionId = request.GetHeader("request-client-id");
-            request.CorrelationId = Guid.NewGuid().ToString();
+            currentRequest.Gateway = currentRequest.GetEnumHeader<GatewayType>("request-gateway");
+            currentRequest.UserSessionId = currentRequest.GetHeader("request-client-id");
+            currentRequest.CorrelationId = Guid.NewGuid().ToString();
 
-            if (string.IsNullOrEmpty(request.UserSessionId))
+            if (string.IsNullOrEmpty(currentRequest.UserSessionId))
                 throw new Exception($"empty header detected [request-client-id]");
 
             if (context.User.Identity.IsAuthenticated)
             {
-                request.UserId = context.User.FindFirst("sub").Value;
-                request.UserName = context.User.FindFirst("name").Value;
+                currentRequest.UserId = context.User.FindFirst("sub").Value;
+                currentRequest.UserName = context.User.FindFirst("name").Value;
 
                 switch (context.User.FindFirst("amr").Value)
                 {
                     case "otp":
-                        request.AuthenticationType = AuthenticationType.OtpAuthentication;
+                        currentRequest.AuthenticationType = AuthenticationType.OtpAuthentication;
                         break;
                     case "password":
                     case "pwd":
-                        request.AuthenticationType = AuthenticationType.PasswordAuthentication;
+                        currentRequest.AuthenticationType = AuthenticationType.PasswordAuthentication;
                         break;
                 }
             }
             else
             {
-                request.AuthenticationType = AuthenticationType.NotAuthenticated;
+                currentRequest.AuthenticationType = AuthenticationType.NotAuthenticated;
             }
 
-            context.Items.Add("CoreRequest", request);
+            context.Items.Add("CoreRequest", currentRequest);
         }
 
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
@@ -228,7 +223,7 @@ namespace Pumpkin.Web.RequestWrapper
             }
 
             var apiResponse = new APIResponse(code, ResponseMessageEnum.Failure.GetDescription(), null, apiError);
-            
+
             context.Response.StatusCode = code;
 
             var json = JsonConvert.SerializeObject(apiResponse);
