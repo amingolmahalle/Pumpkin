@@ -39,6 +39,7 @@
           </e>
         </e>
         <e p="Data" t="Include">
+          <e p="DataRegistrator.cs" t="Include" />
           <e p="DatabaseContext.cs" t="Include" />
           <e p="Repositories" t="Include">
             <e p="Repository.cs" t="Include" />
