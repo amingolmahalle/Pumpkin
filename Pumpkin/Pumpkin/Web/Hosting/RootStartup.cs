@@ -26,7 +26,7 @@ namespace Pumpkin.Web.Hosting
         {
             return new List<string>();
         }
-        
+
         public virtual void ConfigureServices(IServiceCollection services)
         {
             if (services == null)
@@ -34,10 +34,11 @@ namespace Pumpkin.Web.Hosting
                 throw new ArgumentNullException(nameof(services));
             }
 
-            var builder = services.AddMvcCore().AddControllersAsServices()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddControllers().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
-            builder.AddCors();
+            services.AddHttpContextAccessor();
+            // services.AddSqlContext(Configuration);
+            services.AddCors();
 
             services.NeedToInstallConfig();
         }
@@ -48,15 +49,20 @@ namespace Pumpkin.Web.Hosting
             {
                 app.UseDeveloperExceptionPage();
             }
+
             app.UseCors();
 
-            app.UseRequestInterceptor(GetRequestInterceptorExceptions().Union(new List<string>(){"/swagger/"}).ToList());
-            
+            app.UseRequestInterceptor(
+            GetRequestInterceptorExceptions().Union(new List<string>() {"/swagger/"}).ToList());
+
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "api/{controller}/{action}/{id?}",
+                    defaults: new {controller = "Home", action = "Index"});
             });
         }
     }
