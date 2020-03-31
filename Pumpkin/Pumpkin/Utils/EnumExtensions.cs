@@ -19,7 +19,7 @@ namespace Pumpkin.Utils
                 {
                     if (val == e.ToInt32(CultureInfo.InvariantCulture))
                     {
-                        var memInfo = type.GetMember(type.GetEnumName(val));
+                        var memInfo = type.GetMember(type.GetEnumName(val) ?? throw new InvalidOperationException());
                         var descriptionAttributes = memInfo[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
                         if (descriptionAttributes.Length > 0)
                         {

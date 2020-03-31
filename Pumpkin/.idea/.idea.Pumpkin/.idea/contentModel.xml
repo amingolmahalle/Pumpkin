@@ -29,7 +29,7 @@
           </e>
         </e>
         <e p="Core" t="Include">
-          <e p="CallInstaller.cs" t="Include" />
+          <e p="DynamicallyInstaller.cs" t="Include" />
           <e p="RequestWrapper" t="Include">
             <e p="APIResponse.cs" t="Include" />
             <e p="ApiError.cs" t="Include" />
@@ -40,6 +40,9 @@
         </e>
         <e p="Data" t="Include">
           <e p="DatabaseContext.cs" t="Include" />
+          <e p="Repositories" t="Include">
+            <e p="Repository.cs" t="Include" />
+          </e>
         </e>
         <e p="Pumpkin.csproj" t="IncludeRecursive" />
         <e p="Utils" t="Include">
