@@ -86,8 +86,8 @@ namespace Pumpkin.Web.RequestWrapper
         private void InterceptRequest(HttpContext context)
         {
             var service = new ServiceCollection()
-                .AddScoped<ICurrentRequest, CurrentRequest>();
-
+                .AddScoped<CurrentRequest, CurrentRequest>();
+            
             var serviceProvider = service.BuildServiceProvider();
 
             var currentRequest = serviceProvider.GetService<CurrentRequest>();

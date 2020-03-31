@@ -37,8 +37,6 @@ namespace Pumpkin.Web.Hosting
             var builder = services.AddMvcCore().AddControllersAsServices()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
-            builder.AddAuthorization();
-
             builder.AddCors();
 
             services.NeedToInstallConfig();
@@ -50,14 +48,11 @@ namespace Pumpkin.Web.Hosting
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors();
 
             app.UseRequestInterceptor(GetRequestInterceptorExceptions().Union(new List<string>(){"/swagger/"}).ToList());
             
             app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {
