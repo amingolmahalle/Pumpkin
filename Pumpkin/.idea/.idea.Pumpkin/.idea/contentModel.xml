@@ -7,6 +7,10 @@
       <e p="Pumpkin" t="IncludeRecursive">
         <e p="Contract" t="Include">
           <e p="Caching" t="Include" />
+          <e p="DataServices" t="Include">
+            <e p="DataResult.cs" t="Include" />
+            <e p="IDataResult.cs" t="Include" />
+          </e>
           <e p="Domain" t="Include">
             <e p="Entity.cs" t="Include" />
             <e p="IAggregateRoot.cs" t="Include" />
@@ -40,6 +44,12 @@
         </e>
         <e p="Data" t="Include">
           <e p="DataRegistrator.cs" t="Include" />
+          <e p="DataServices" t="Include">
+            <e p="DataProviders" t="Include">
+              <e p="SqlDataProvider.cs" t="Include" />
+              <e p="SqlDataProviderInstaller.cs" t="Include" />
+            </e>
+          </e>
           <e p="DatabaseContext.cs" t="Include" />
           <e p="Repositories" t="Include">
             <e p="Repository.cs" t="Include" />
@@ -50,6 +60,7 @@
           <e p="EnumExtensions.cs" t="Include" />
           <e p="EnumurableExtensions.cs" t="Include" />
           <e p="Guard.cs" t="Include" />
+          <e p="SqlCommandExtensions.cs" t="Include" />
           <e p="StringBuilderExtensions.cs" t="Include" />
           <e p="StringExtensions.cs" t="Include" />
           <e p="TypeExtensions.cs" t="Include" />
@@ -68,6 +79,7 @@
             <e p="ApiRequestInterceptor.cs" t="Include" />
             <e p="ApiRequestInterceptorExtension.cs" t="Include" />
           </e>
+          <e p="ServiceConfiguration.cs" t="Include" />
           <e p="WebRegistrator.cs" t="Include" />
         </e>
         <e p="bin" t="ExcludeRecursive" />

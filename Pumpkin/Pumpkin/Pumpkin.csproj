@@ -5,20 +5,24 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Dapper" Version="2.0.30" />
       <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.8" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.3" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.3" />
       <PackageReference Include="Microsoft.NETCore.App" Version="2.2.8" />
+      <PackageReference Include="Microsoft.SqlServer.Types" Version="14.0.1016.290" />
+      <PackageReference Include="NetTopologySuite.Core" Version="1.15.3" />
       <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Contract\Caching" />
+      <Folder Include="Contract\DataServices" />
       <Folder Include="Contract\Domain" />
       <Folder Include="Contract\Logging" />
       <Folder Include="Core\RequestWrapper" />
-      <Folder Include="Web\RequestWrapper" />
+      <Folder Include="Data\DataServices\DataProviders" />
     </ItemGroup>
 
     <ItemGroup>
