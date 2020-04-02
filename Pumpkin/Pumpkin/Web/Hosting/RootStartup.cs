@@ -40,7 +40,7 @@ namespace Pumpkin.Web.Hosting
             // services.AddSqlContext(Configuration);
             services.AddCors();
 
-            services.NeedToInstallConfigExtension();
+            services.NeedToInstallConfig();
         }
 
         public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env)

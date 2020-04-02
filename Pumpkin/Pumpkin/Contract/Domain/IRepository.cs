@@ -5,32 +5,32 @@ using System.Threading.Tasks;
 
 namespace Pumpkin.Contract.Domain
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<TEntity> where TEntity : class
     {
-        void Add(T entity);
+        void Add(TEntity entity);
 
-        Task AddAsync(T entity);
+        Task AddAsync(TEntity entity);
 
-        void AddRange(IEnumerable<T> entities);
+        void AddRange(IEnumerable<TEntity> entities);
 
-        Task AddRangeAsync(IEnumerable<T> entities);
+        Task AddRangeAsync(IEnumerable<TEntity> entities);
 
-        void UpdateRange(IEnumerable<T> entities);
+        void UpdateRange(IEnumerable<TEntity> entities);
 
-        Task UpdateRangeAsync(IEnumerable<T> entities);
+        Task UpdateRangeAsync(IEnumerable<TEntity> entities);
 
-        void DeleteRange(IEnumerable<T> entities);
+        void DeleteRange(IEnumerable<TEntity> entities);
 
-        Task DeleteRangeAsync(IEnumerable<T> entities);
+        Task DeleteRangeAsync(IEnumerable<TEntity> entities);
 
-        void Delete(T entity);
+        void Delete(TEntity entity);
 
-        Task DeleteAsync(T entity);
+        Task DeleteAsync(TEntity entity);
 
-        void Update(T entity);
+        void Update(TEntity entity);
 
-        Task UpdateAsync(T entity);
+        Task UpdateAsync(TEntity entity);
 
-        Task<long> CountAsync(Expression<Func<T, bool>> predicate = null);
+        Task<long> CountAsync(Expression<Func<TEntity, bool>> predicate = null);
     }
 }

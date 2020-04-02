@@ -8,8 +8,8 @@ namespace Pumpkin.Contract.Domain
         
         DateTime? LastUpdateTime { get; set; }
         
-        string SubmitUser { get; set; }
+        int SubmitUser { get; set; }
         
-        string LastUpdateUser { get; set; }
+        int? LastUpdateUser { get; set; }
     }
 }

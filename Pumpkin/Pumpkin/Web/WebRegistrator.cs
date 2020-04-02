@@ -9,7 +9,7 @@ namespace Pumpkin.Web
     {
         public void Install(IServiceCollection services)
         {
-            services.AddScoped(typeof(ICurrentRequest), typeof(CurrentRequest));
+            services.AddScoped<ICurrentRequest, CurrentRequest>();
         }
     }
 }

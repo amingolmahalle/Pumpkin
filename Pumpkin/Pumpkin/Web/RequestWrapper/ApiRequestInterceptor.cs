@@ -109,7 +109,7 @@ namespace Pumpkin.Web.RequestWrapper
 
             if (context.User.Identity.IsAuthenticated)
             {
-                currentRequest.UserId = context.User.FindFirst("sub").Value;
+                currentRequest.UserId = int.Parse(context.User.FindFirst("sub").Value);
                 currentRequest.UserName = context.User.FindFirst("name").Value;
 
                 switch (context.User.FindFirst("amr").Value)

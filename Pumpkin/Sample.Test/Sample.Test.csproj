@@ -12,4 +12,9 @@
       <ProjectReference Include="..\Pumpkin\Pumpkin.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Data\MigrationScripts" />
+      <Folder Include="Service" />
+    </ItemGroup>
+
 </Project>

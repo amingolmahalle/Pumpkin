@@ -14,7 +14,7 @@ namespace Pumpkin.Core
             get { return AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes()); }
         }
 
-        public static void NeedToInstallConfigExtension(this IServiceCollection services)
+        public static void NeedToInstallConfig(this IServiceCollection services)
         {
             var typesToRegister = AllTypes
                 .Where(it => !(it.IsAbstract || it.IsInterface)
@@ -28,7 +28,7 @@ namespace Pumpkin.Core
             }
         }
 
-        public static void NeedToMappingConfigExtension(this ModelBuilder modelBuilder)
+        public static void NeedToMappingConfig(this ModelBuilder modelBuilder)
         {
             var typesToRegister = AllTypes
                 .Where(type =>

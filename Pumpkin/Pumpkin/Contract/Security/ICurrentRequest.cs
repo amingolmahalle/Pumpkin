@@ -10,7 +10,7 @@ namespace Pumpkin.Contract.Security
 
         string UserSessionId { get; set; }
 
-        string UserId { get; set; }
+        int UserId { get; set; }
 
         string UserName { get; set; }
 

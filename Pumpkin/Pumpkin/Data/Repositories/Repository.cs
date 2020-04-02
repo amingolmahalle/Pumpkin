@@ -8,8 +8,8 @@ using Pumpkin.Contract.Domain;
 
 namespace Pumpkin.Data.Repositories
 {
-    public abstract class Repository<T> : IRepository<T>
-        where T : class
+    public class Repository<TEntity> : IRepository<TEntity>
+        where TEntity : class
     {
         protected DatabaseContext Session;
 
@@ -20,40 +20,40 @@ namespace Pumpkin.Data.Repositories
             Session = context;
         }
 
-        protected DbSet<T> Set()
+        protected DbSet<TEntity> Set()
         {
-            return Session.Set<T>();
+            return Session.Set<TEntity>();
         }
 
-        public virtual void Add(T entity)
+        public virtual void Add(TEntity entity)
         {
             Set().Add(entity);
             Session.Entry(entity).State = EntityState.Added;
             Session.SaveChanges();
         }
 
-        public virtual async Task AddAsync(T entity)
+        public virtual async Task AddAsync(TEntity entity)
         {
             await Set().AddAsync(entity);
             Session.Entry(entity).State = EntityState.Added;
             await Session.SaveChangesAsync();
         }
 
-        public virtual void AddRange(IEnumerable<T> entities)
+        public virtual void AddRange(IEnumerable<TEntity> entities)
         {
             Set().AddRange(entities);
 
             Session.SaveChanges();
         }
 
-        public virtual async Task AddRangeAsync(IEnumerable<T> entities)
+        public virtual async Task AddRangeAsync(IEnumerable<TEntity> entities)
         {
             await Set().AddRangeAsync(entities);
 
             await Session.SaveChangesAsync();
         }
 
-        public virtual void UpdateRange(IEnumerable<T> entities)
+        public virtual void UpdateRange(IEnumerable<TEntity> entities)
         {
             foreach (var entity in entities)
             {
@@ -63,7 +63,7 @@ namespace Pumpkin.Data.Repositories
             Session.SaveChanges();
         }
 
-        public virtual async Task UpdateRangeAsync(IEnumerable<T> entities)
+        public virtual async Task UpdateRangeAsync(IEnumerable<TEntity> entities)
         {
             foreach (var entity in entities)
             {
@@ -73,21 +73,21 @@ namespace Pumpkin.Data.Repositories
             await Session.SaveChangesAsync();
         }
 
-        public virtual void DeleteRange(IEnumerable<T> entities)
+        public virtual void DeleteRange(IEnumerable<TEntity> entities)
         {
             Set().RemoveRange(entities);
 
             Session.SaveChanges();
         }
 
-        public async Task DeleteRangeAsync(IEnumerable<T> entities)
+        public async Task DeleteRangeAsync(IEnumerable<TEntity> entities)
         {
             Set().RemoveRange(entities);
 
             await Session.SaveChangesAsync();
         }
 
-        public virtual void Delete(T entity)
+        public virtual void Delete(TEntity entity)
         {
             Set().Remove(entity);
 
@@ -96,7 +96,7 @@ namespace Pumpkin.Data.Repositories
             Session.SaveChanges();
         }
 
-        public virtual async Task DeleteAsync(T entity)
+        public virtual async Task DeleteAsync(TEntity entity)
         {
             Set().Remove(entity);
 
@@ -105,38 +105,38 @@ namespace Pumpkin.Data.Repositories
             await Session.SaveChangesAsync();
         }
 
-        public virtual void Update(T entity)
+        public virtual void Update(TEntity entity)
         {
             Session.Entry(entity).State = EntityState.Modified;
 
             Session.SaveChanges();
         }
 
-        public virtual async Task UpdateAsync(T entity)
+        public virtual async Task UpdateAsync(TEntity entity)
         {
             Session.Entry(entity).State = EntityState.Modified;
 
             await Session.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return await Session.Set<T>()
+            return await Session.Set<TEntity>()
                 .AsNoTracking()
                 .ToListAsync();
         }
 
-        public async Task<long> CountAsync(Expression<Func<T, bool>> predicate = null)
+        public async Task<long> CountAsync(Expression<Func<TEntity, bool>> predicate = null)
         {
             if (predicate != null)
-                return await Session.Set<T>()
+                return await Session.Set<TEntity>()
                     .CountAsync(predicate);
 
-            return await Session.Set<T>()
+            return await Session.Set<TEntity>()
                 .CountAsync();
         }
 
-        public virtual IQueryable<T> Query()
+        public virtual IQueryable<TEntity> Query()
         {
             return Set();
         }
