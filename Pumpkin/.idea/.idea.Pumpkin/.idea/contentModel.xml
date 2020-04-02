@@ -17,6 +17,7 @@
             <e p="IArchivingByDelete.cs" t="Include" />
             <e p="ICachable.cs" t="Include" />
             <e p="IConcurrencyToken.cs" t="Include" />
+            <e p="IDataInitializer.cs" t="Include" />
             <e p="IEntity.cs" t="Include" />
             <e p="IHasChangeHistory.cs" t="Include" />
             <e p="IRepository.cs" t="Include" />
@@ -118,14 +119,51 @@
           </e>
         </e>
         <e p="Domain" t="Include">
-          <e p="User.cs" t="Include" />
+          <e p="Entity" t="Include">
+            <e p="User.cs" t="Include" />
+          </e>
+          <e p="Service" t="Include">
+            <e p="Commands" t="Include">
+              <e p="AddUser" t="Include">
+                <e p="AddUserRequest.cs" t="Include" />
+                <e p="AddUserResponse.cs" t="Include" />
+                <e p="IAddUserService.cs" t="Include" />
+              </e>
+              <e p="EditUser" t="Include" />
+            </e>
+            <e p="Queries" t="Include">
+              <e p="GetUserById" t="Include">
+                <e p="GetUserByIdRequest.cs" t="Include" />
+                <e p="GetUserByIdResponse.cs" t="Include" />
+                <e p="IGetUserByIdService.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+        </e>
+        <e p="Helper" t="Include">
+          <e p="MobileNumberExtension.cs" t="Include" />
+          <e p="NationalCodeExtension.cs" t="Include" />
         </e>
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">
           <e p="launchSettings.json" t="Include" />
         </e>
         <e p="Sample.Test.csproj" t="IncludeRecursive" />
-        <e p="Service" t="Include" />
+        <e p="Service" t="Include">
+          <e p="Commands" t="Include">
+            <e p="AddUser" t="Include">
+              <e p="AddUserFactory.cs" t="Include" />
+              <e p="AddUserService.cs" t="Include" />
+              <e p="AddUserValidation.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Queries" t="Include">
+            <e p="GetUserById" t="Include">
+              <e p="GetUserByIdFactory.cs" t="Include" />
+              <e p="GetUserByIdService.cs" t="Include" />
+            </e>
+          </e>
+        </e>
         <e p="Startup.cs" t="Include" />
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />

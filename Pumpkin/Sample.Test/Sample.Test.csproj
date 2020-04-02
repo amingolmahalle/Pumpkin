@@ -14,7 +14,7 @@
 
     <ItemGroup>
       <Folder Include="Data\MigrationScripts" />
-      <Folder Include="Service" />
+      <Folder Include="Domain\Service\Commands\EditUser" />
     </ItemGroup>
 
 </Project>
