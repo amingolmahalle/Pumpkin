@@ -72,7 +72,6 @@
         <e p="Utils" t="Include">
           <e p="EnumExtensions.cs" t="Include" />
           <e p="EnumurableExtensions.cs" t="Include" />
-          <e p="Guard.cs" t="Include" />
           <e p="SqlCommandExtensions.cs" t="Include" />
           <e p="StringBuilderExtensions.cs" t="Include" />
           <e p="StringExtensions.cs" t="Include" />
@@ -168,6 +167,7 @@
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
+        <e p="mono_crash.mem.4661.1.blob" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">

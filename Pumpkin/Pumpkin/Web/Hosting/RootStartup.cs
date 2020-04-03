@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -36,8 +37,16 @@ namespace Pumpkin.Web.Hosting
 
             services.AddControllers().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
-            services.AddHttpContextAccessor();
-            // services.AddSqlContext(Configuration);
+            services.AddApiVersioning(options =>
+            {
+                options.ReportApiVersions = true;
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.ApiVersionReader = new MediaTypeApiVersionReader();
+                options.ApiVersionSelector = new CurrentImplementationApiVersionSelector(options);
+            });
+            
+            services.AddHttpContextAccessor(); 
+            services.AddDbContext(_configuration);
             services.AddCors();
 
             services.NeedToInstallConfig();
