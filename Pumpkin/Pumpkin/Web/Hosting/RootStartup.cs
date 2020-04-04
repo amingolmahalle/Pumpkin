@@ -46,7 +46,7 @@ namespace Pumpkin.Web.Hosting
             });
             
             services.AddHttpContextAccessor(); 
-            services.AddDbContext(_configuration);
+          //  services.AddDbContext(_configuration);
             services.AddCors();
 
             services.NeedToInstallConfig();
