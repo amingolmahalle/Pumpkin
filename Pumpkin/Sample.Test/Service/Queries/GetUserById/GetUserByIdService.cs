@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Sample.Test.Data.Repositories;
+using Sample.Test.Domain.Entity.UserAggregate;
 using Sample.Test.Domain.Service.Queries.GetUserById;
 
 namespace Sample.Test.Service.Queries.GetUserById

@@ -113,13 +113,15 @@
           <e p="ApplicationDbContext.cs" t="Include" />
           <e p="MigrationScripts" t="Include" />
           <e p="Repositories" t="Include">
-            <e p="IUserRepository.cs" t="Include" />
             <e p="UserRepository.cs" t="Include" />
           </e>
         </e>
         <e p="Domain" t="Include">
           <e p="Entity" t="Include">
-            <e p="User.cs" t="Include" />
+            <e p="UserAggregate" t="Include">
+              <e p="IUserRepository.cs" t="Include" />
+              <e p="User.cs" t="Include" />
+            </e>
           </e>
           <e p="Service" t="Include">
             <e p="Commands" t="Include">

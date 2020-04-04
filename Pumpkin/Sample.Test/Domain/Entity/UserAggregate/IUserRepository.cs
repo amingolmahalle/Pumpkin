@@ -1,8 +1,7 @@
 using System.Threading.Tasks;
 using Pumpkin.Contract.Domain;
-using Sample.Test.Domain.Entity;
 
-namespace Sample.Test.Data.Repositories
+namespace Sample.Test.Domain.Entity.UserAggregate
 {
     public interface IUserRepository:IRepository<User>
     {

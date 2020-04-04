@@ -1,12 +1,10 @@
 using System;
 using Pumpkin.Contract.Domain;
 
-namespace Sample.Test.Domain.Entity
+namespace Sample.Test.Domain.Entity.UserAggregate
 {
-    public class User : IEntity<User, int>, IHasChangeHistory
+    public class User : Entity<User, int>, IAggregateRoot, IHasChangeHistory
     {
-        public int Id { get; set; }
-
         public string Fullname { get; set; }
 
         public string MobileNumber { get; set; }

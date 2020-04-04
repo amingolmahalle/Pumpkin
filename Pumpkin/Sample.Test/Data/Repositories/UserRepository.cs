@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Pumpkin.Data;
 using Pumpkin.Data.Repositories;
 using Sample.Test.Domain.Entity;
+using Sample.Test.Domain.Entity.UserAggregate;
 
 namespace Sample.Test.Data.Repositories
 {

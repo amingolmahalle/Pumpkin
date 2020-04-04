@@ -1,4 +1,5 @@
 using Sample.Test.Data.Repositories;
+using Sample.Test.Domain.Entity.UserAggregate;
 using Sample.Test.Domain.Service.Commands.AddUser;
 
 namespace Sample.Test.Service.Commands.AddUser

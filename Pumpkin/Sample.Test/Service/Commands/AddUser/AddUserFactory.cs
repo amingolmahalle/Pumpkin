@@ -1,4 +1,5 @@
 using Sample.Test.Domain.Entity;
+using Sample.Test.Domain.Entity.UserAggregate;
 using Sample.Test.Domain.Service.Commands.AddUser;
 using Sample.Test.Helper;
 
