@@ -17,9 +17,12 @@ namespace Pumpkin.Web.RequestWrapper
     {
         private readonly RequestDelegate _next;
 
-        public ApiRequestInterceptor(RequestDelegate next)
+        private readonly IServiceProvider _serviceProvider;
+
+        public ApiRequestInterceptor(IServiceProvider serviceProvider, RequestDelegate next)
         {
             _next = next;
+            _serviceProvider = serviceProvider;
         }
 
         //   private ILog logger = LogManager.GetLogger("RequestInterceptor");
@@ -85,13 +88,13 @@ namespace Pumpkin.Web.RequestWrapper
 
         private void InterceptRequest(HttpContext context)
         {
-            var service = new ServiceCollection()
-                .AddScoped<CurrentRequest, CurrentRequest>();
-            
-            var serviceProvider = service.BuildServiceProvider();
+            // var service = new ServiceCollection()
+            //     .AddScoped<CurrentRequest, CurrentRequest>();
+            //
+            // var serviceProvider = service.BuildServiceProvider();
 
-            var currentRequest = serviceProvider.GetService<CurrentRequest>();
-            
+            var currentRequest = _serviceProvider.GetService<CurrentRequest>();
+
             foreach (var header in context.Request.Headers.Where(it => it.Key.ToLower().StartsWith("request")))
             {
                 currentRequest.Headers[header.Key.ToLower()] = header.Value;

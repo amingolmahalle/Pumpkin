@@ -1,7 +1,5 @@
-using Sample.Test.Domain.Entity;
 using Sample.Test.Domain.Entity.UserAggregate;
 using Sample.Test.Domain.Service.Commands.AddUser;
-using Sample.Test.Helper;
 
 namespace Sample.Test.Service.Commands.AddUser
 {
@@ -16,7 +14,7 @@ namespace Sample.Test.Service.Commands.AddUser
                 MobileNumber = request.MobileNumber,
                 Status = request.Status,
                 BirthDate = request.BirthDate,
-                Email = request.Email,
+                Email = request.Email
             };
         }
     }

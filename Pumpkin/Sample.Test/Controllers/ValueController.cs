@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Pumpkin.Web.BaseClasses;
 
 namespace Sample.Test.Controllers
 {
     [Produces("application/json")]
-    public class ValueController : BaseApiController
+    public class ValueController : ControllerBase
     {
         [HttpGet]
         public List<string> Get()

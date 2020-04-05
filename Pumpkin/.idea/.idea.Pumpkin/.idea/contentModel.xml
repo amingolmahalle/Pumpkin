@@ -81,9 +81,6 @@
           <e p="Authorization" t="Include">
             <e p="CurrentRequest.cs" t="Include" />
           </e>
-          <e p="BaseClasses" t="Include">
-            <e p="BaseApiController.cs" t="Include" />
-          </e>
           <e p="Hosting" t="Include">
             <e p="RootStartup.cs" t="Include" />
           </e>
