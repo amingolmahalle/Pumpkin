@@ -14,16 +14,8 @@ namespace Pumpkin.Contract.Security
 
         string UserName { get; set; }
 
-        // KeyValueObject[] UserGroups { get; }
-
         Hashtable Headers { get; }
 
         AuthenticationType AuthenticationType { get; set; }
-
-        // List<string> GetClaimValues(string claimType);
-
-        // bool HasAccess(string resourceName);
-
-        // void From(ICurrentRequest request);
     }
 }

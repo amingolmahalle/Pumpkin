@@ -88,11 +88,6 @@ namespace Pumpkin.Web.RequestWrapper
 
         private void InterceptRequest(HttpContext context)
         {
-            // var service = new ServiceCollection()
-            //     .AddScoped<CurrentRequest, CurrentRequest>();
-            //
-            // var serviceProvider = service.BuildServiceProvider();
-
             var currentRequest = _serviceProvider.GetService<CurrentRequest>();
 
             foreach (var header in context.Request.Headers.Where(it => it.Key.ToLower().StartsWith("request")))
@@ -100,11 +95,11 @@ namespace Pumpkin.Web.RequestWrapper
                 currentRequest.Headers[header.Key.ToLower()] = header.Value;
             }
 
-            if (!currentRequest.HasHeader("request-gateway"))
+            if (!currentRequest.Headers.ContainsKey("request-gateway"))
                 throw new Exception($"empty header detected [request-gateway]");
 
-            currentRequest.Gateway = currentRequest.GetEnumHeader<GatewayType>("request-gateway");
-            currentRequest.UserSessionId = currentRequest.GetHeader("request-client-id");
+           //  currentRequest.Gateway = currentRequest.GetEnumHeader<GatewayType>("request-gateway");
+           // currentRequest.UserSessionId = currentRequest.GetHeader("request-client-id");
             currentRequest.CorrelationId = Guid.NewGuid().ToString();
 
             if (string.IsNullOrEmpty(currentRequest.UserSessionId))
