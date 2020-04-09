@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Pumpkin.Contract.Domain;
 using Pumpkin.Contract.Registration;
 
 namespace Pumpkin.Core
@@ -28,12 +29,27 @@ namespace Pumpkin.Core
             }
         }
 
-        public static void NeedToMappingConfig(this ModelBuilder modelBuilder)
+        public static void NeedToRegisterMappingConfig(this ModelBuilder modelBuilder)
         {
             var typesToRegister = AllTypes
                 .Where(type =>
                     type.BaseType != null && type.BaseType.IsGenericType && type.BaseType.GetGenericTypeDefinition() ==
                     typeof(IEntityTypeConfiguration<>));
+
+            foreach (var item in typesToRegister)
+            {
+                dynamic service = Activator.CreateInstance(item);
+
+                modelBuilder.ApplyConfiguration(service);
+            }
+        }
+        
+        public static void NeedToRegisterAllEntitiesConfig(this ModelBuilder modelBuilder)
+        {
+            var typesToRegister = AllTypes
+                .Where(type =>
+                    type.BaseType != null && type.BaseType.IsGenericType && type.BaseType.GetGenericTypeDefinition() ==
+                    typeof(IEntity<>));
 
             foreach (var item in typesToRegister)
             {

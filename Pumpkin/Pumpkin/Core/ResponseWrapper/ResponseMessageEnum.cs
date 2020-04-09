@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Pumpkin.Core.RequestWrapper
+namespace Pumpkin.Core.ResponseWrapper
 {
     public enum ResponseMessageEnum
     {

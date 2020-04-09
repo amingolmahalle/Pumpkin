@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Pumpkin.Contract.Security;
-using Pumpkin.Core.RequestWrapper;
+using Pumpkin.Core.ResponseWrapper;
 using Pumpkin.Utils;
 
 namespace Pumpkin.Web.RequestWrapper
@@ -168,7 +168,7 @@ namespace Pumpkin.Web.RequestWrapper
 
             context.Response.ContentType = "application/json";
 
-            var apiResponse = new APIResponse(code, ResponseMessageEnum.Exception.GetDescription(), null, apiError);
+            var apiResponse = new ApiResponse(code, ResponseMessageEnum.Exception.GetDescription(), null, apiError);
 
             var json = JsonConvert.SerializeObject(apiResponse);
 
@@ -190,7 +190,7 @@ namespace Pumpkin.Web.RequestWrapper
 
             context.Response.ContentType = "application/json";
 
-            var apiResponse = new APIResponse((int) HttpStatusCode.BadRequest,
+            var apiResponse = new ApiResponse((int) HttpStatusCode.BadRequest,
                 ResponseMessageEnum.Exception.GetDescription(), null, apiError);
 
             var json = JsonConvert.SerializeObject(apiResponse);
@@ -217,7 +217,7 @@ namespace Pumpkin.Web.RequestWrapper
                     break;
             }
 
-            var apiResponse = new APIResponse(code, ResponseMessageEnum.Failure.GetDescription(), null, apiError);
+            var apiResponse = new ApiResponse(code, ResponseMessageEnum.Failure.GetDescription(), null, apiError);
 
             context.Response.StatusCode = code;
 
@@ -234,7 +234,7 @@ namespace Pumpkin.Web.RequestWrapper
 
             dynamic bodyContent = JsonConvert.DeserializeObject<dynamic>(bodyText);
 
-            var apiResponse = new APIResponse(code, ResponseMessageEnum.Success.GetDescription(), bodyContent, null);
+            var apiResponse = new ApiResponse(code, ResponseMessageEnum.Success.GetDescription(), bodyContent, null);
 
             var jsonString = JsonConvert.SerializeObject(apiResponse);
 

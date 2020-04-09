@@ -3,7 +3,7 @@ using Pumpkin.Contract.Domain;
 
 namespace Sample.Test.Domain.Entity.UserAggregate
 {
-    public class User : Entity<User, int>, IAggregateRoot, IHasChangeHistory
+    public class User : Entity<int>, IAggregateRoot, IHasChangeHistory
     {
         public string Fullname { get; set; }
 

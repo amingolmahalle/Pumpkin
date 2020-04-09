@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Pumpkin.Core.RequestWrapper
+namespace Pumpkin.Core.ResponseWrapper
 {
     public class ValidationError
     {

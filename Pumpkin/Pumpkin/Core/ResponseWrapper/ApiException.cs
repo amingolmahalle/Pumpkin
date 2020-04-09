@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Pumpkin.Core.RequestWrapper
+namespace Pumpkin.Core.ResponseWrapper
 {
     public class ApiException : System.Exception
     {

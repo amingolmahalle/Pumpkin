@@ -1,23 +1,27 @@
 using System.Runtime.Serialization;
 
-namespace Pumpkin.Core.RequestWrapper
+namespace Pumpkin.Core.ResponseWrapper
 {
     [DataContract]
-    public class APIResponse
+    public class ApiResponse
     {
         [DataMember]
         public int StatusCode { get; set; }
 
+        
         [DataMember]
         public string Message { get; set; }
 
+        
         [DataMember(EmitDefaultValue = false)]
         public ApiError ResponseException { get; set; }
 
+        
         [DataMember(EmitDefaultValue = false)]
         public object Result { get; set; }
 
-        public APIResponse(int statusCode, string message = "", object result = null, ApiError apiError = null)
+        
+        public ApiResponse(int statusCode, string message = "", object result = null, ApiError apiError = null)
         {
             StatusCode = statusCode;
             Message = message;

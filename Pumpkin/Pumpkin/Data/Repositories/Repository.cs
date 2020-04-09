@@ -142,7 +142,7 @@ namespace Pumpkin.Data.Repositories
             return Set();
         }
 
-        public IQueryable<TU> QueryOn<TU>() where TU : class, IDataModel
+        public IQueryable<TU> QueryOn<TU>() where TU : class //, IDataModel
         {
             return Session.Set<TU>();
         }

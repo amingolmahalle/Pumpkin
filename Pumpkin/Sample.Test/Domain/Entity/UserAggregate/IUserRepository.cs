@@ -3,7 +3,7 @@ using Pumpkin.Contract.Domain;
 
 namespace Sample.Test.Domain.Entity.UserAggregate
 {
-    public interface IUserRepository:IRepository<User>
+    public interface IUserRepository : IRepository<User>
     {
         Task<User> GetByIdAsync(int id);
     }

@@ -21,7 +21,6 @@
       <Folder Include="Contract\DataServices" />
       <Folder Include="Contract\Listeners" />
       <Folder Include="Contract\Logging" />
-      <Folder Include="Core\RequestWrapper" />
       <Folder Include="Data\DataServices\DataProviders" />
       <Folder Include="Data\Listeners" />
     </ItemGroup>
