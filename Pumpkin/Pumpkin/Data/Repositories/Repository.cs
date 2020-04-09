@@ -9,120 +9,119 @@ using Pumpkin.Contract.Domain;
 
 namespace Pumpkin.Data.Repositories
 {
-    public class Repository<TEntity> : IRepository<TEntity>
-        where TEntity : class
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IAggregateRoot
     {
-        protected DatabaseContext Session;
+        private readonly DatabaseContext _session;
 
         // ILog log = LogManager.GetLogger("RepositoryBase");
 
         protected Repository(DatabaseContext context)
         {
-            Session = context;
+            _session = context;
         }
 
-        protected DbSet<TEntity> Set()
+        private DbSet<TEntity> Set()
         {
-            return Session.Set<TEntity>();
+            return _session.Set<TEntity>();
         }
 
         public virtual void Add(TEntity entity)
         {
             Set().Add(entity);
-            Session.Entry(entity).State = EntityState.Added;
-            Session.SaveChanges();
+            _session.Entry(entity).State = EntityState.Added;
+            _session.SaveChanges();
         }
 
         public virtual async Task AddAsync(TEntity entity,CancellationToken cancellationToken)
         {
             await Set().AddAsync(entity,cancellationToken);
-            Session.Entry(entity).State = EntityState.Added;
-            await Session.SaveChangesAsync(cancellationToken);
+            _session.Entry(entity).State = EntityState.Added;
+            await _session.SaveChangesAsync(cancellationToken);
         }
 
         public virtual void AddRange(IEnumerable<TEntity> entities)
         {
             Set().AddRange(entities);
 
-            Session.SaveChanges();
+            _session.SaveChanges();
         }
 
         public virtual async Task AddRangeAsync(IEnumerable<TEntity> entities,CancellationToken cancellationToken)
         {
             await Set().AddRangeAsync(entities,cancellationToken);
 
-            await Session.SaveChangesAsync(cancellationToken);
+            await _session.SaveChangesAsync(cancellationToken);
         }
 
         public virtual void UpdateRange(IEnumerable<TEntity> entities)
         {
             foreach (var entity in entities)
             {
-                Session.Entry(entity).State = EntityState.Modified;
+                _session.Entry(entity).State = EntityState.Modified;
             }
 
-            Session.SaveChanges();
+            _session.SaveChanges();
         }
 
         public virtual async Task UpdateRangeAsync(IEnumerable<TEntity> entities,CancellationToken cancellationToken)
         {
             foreach (var entity in entities)
             {
-                Session.Entry(entity).State = EntityState.Modified;
+                _session.Entry(entity).State = EntityState.Modified;
             }
 
-            await Session.SaveChangesAsync(cancellationToken);
+            await _session.SaveChangesAsync(cancellationToken);
         }
 
         public virtual void DeleteRange(IEnumerable<TEntity> entities)
         {
             Set().RemoveRange(entities);
 
-            Session.SaveChanges();
+            _session.SaveChanges();
         }
 
         public async Task DeleteRangeAsync(IEnumerable<TEntity> entities,CancellationToken cancellationToken)
         {
             Set().RemoveRange(entities);
 
-            await Session.SaveChangesAsync(cancellationToken);
+            await _session.SaveChangesAsync(cancellationToken);
         }
 
         public virtual void Delete(TEntity entity)
         {
             Set().Remove(entity);
 
-            Session.Entry(entity).State = EntityState.Deleted;
+            _session.Entry(entity).State = EntityState.Deleted;
 
-            Session.SaveChanges();
+            _session.SaveChanges();
         }
 
         public virtual async Task DeleteAsync(TEntity entity,CancellationToken cancellationToken)
         {
             Set().Remove(entity);
 
-            Session.Entry(entity).State = EntityState.Deleted;
+            _session.Entry(entity).State = EntityState.Deleted;
 
-            await Session.SaveChangesAsync(cancellationToken);
+            await _session.SaveChangesAsync(cancellationToken);
         }
 
         public virtual void Update(TEntity entity)
         {
-            Session.Entry(entity).State = EntityState.Modified;
+            _session.Entry(entity).State = EntityState.Modified;
 
-            Session.SaveChanges();
+            _session.SaveChanges();
         }
 
         public virtual async Task UpdateAsync(TEntity entity,CancellationToken cancellationToken)
         {
-            Session.Entry(entity).State = EntityState.Modified;
+            _session.Entry(entity).State = EntityState.Modified;
 
-            await Session.SaveChangesAsync(cancellationToken);
+            await _session.SaveChangesAsync(cancellationToken);
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return await Session.Set<TEntity>()
+            return await _session.Set<TEntity>()
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -130,10 +129,10 @@ namespace Pumpkin.Data.Repositories
         public async Task<long> CountAsync(Expression<Func<TEntity, bool>> predicate = null)
         {
             if (predicate != null)
-                return await Session.Set<TEntity>()
+                return await _session.Set<TEntity>()
                     .CountAsync(predicate);
 
-            return await Session.Set<TEntity>()
+            return await _session.Set<TEntity>()
                 .CountAsync();
         }
 
@@ -144,7 +143,7 @@ namespace Pumpkin.Data.Repositories
 
         public IQueryable<TU> QueryOn<TU>() where TU : class //, IDataModel
         {
-            return Session.Set<TU>();
+            return _session.Set<TU>();
         }
     }
 }

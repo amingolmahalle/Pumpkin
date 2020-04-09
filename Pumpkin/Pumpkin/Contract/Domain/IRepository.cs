@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Pumpkin.Contract.Domain
 {
-    public interface IRepository<TEntity> where TEntity : class
+    public interface IRepository<TEntity> where TEntity : class, IAggregateRoot
     {
         void Add(TEntity entity);
 
