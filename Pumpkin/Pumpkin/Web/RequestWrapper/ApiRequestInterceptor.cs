@@ -4,12 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Pumpkin.Contract.Security;
 using Pumpkin.Core.RequestWrapper;
 using Pumpkin.Utils;
-using Pumpkin.Web.Authorization;
 
 namespace Pumpkin.Web.RequestWrapper
 {
@@ -17,17 +15,16 @@ namespace Pumpkin.Web.RequestWrapper
     {
         private readonly RequestDelegate _next;
 
-        private readonly IServiceProvider _serviceProvider;
+        private ICurrentRequest _currentRequest;
 
-        public ApiRequestInterceptor(IServiceProvider serviceProvider, RequestDelegate next)
+        public ApiRequestInterceptor(RequestDelegate next)
         {
             _next = next;
-            _serviceProvider = serviceProvider;
         }
 
         //   private ILog logger = LogManager.GetLogger("RequestInterceptor");
 
-        public async Task Invoke(HttpContext context)
+        public async Task Invoke(HttpContext context, ICurrentRequest currentRequest)
         {
             try
             {
@@ -36,6 +33,8 @@ namespace Pumpkin.Web.RequestWrapper
 
                 else
                 {
+                    _currentRequest = currentRequest;
+
                     InterceptRequest(context);
 
                     var originalBodyStream = context.Response.Body;
@@ -88,45 +87,43 @@ namespace Pumpkin.Web.RequestWrapper
 
         private void InterceptRequest(HttpContext context)
         {
-            var currentRequest = _serviceProvider.GetService<CurrentRequest>();
-
             foreach (var header in context.Request.Headers.Where(it => it.Key.ToLower().StartsWith("request")))
             {
-                currentRequest.Headers[header.Key.ToLower()] = header.Value;
+                _currentRequest.Headers[header.Key.ToLower()] = header.Value;
             }
 
-            if (!currentRequest.Headers.ContainsKey("request-gateway"))
+            if (!_currentRequest.Headers.ContainsKey("request-gateway"))
                 throw new Exception($"empty header detected [request-gateway]");
 
-           //  currentRequest.Gateway = currentRequest.GetEnumHeader<GatewayType>("request-gateway");
-           // currentRequest.UserSessionId = currentRequest.GetHeader("request-client-id");
-            currentRequest.CorrelationId = Guid.NewGuid().ToString();
+            //  currentRequest.Gateway = currentRequest.GetEnumHeader<GatewayType>("request-gateway");
+            // currentRequest.UserSessionId = currentRequest.GetHeader("request-client-id");
+            _currentRequest.CorrelationId = Guid.NewGuid().ToString();
 
-            if (string.IsNullOrEmpty(currentRequest.UserSessionId))
+            if (string.IsNullOrEmpty(_currentRequest.UserSessionId))
                 throw new Exception($"empty header detected [request-client-id]");
 
             if (context.User.Identity.IsAuthenticated)
             {
-                currentRequest.UserId = int.Parse(context.User.FindFirst("sub").Value);
-                currentRequest.UserName = context.User.FindFirst("name").Value;
+                _currentRequest.UserId = int.Parse(context.User.FindFirst("sub").Value);
+                _currentRequest.UserName = context.User.FindFirst("name").Value;
 
                 switch (context.User.FindFirst("amr").Value)
                 {
                     case "otp":
-                        currentRequest.AuthenticationType = AuthenticationType.OtpAuthentication;
+                        _currentRequest.AuthenticationType = AuthenticationType.OtpAuthentication;
                         break;
                     case "password":
                     case "pwd":
-                        currentRequest.AuthenticationType = AuthenticationType.PasswordAuthentication;
+                        _currentRequest.AuthenticationType = AuthenticationType.PasswordAuthentication;
                         break;
                 }
             }
             else
             {
-                currentRequest.AuthenticationType = AuthenticationType.NotAuthenticated;
+                _currentRequest.AuthenticationType = AuthenticationType.NotAuthenticated;
             }
 
-            context.Items.Add("CoreRequest", currentRequest);
+            context.Items.Add("CoreRequest", _currentRequest);
         }
 
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
