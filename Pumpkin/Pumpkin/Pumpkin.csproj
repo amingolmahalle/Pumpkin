@@ -21,6 +21,8 @@
       <Folder Include="Contract\DataServices" />
       <Folder Include="Contract\Listeners" />
       <Folder Include="Contract\Logging" />
+      <Folder Include="Contract\Transaction" />
+      <Folder Include="Core\Transaction" />
       <Folder Include="Data\DataServices\DataProviders" />
       <Folder Include="Data\Listeners" />
     </ItemGroup>

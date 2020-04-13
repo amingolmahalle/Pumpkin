@@ -8,7 +8,6 @@ namespace Pumpkin.Data.Listeners
     {
         public static ChangedEntity Map(this EntityEntry entity)
         {
-            
             var model = new ChangedEntity();
             foreach (var item in entity.CurrentValues.Properties)
             {
@@ -36,11 +35,12 @@ namespace Pumpkin.Data.Listeners
                     });
                 }
             }
-            
+
             model.NewState = MapState(entity.State);
             model.Entity = entity.Entity;
             return model;
         }
+
         private static EntityChangeState MapState(EntityState state)
         {
             switch (state)
@@ -60,5 +60,4 @@ namespace Pumpkin.Data.Listeners
             }
         }
     }
-    
 }

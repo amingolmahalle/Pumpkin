@@ -29,32 +29,32 @@ namespace Pumpkin.Web.Authorization
         {
             return Headers.ContainsKey(key) ? Headers[key].ToString() : string.Empty;
         }
-        
+
         public bool HasHeader(string key)
         {
             return Headers.ContainsKey(key);
         }
-        
+
         public T GetEnumHeader<T>(string key) where T : struct
         {
             var val = GetHeader(key);
             if (string.IsNullOrEmpty(val))
                 return default(T);
-        
+
             Enum.TryParse(val, out T result);
-        
+
             return result;
         }
 
         public double? GetDoubleHeader(string key)
         {
             var val = GetHeader(key);
-        
+
             if (string.IsNullOrEmpty(val))
                 return default;
-        
+
             double.TryParse(val, out var result);
-        
+
             return result;
         }
     }

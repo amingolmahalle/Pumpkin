@@ -21,7 +21,6 @@
             <e p="IEntity.cs" t="Include" />
             <e p="IHasChangeHistory.cs" t="Include" />
             <e p="IRepository.cs" t="Include" />
-            <e p="IUnitOfWork.cs" t="Include" />
           </e>
           <e p="Listeners" t="Include">
             <e p="ChangedEntity.cs" t="Include" />
@@ -37,8 +36,15 @@
             <e p="GatewayType.cs" t="Include" />
             <e p="ICurrentRequest.cs" t="Include" />
           </e>
+          <e p="Transaction" t="Include">
+            <e p="ITransactionHandle.cs" t="Include" />
+            <e p="ITransactionService.cs" t="Include" />
+            <e p="TransactionAttribute.cs" t="Include" />
+            <e p="TransactionOptions.cs" t="Include" />
+          </e>
         </e>
         <e p="Core" t="Include">
+          <e p="CoreRegistrator.cs" t="Include" />
           <e p="DynamicallyInstaller.cs" t="Include" />
           <e p="ResponseWrapper" t="Include">
             <e p="APIResponse.cs" t="Include" />
@@ -47,13 +53,18 @@
             <e p="ResponseMessageEnum.cs" t="Include" />
             <e p="ValidationError.cs" t="Include" />
           </e>
+          <e p="Transaction" t="Include">
+            <e p="NullTransactionService.cs" t="Include" />
+            <e p="TransactionHandle.cs" t="Include" />
+            <e p="TransactionService.cs" t="Include" />
+            <e p="TransactionServiceBase.cs" t="Include" />
+          </e>
         </e>
         <e p="Data" t="Include">
           <e p="DataRegistrator.cs" t="Include" />
           <e p="DataServices" t="Include">
             <e p="DataProviders" t="Include">
               <e p="SqlDataProvider.cs" t="Include" />
-              <e p="SqlDataProviderInstaller.cs" t="Include" />
             </e>
           </e>
           <e p="DatabaseContext.cs" t="Include" />
@@ -80,6 +91,15 @@
         <e p="Web" t="Include">
           <e p="Authorization" t="Include">
             <e p="CurrentRequest.cs" t="Include" />
+          </e>
+          <e p="BaseClasses" t="Include">
+            <e p="BaseController.cs" t="Include" />
+          </e>
+          <e p="Extensions" t="Include">
+            <e p="ActionDescriptorExtension.cs" t="Include" />
+          </e>
+          <e p="Filters" t="Include">
+            <e p="TransactionActionFilter.cs" t="Include" />
           </e>
           <e p="Hosting" t="Include">
             <e p="RootStartup.cs" t="Include" />
@@ -166,6 +186,7 @@
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
+        <e p="mono_crash.mem.16934.1.blob" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">

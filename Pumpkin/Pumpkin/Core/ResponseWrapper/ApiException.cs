@@ -4,19 +4,19 @@ namespace Pumpkin.Core.ResponseWrapper
 {
     public class ApiException : System.Exception
     {
-       // public int StatusCode { get; set; }
+        // public int StatusCode { get; set; }
 
         public IEnumerable<ValidationError> Errors { get; set; }
 
         public string ReferenceErrorCode { get; set; }
-        
+
         public string ReferenceDocumentLink { get; set; }
 
         public ApiException(
-            string message, 
+            string message,
             IEnumerable<ValidationError> errors = null,
             string errorCode = "",
-            string refLink = "") :base(message)
+            string refLink = "") : base(message)
         {
             Errors = errors;
             ReferenceErrorCode = errorCode;

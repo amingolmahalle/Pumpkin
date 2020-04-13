@@ -12,7 +12,7 @@ namespace Pumpkin.Data
 {
     public abstract class DatabaseContext : DbContext
     {
-        protected DatabaseContext(DbContextOptions options):base(options)
+        protected DatabaseContext(DbContextOptions options) : base(options)
         {
         }
 
@@ -46,7 +46,7 @@ namespace Pumpkin.Data
             _cleanString();
 
             ChangeTracker.DetectChanges();
-            
+
             RegisterBeforeListener();
 
             ChangeTracker.AutoDetectChangesEnabled = false;
@@ -94,11 +94,11 @@ namespace Pumpkin.Data
         {
             var insertService = new ServiceCollection()
                 .AddTransient<IBeforeInsertListener, HistoryBeforeInsert>();
-            
+
             var insertServiceProvider = insertService.BuildServiceProvider();
-            
+
             var insertListeners = insertServiceProvider.GetServices<HistoryBeforeInsert>().ToArray();
-            
+
             if (insertListeners.Any())
             {
                 var added = ChangeTracker.Entries()
@@ -114,14 +114,14 @@ namespace Pumpkin.Data
                     }
                 }
             }
-            
+
             var updateService = new ServiceCollection()
                 .AddTransient<IBeforeUpdateListener, HistoryBeforeUpdate>();
-                
+
             var updateServiceProvider = updateService.BuildServiceProvider();
-                
+
             var modifyListeners = updateServiceProvider.GetServices<HistoryBeforeUpdate>().ToArray();
-            
+
             if (modifyListeners.Any())
             {
                 var modified = ChangeTracker.Entries()

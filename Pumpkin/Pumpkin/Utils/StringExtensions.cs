@@ -54,13 +54,14 @@ namespace Pumpkin.Utils
                 .Replace("ي", "ی")
                 .Replace(" ", " ")
                 .Replace("‌", " ")
-                .Replace("ھ", "ه");//.Replace("ئ", "ی");
+                .Replace("ھ", "ه"); //.Replace("ئ", "ی");
         }
 
         public static string NullIfEmpty(this string str)
         {
             return str?.Length == 0 ? null : str;
         }
+
         public static T ToEnum<T>(this string value)
         {
             Enum.TryParse(typeof(T), value, true, out var res);
@@ -76,7 +77,7 @@ namespace Pumpkin.Utils
             {
                 try
                 {
-                   // var obj = JToken.Parse(text);
+                    // var obj = JToken.Parse(text);
                     return true;
                 }
                 catch (JsonReaderException)

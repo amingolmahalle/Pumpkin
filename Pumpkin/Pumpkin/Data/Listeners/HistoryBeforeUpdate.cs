@@ -14,7 +14,7 @@ namespace Pumpkin.Data.Listeners
             if (entity.Entity is IHasChangeHistory changeHistory)
             {
                 var history = changeHistory;
-                
+
                 history.LastUpdateTime = DateTime.UtcNow;
                 history.LastUpdateUser = CurrentRequest.UserId;
             }

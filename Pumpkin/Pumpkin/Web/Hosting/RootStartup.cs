@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Pumpkin.Core;
+using Pumpkin.Web.Filters;
 using Pumpkin.Web.RequestWrapper;
 
 namespace Pumpkin.Web.Hosting
@@ -16,8 +17,7 @@ namespace Pumpkin.Web.Hosting
     public class RootStartup
     {
         private readonly IConfiguration _configuration;
-
-
+        
         public RootStartup(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -35,7 +35,8 @@ namespace Pumpkin.Web.Hosting
                 throw new ArgumentNullException(nameof(services));
             }
 
-            services.AddControllers().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddHttpContextAccessor();
+            services.AddCors();
 
             services.AddApiVersioning(options =>
             {
@@ -44,10 +45,12 @@ namespace Pumpkin.Web.Hosting
                 options.ApiVersionReader = new MediaTypeApiVersionReader();
                 options.ApiVersionSelector = new CurrentImplementationApiVersionSelector(options);
             });
-            
-            services.AddHttpContextAccessor(); 
-            services.AddDbContext(_configuration);
-            services.AddCors();
+
+            services.AddControllers(
+                options => { options.Filters.Add<TransactionActionFilter>(); }
+            ).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
+            //services.AddDbContext(_configuration);
 
             services.NeedToInstallConfig();
         }
@@ -62,17 +65,11 @@ namespace Pumpkin.Web.Hosting
             app.UseCors();
 
             app.UseRequestInterceptor(
-            GetRequestInterceptorExceptions().Union(new List<string>() {"/swagger/"}).ToList());
+                GetRequestInterceptorExceptions().Union(new List<string>() {"/swagger/"}).ToList());
 
             app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "api/{controller}/{action}/{id?}",
-                    defaults: new {controller = "Home", action = "Index"});
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

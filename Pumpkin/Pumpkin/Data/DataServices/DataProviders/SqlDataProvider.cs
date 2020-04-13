@@ -174,7 +174,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
                         }
 
                         DataTable dt = new DataTable();
-                        
+
                         int count = 0;
                         con.Open();
                         var reader = cmd.ExecuteReader();
@@ -199,7 +199,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
                                     if (dataRow[c] is SqlGeometry)
                                     {
                                         var value = ((SqlGeometry) dataRow[c]);
-                                        
+
                                         if (value.ToString() == "Null")
                                             return null;
                                         return new NetTopologySuite.IO.WKTReader().Read(dataRow[c] == null
@@ -453,7 +453,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
                 {
                     var originalType = value.GetType();
                     Type type = null;
-                    
+
                     if (originalType.IsArray)
                     {
                         type = originalType.GetElementType();

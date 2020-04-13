@@ -9,7 +9,7 @@ namespace Pumpkin.Web.RequestWrapper
             List<string> pathExceptions)
         {
             Exceptions = pathExceptions;
-            
+
             return builder.UseMiddleware<ApiRequestInterceptor>();
         }
 

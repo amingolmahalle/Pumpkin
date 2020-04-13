@@ -43,7 +43,7 @@ namespace Pumpkin.Core
                 modelBuilder.ApplyConfiguration(service);
             }
         }
-        
+
         public static void NeedToRegisterAllEntitiesConfig(this ModelBuilder modelBuilder)
         {
             var typesToRegister = AllTypes
