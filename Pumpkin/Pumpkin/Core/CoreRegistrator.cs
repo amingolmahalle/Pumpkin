@@ -10,7 +10,7 @@ namespace Pumpkin.Core
     {
         public void Install(IServiceCollection services)
         {
-            services.AddScoped<ITransactionService, TransactionService<DatabaseContext>>();
+            // services.AddScoped<ITransactionService, TransactionService<DatabaseContext>>();
         }
     }
 }

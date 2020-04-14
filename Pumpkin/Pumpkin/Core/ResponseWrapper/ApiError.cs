@@ -15,11 +15,18 @@ namespace Pumpkin.Core.ResponseWrapper
         public string ReferenceDocumentLink { get; set; }
 
         public IEnumerable<ValidationError> ValidationErrors { get; set; }
+        
 
         public ApiError(string message)
         {
             ExceptionMessage = message;
             IsError = true;
+        }
+        
+        public ApiError(string message, IEnumerable<ValidationError> validationErrors)
+        {
+            ExceptionMessage = message;
+            this.ValidationErrors = validationErrors;
         }
     }
 }

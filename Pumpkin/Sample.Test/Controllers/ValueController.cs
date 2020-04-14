@@ -8,7 +8,7 @@ namespace Sample.Test.Controllers
     [Produces("application/json")]
     public class ValueController : BaseController
     {
-        protected ValueController(IServiceProvider serviceProvider) : base(serviceProvider)
+        public ValueController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
         }
 

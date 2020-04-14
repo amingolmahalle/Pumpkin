@@ -22,9 +22,7 @@ namespace Pumpkin.Web.RequestWrapper
             _next = next;
         }
 
-        //   private ILog logger = LogManager.GetLogger("RequestInterceptor");
-
-        public async Task Invoke(HttpContext context, ICurrentRequest currentRequest)
+        public async Task InvokeAsync(HttpContext context, ICurrentRequest currentRequest)
         {
             try
             {
@@ -144,23 +142,24 @@ namespace Pumpkin.Web.RequestWrapper
             }
             else if (exception is UnauthorizedAccessException)
             {
-                apiError = new ApiError("Unauthorized Access");
+                apiError = new ApiError(ResponseMessageEnum.UnAuthorized.GetDescription());
                 code = (int) HttpStatusCode.Unauthorized;
                 context.Response.StatusCode = code;
             }
             else
             {
+                var exceptionMessage = ResponseMessageEnum.Unhandled.GetDescription();
 #if !DEBUG
-                var msg = "An unhandled error occurred.";
-                string stack = null;
+                var message = exceptionMessage;
+                string stackTrace = null;
 #else
-                var msg = exception.GetBaseException().Message;
-                string stack = exception.StackTrace;
+                var message = $"{exceptionMessage} {exception.GetBaseException().Message}";
+                string stackTrace = exception.StackTrace;
 #endif
 
-                apiError = new ApiError(msg)
+                apiError = new ApiError(message)
                 {
-                    Details = stack
+                    Details = stackTrace
                 };
                 code = (int) HttpStatusCode.InternalServerError;
                 context.Response.StatusCode = code;
@@ -179,7 +178,7 @@ namespace Pumpkin.Web.RequestWrapper
         {
             var ex = exception;
 
-            var apiError = new ApiError(ex.Message)
+            var apiError = new ApiError(ResponseMessageEnum.ValidationError.GetDescription(), ex.Errors)
             {
                 ValidationErrors = ex.Errors,
                 ReferenceErrorCode = ex.ReferenceErrorCode,
@@ -207,13 +206,19 @@ namespace Pumpkin.Web.RequestWrapper
             switch (code)
             {
                 case (int) HttpStatusCode.NotFound:
-                    apiError = new ApiError("The specified URI does not exist. Please verify and try again.");
+                    apiError = new ApiError(ResponseMessageEnum.NotFound.GetDescription());
                     break;
                 case (int) HttpStatusCode.NoContent:
-                    apiError = new ApiError("The specified URI does not contain any content.");
+                    apiError = new ApiError(ResponseMessageEnum.NotContent.GetDescription());
+                    break;
+                case (int) HttpStatusCode.MethodNotAllowed:
+                    apiError = new ApiError(ResponseMessageEnum.MethodNotAllowed.GetDescription());
+                    break;
+                case (int) HttpStatusCode.BadRequest:
+                    apiError = new ApiError(ResponseMessageEnum.BadRequest.GetDescription());
                     break;
                 default:
-                    apiError = new ApiError("Your request cannot be processed. Please contact a support.");
+                    apiError = new ApiError(ResponseMessageEnum.Unknown.GetDescription());
                     break;
             }
 

@@ -47,7 +47,10 @@ namespace Pumpkin.Web.Hosting
             });
 
             services.AddControllers(
-                options => { options.Filters.Add<TransactionActionFilter>(); }
+                options =>
+                {
+                    options.Filters.Add<TransactionActionFilter>();
+                }
             ).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             services.AddDbContext(_configuration);
