@@ -21,6 +21,7 @@ namespace Pumpkin.Web.Filters
             using (var tran = TransactionService.Begin(transactionAttr.CreateOptions()))
             {
                 var result = await next();
+                
                 if (result.Exception == null || result.ExceptionHandled)
                 {
                     tran.Complete();

@@ -8,12 +8,14 @@ namespace Pumpkin.Core.Transaction
     public class TransactionService<TDbContext> : TransactionServiceBase
         where TDbContext : DatabaseContext
     {
-        public TransactionService(TDbContext activeDbContext, ILogger<ITransactionService> logger) : base(logger)
+        private TDbContext ActiveDbContext { get; set; }
+
+        public TransactionService(
+            TDbContext activeDbContext,
+            ILogger<ITransactionService> logger) : base(logger)
         {
             ActiveDbContext = activeDbContext;
         }
-
-        private TDbContext ActiveDbContext { get; set; }
 
         public override ITransactionHandle Begin(TransactionOptions options)
         {

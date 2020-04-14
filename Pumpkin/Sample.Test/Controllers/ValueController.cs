@@ -12,7 +12,7 @@ namespace Sample.Test.Controllers
         {
         }
 
-        [HttpGet]
+        [HttpGet("get")]
         public List<string> Get()
         {
             return new List<string>

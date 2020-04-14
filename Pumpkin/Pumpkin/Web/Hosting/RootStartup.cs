@@ -17,7 +17,7 @@ namespace Pumpkin.Web.Hosting
     public class RootStartup
     {
         private readonly IConfiguration _configuration;
-        
+
         public RootStartup(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -50,7 +50,7 @@ namespace Pumpkin.Web.Hosting
                 options => { options.Filters.Add<TransactionActionFilter>(); }
             ).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
-            //services.AddDbContext(_configuration);
+            services.AddDbContext(_configuration);
 
             services.NeedToInstallConfig();
         }

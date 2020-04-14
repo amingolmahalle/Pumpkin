@@ -95,8 +95,8 @@ namespace Pumpkin.Web.RequestWrapper
             if (!_currentRequest.Headers.ContainsKey("request-gateway"))
                 throw new Exception($"empty header detected [request-gateway]");
 
-            //  currentRequest.Gateway = currentRequest.GetEnumHeader<GatewayType>("request-gateway");
-            // currentRequest.UserSessionId = currentRequest.GetHeader("request-client-id");
+            _currentRequest.Gateway = _currentRequest.GetEnumHeader<GatewayType>("request-gateway");
+            _currentRequest.UserSessionId = _currentRequest.GetHeader("request-client-id");
             _currentRequest.CorrelationId = Guid.NewGuid().ToString();
 
             if (string.IsNullOrEmpty(_currentRequest.UserSessionId))

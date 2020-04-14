@@ -128,6 +128,9 @@
         </e>
         <e p="Data" t="Include">
           <e p="ApplicationDbContext.cs" t="Include" />
+          <e p="EntityConfig" t="Include">
+            <e p="UserConfig.cs" t="Include" />
+          </e>
           <e p="MigrationScripts" t="Include" />
           <e p="Repositories" t="Include">
             <e p="UserRepository.cs" t="Include" />

@@ -17,5 +17,13 @@ namespace Pumpkin.Contract.Security
         Hashtable Headers { get; }
 
         AuthenticationType AuthenticationType { get; set; }
+
+        string GetHeader(string key);
+
+        bool HasHeader(string key);
+
+        T GetEnumHeader<T>(string key) where T : struct;
+
+        double? GetDoubleHeader(string key);
     }
 }

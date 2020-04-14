@@ -1,6 +1,5 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Sample.Test.Data.Repositories;
 using Sample.Test.Domain.Entity.UserAggregate;
 using Sample.Test.Domain.Service.Commands.AddUser;
 
@@ -21,7 +20,9 @@ namespace Sample.Test.Service.Commands.AddUser
 
             var user = AddUserFactory.Create(request);
 
-            await UserRepository.AddAsync(user, cancellationToken);
+            UserRepository.Add(user);
+            
+            await UserRepository.SaveAsync(cancellationToken);
         }
     }
 }

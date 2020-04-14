@@ -1,0 +1,33 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Sample.Test.Domain.Entity.UserAggregate;
+
+namespace Sample.Test.Data.EntityConfig
+{
+    public class UserConfig : IEntityTypeConfiguration<User>
+    {
+        public void Configure(EntityTypeBuilder<User> builder)
+        {
+            builder.ToTable("Users");
+
+            builder.HasKey(c => c.Id);
+
+            builder.Property(c => c.Id)
+                .ValueGeneratedOnAdd();
+
+            builder.Property(c => c.Fullname)
+                .HasColumnType("nvarchar(40)")
+                .HasMaxLength(30)
+                .IsRequired();
+
+            builder.Property(c => c.MobileNumber)
+                .HasColumnType("char(11)")
+                .HasMaxLength(11)
+                .IsRequired();
+
+            builder.Property(c => c.NationalCode)
+                .HasColumnType("char(10)")
+                .HasMaxLength(10);
+        }
+    }
+}
