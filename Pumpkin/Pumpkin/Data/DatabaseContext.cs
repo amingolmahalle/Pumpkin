@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Pumpkin.Core;
+using Pumpkin.Core.Registration;
 using Pumpkin.Data.Listeners;
 using Pumpkin.Utils;
 

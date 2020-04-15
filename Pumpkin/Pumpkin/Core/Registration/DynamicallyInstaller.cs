@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Pumpkin.Contract.Domain;
 using Pumpkin.Contract.Registration;
 
-namespace Pumpkin.Core
+namespace Pumpkin.Core.Registration
 {
     public static class DynamicallyInstaller
     {

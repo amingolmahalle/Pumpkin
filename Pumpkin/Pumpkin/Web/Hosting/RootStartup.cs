@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Pumpkin.Core;
+using Pumpkin.Core.Registration;
 using Pumpkin.Web.Filters;
 using Pumpkin.Web.RequestWrapper;
 
