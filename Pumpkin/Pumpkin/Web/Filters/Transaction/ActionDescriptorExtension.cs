@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Pumpkin.Contract.Transaction;
 
-namespace Pumpkin.Web.Extensions
+namespace Pumpkin.Web.Filters.Transaction
 {
     public static class ActionDescriptorExtension
     {

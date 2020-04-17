@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -33,13 +32,6 @@ namespace Pumpkin.Utils.Extensions
             return (
                 type == typeof(DateTime)
             );
-        }
-
-        public static bool IsEnumurable(this Type type)
-        {
-            var obj = type as IEnumerable;
-
-            return obj != null;
         }
 
         public static bool IsList(this Type type)

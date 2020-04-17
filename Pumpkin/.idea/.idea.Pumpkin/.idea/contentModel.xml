@@ -105,11 +105,12 @@
           <e p="BaseClasses" t="Include">
             <e p="BaseController.cs" t="Include" />
           </e>
-          <e p="Extensions" t="Include">
-            <e p="ActionDescriptorExtension.cs" t="Include" />
-          </e>
+          <e p="Extensions" t="Include" />
           <e p="Filters" t="Include">
-            <e p="TransactionActionFilter.cs" t="Include" />
+            <e p="Transaction" t="Include">
+              <e p="ActionDescriptorExtension.cs" t="Include" />
+              <e p="TransactionActionFilter.cs" t="Include" />
+            </e>
             <e p="Validator" t="Include">
               <e p="ErrorFluentValidation.cs" t="Include" />
               <e p="ValidatorActionFilter.cs" t="Include" />

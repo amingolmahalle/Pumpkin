@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Pumpkin.Contract.Transaction;
-using Pumpkin.Web.Extensions;
 
-namespace Pumpkin.Web.Filters
+namespace Pumpkin.Web.Filters.Transaction
 {
     public class TransactionActionFilter : IAsyncActionFilter
     {

@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Pumpkin.Core.Registration;
 using Pumpkin.Web.Filters;
+using Pumpkin.Web.Filters.Transaction;
 using Pumpkin.Web.Filters.Validator;
 using Pumpkin.Web.RequestWrapper;
 
