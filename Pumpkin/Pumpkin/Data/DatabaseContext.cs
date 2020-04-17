@@ -1,8 +1,10 @@
+using System;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Pumpkin.Contract.Domain;
 using Pumpkin.Contract.Listeners;
 using Pumpkin.Core.Registration;
@@ -12,21 +14,13 @@ namespace Pumpkin.Data
 {
     public abstract class DatabaseContext : DbContext
     {
-        private readonly IBeforeInsertListener _beforeInsertListener;
-
-        private readonly IBeforeUpdateListener _beforeUpdateListener;
-
-        private readonly IBeforeDeleteListener _beforeDeleteListener;
+        private readonly IServiceProvider _serviceProvider;
 
         protected DatabaseContext(
             DbContextOptions options,
-            IBeforeInsertListener beforeInsertListener,
-            IBeforeUpdateListener beforeUpdateListener,
-            IBeforeDeleteListener beforeDeleteListener) : base(options)
+            IServiceProvider serviceProvider) : base(options)
         {
-            _beforeInsertListener = beforeInsertListener;
-            _beforeUpdateListener = beforeUpdateListener;
-            _beforeDeleteListener = beforeDeleteListener;
+            _serviceProvider = serviceProvider;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -105,6 +99,10 @@ namespace Pumpkin.Data
 
         private void RegisterBeforeListener()
         {
+            var beforeInsertListener = _serviceProvider.GetService<IBeforeInsertListener>();
+            var beforeUpdateListener = _serviceProvider.GetService<IBeforeUpdateListener>();
+            var beforeDeleteListener = _serviceProvider.GetService<IBeforeDeleteListener>();
+            
             var entries = ChangeTracker.Entries()
                 .Where(e => e.Entity
                     .GetType()
@@ -113,19 +111,16 @@ namespace Pumpkin.Data
 
             foreach (var entry in entries)
             {
-                var entity = entry.Entity;
-
-
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        _beforeInsertListener.OnBeforeInsert(entity);
+                        beforeInsertListener.OnBeforeInsert(entry);
                         break;
                     case EntityState.Modified:
-                        _beforeUpdateListener.OnBeforeUpdate(entity);
+                        beforeUpdateListener.OnBeforeUpdate(entry);
                         break;
                     case EntityState.Deleted:
-                        _beforeDeleteListener.OnBeforeDelete(entity);
+                        beforeDeleteListener.OnBeforeDelete(entry);
                         break;
                 }
             }

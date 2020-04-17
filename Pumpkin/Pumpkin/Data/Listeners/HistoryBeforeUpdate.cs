@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Pumpkin.Contract.Domain;
 using Pumpkin.Contract.Listeners;
 using Pumpkin.Contract.Security;
@@ -9,9 +10,9 @@ namespace Pumpkin.Data.Listeners
     {
         public ICurrentRequest CurrentRequest { get; set; }
 
-        public void OnBeforeUpdate(object entity)
+        public void OnBeforeUpdate(EntityEntry entry)
         {
-            if (entity is IHasChangeHistory changeHistory)
+            if (entry.Entity is IHasChangeHistory changeHistory)
             {
                 var history = changeHistory;
 

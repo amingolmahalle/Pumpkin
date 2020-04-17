@@ -1,7 +1,9 @@
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+
 namespace Pumpkin.Contract.Listeners
 {
     public interface IBeforeDeleteListener
     {
-        void OnBeforeDelete(object entity);
+        void OnBeforeDelete(EntityEntry entry);
     }
 }

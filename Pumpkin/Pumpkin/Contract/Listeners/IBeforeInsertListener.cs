@@ -1,8 +1,9 @@
-﻿
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+
 namespace Pumpkin.Contract.Listeners
 {
     public interface IBeforeInsertListener
     {
-        void OnBeforeInsert(object entity);
+        void OnBeforeInsert(EntityEntry entry);
     }
 }

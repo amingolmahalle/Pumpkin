@@ -4,7 +4,7 @@ namespace Pumpkin.Contract.Domain
 {
     public interface ISoftDelete
     {
-        bool Archived { get; set; }
+        bool Deleted { get; set; }
         
         DateTime? ArchiveTime { get; set; }
         
