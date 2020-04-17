@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Pumpkin.Core;
 using Pumpkin.Core.Registration;
 using Pumpkin.Web.Filters;
+using Pumpkin.Web.Filters.Validator;
 using Pumpkin.Web.RequestWrapper;
 
 namespace Pumpkin.Web.Hosting
@@ -51,6 +51,7 @@ namespace Pumpkin.Web.Hosting
                 options =>
                 {
                     options.Filters.Add<TransactionActionFilter>();
+                    options.Filters.Add<ValidatorActionFilter>();
                 }
             ).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 

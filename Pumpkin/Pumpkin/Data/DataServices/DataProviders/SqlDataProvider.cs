@@ -8,6 +8,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.SqlServer.Types;
 using Pumpkin.Contract.DataServices;
 using Pumpkin.Utils;
+using Pumpkin.Utils.Extensions;
 
 namespace Pumpkin.Data.DataServices.DataProviders
 {

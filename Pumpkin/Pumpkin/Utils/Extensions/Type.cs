@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace Pumpkin.Utils
+namespace Pumpkin.Utils.Extensions
 {
-    public static class TypeExtensions
+    public static partial class Extensions
     {
         public static bool IsComplexType(this Type type)
         {
@@ -44,6 +45,12 @@ namespace Pumpkin.Utils
         public static bool IsList(this Type type)
         {
             return (type.IsGenericType && type.GetGenericTypeDefinition().IsAssignableFrom(typeof(List<>)));
+        }
+
+        public static bool IsAssignableFromGeneric(this Type type, Type genericInterfaceType)
+        {
+            return type.GetInterfaces()
+                .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == genericInterfaceType);
         }
     }
 }

@@ -1,8 +1,8 @@
 using System.Text;
 
-namespace Pumpkin.Utils
+namespace Pumpkin.Utils.Extensions
 {
-    public static class StringBuilderExtensions
+    public static partial class Extensions
     {
         public static void AppendWithSpace(this StringBuilder sb, string item)
         {

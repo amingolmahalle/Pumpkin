@@ -9,9 +9,9 @@ namespace Pumpkin.Data.Listeners
     {
         public ICurrentRequest CurrentRequest { get; set; }
 
-        public void OnBeforeInsert(ChangedEntity entity)
+        public void OnBeforeInsert(object entity)
         {
-            if (entity.Entity is IHasChangeHistory changeHistory)
+            if (entity is IHasChangeHistory changeHistory)
             {
                 var history = changeHistory;
 

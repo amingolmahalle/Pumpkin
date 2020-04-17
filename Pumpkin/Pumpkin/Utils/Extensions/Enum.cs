@@ -2,9 +2,9 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 
-namespace Pumpkin.Utils
+namespace Pumpkin.Utils.Extensions
 {
-    public static class EnumExtensions
+    public static partial class Extensions
     {
         public static string GetDescription<T>(this T e) where T : IConvertible
         {

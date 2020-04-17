@@ -1,9 +1,9 @@
 using System;
 using Newtonsoft.Json;
 
-namespace Pumpkin.Utils
+namespace Pumpkin.Utils.Extensions
 {
-    public static class StringExtensions
+    public static partial class Extensions
     {
         public static string En2Fa(this string str)
         {

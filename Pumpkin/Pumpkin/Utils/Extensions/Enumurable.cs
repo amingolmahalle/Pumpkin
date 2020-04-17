@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Pumpkin.Utils
+namespace Pumpkin.Utils.Extensions
 {
-    public static class EnumurableExtensions
+    public static partial class Extensions
     {
         public static bool HasItem<T>(this IEnumerable<T> list)
         {

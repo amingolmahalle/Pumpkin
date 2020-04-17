@@ -3,18 +3,30 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Pumpkin.Core;
+using Pumpkin.Contract.Domain;
+using Pumpkin.Contract.Listeners;
 using Pumpkin.Core.Registration;
-using Pumpkin.Data.Listeners;
-using Pumpkin.Utils;
+using Pumpkin.Utils.Extensions;
 
 namespace Pumpkin.Data
 {
     public abstract class DatabaseContext : DbContext
     {
-        protected DatabaseContext(DbContextOptions options) : base(options)
+        private readonly IBeforeInsertListener _beforeInsertListener;
+
+        private readonly IBeforeUpdateListener _beforeUpdateListener;
+
+        private readonly IBeforeDeleteListener _beforeDeleteListener;
+
+        protected DatabaseContext(
+            DbContextOptions options,
+            IBeforeInsertListener beforeInsertListener,
+            IBeforeUpdateListener beforeUpdateListener,
+            IBeforeDeleteListener beforeDeleteListener) : base(options)
         {
+            _beforeInsertListener = beforeInsertListener;
+            _beforeUpdateListener = beforeUpdateListener;
+            _beforeDeleteListener = beforeDeleteListener;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -93,49 +105,28 @@ namespace Pumpkin.Data
 
         private void RegisterBeforeListener()
         {
-            var insertService = new ServiceCollection()
-                .AddTransient<IBeforeInsertListener, HistoryBeforeInsert>();
+            var entries = ChangeTracker.Entries()
+                .Where(e => e.Entity
+                    .GetType()
+                    .IsAssignableFromGeneric(typeof(IEntity<>)))
+                .ToList();
 
-            var insertServiceProvider = insertService.BuildServiceProvider();
-
-            var insertListeners = insertServiceProvider.GetServices<HistoryBeforeInsert>().ToArray();
-
-            if (insertListeners.Any())
+            foreach (var entry in entries)
             {
-                var added = ChangeTracker.Entries()
-                    .Where(e => e.State == EntityState.Added);
+                var entity = entry.Entity;
 
-                foreach (var entityEntry in added)
+
+                switch (entry.State)
                 {
-                    foreach (var beforeInsertListener in insertListeners)
-                    {
-                        var changedEntity = entityEntry.Map();
-
-                        beforeInsertListener.OnBeforeInsert(changedEntity);
-                    }
-                }
-            }
-
-            var updateService = new ServiceCollection()
-                .AddTransient<IBeforeUpdateListener, HistoryBeforeUpdate>();
-
-            var updateServiceProvider = updateService.BuildServiceProvider();
-
-            var modifyListeners = updateServiceProvider.GetServices<HistoryBeforeUpdate>().ToArray();
-
-            if (modifyListeners.Any())
-            {
-                var modified = ChangeTracker.Entries()
-                    .Where(e => e.State == EntityState.Modified);
-
-                foreach (var entityEntry in modified)
-                {
-                    foreach (var beforeUpdateListener in modifyListeners)
-                    {
-                        var changedEntity = entityEntry.Map();
-
-                        beforeUpdateListener.OnBeforeUpdate(changedEntity);
-                    }
+                    case EntityState.Added:
+                        _beforeInsertListener.OnBeforeInsert(entity);
+                        break;
+                    case EntityState.Modified:
+                        _beforeUpdateListener.OnBeforeUpdate(entity);
+                        break;
+                    case EntityState.Deleted:
+                        _beforeDeleteListener.OnBeforeDelete(entity);
+                        break;
                 }
             }
         }

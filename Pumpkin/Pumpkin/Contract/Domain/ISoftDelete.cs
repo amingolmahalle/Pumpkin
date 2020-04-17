@@ -2,12 +2,12 @@
 
 namespace Pumpkin.Contract.Domain
 {
-    public interface IArchivingByDelete
+    public interface ISoftDelete
     {
         bool Archived { get; set; }
         
         DateTime? ArchiveTime { get; set; }
         
-        string ArchiveUser { get; set; }
+        int ArchiveUser { get; set; }
     }
 }

@@ -8,6 +8,8 @@ using Newtonsoft.Json;
 using Pumpkin.Contract.Security;
 using Pumpkin.Core.ResponseWrapper;
 using Pumpkin.Utils;
+using Pumpkin.Utils.Extensions;
+using Pumpkin.Web.Filters.Validator;
 
 namespace Pumpkin.Web.RequestWrapper
 {
@@ -45,25 +47,33 @@ namespace Pumpkin.Web.RequestWrapper
                         {
                             await _next.Invoke(context);
 
-                            if (context.Response.StatusCode == (int) HttpStatusCode.OK)
+                            switch (context.Response.StatusCode)
                             {
-                                var body = await FormatResponse(context.Response);
+                                case (int) HttpStatusCode.OK:
+                                {
+                                    var body = await FormatResponse(context.Response);
 
-                                await HandleSuccessRequestAsync(context, body, context.Response.StatusCode);
-                            }
-                            else
-                            {
-                                await HandleNotSuccessRequestAsync(context, context.Response.StatusCode);
+                                    await HandleSuccessRequestAsync(context, body, context.Response.StatusCode);
+                                    break;
+                                }
+                                case Constants.FluentValidationHttpStatusCode:
+                                {
+                                    var body = await FormatResponse(context.Response);
+                                    await HandleNotSuccessRequestAsync(context, body,
+                                        Constants.FluentValidationHttpStatusCode);
+                                    break;
+                                }
+                                default:
+                                    await HandleNotSuccessRequestAsync(context, null, context.Response.StatusCode);
+                                    break;
                             }
                         }
                         catch (ApiException ex)
                         {
-                            //     logger.Error(ex.Message, ex);
                             await HandleValidationErrorAsync(context, ex);
                         }
                         catch (Exception ex)
                         {
-                            //   logger.Error(ex.Message, ex);
                             await HandleExceptionAsync(context, ex);
                         }
 
@@ -78,7 +88,6 @@ namespace Pumpkin.Web.RequestWrapper
             }
             catch (Exception ex)
             {
-                // logger.Error(ex.Message, ex);
                 await HandleExceptionAsync(context, ex);
             }
         }
@@ -197,11 +206,13 @@ namespace Pumpkin.Web.RequestWrapper
             return context.Response.WriteAsync(json);
         }
 
-        private static Task HandleNotSuccessRequestAsync(HttpContext context, int code)
+        private static Task HandleNotSuccessRequestAsync(HttpContext context, string body, int code)
         {
             context.Response.ContentType = "application/json";
 
             ApiError apiError;
+            string errorMessage = string.Empty;
+
 
             switch (code)
             {
@@ -217,6 +228,11 @@ namespace Pumpkin.Web.RequestWrapper
                 case (int) HttpStatusCode.BadRequest:
                     apiError = new ApiError(ResponseMessageEnum.BadRequest.GetDescription());
                     break;
+                case Constants.FluentValidationHttpStatusCode:
+                    JsonConvert.DeserializeObject<ErrorFluentValidation>(body).Errors
+                        .ForEach(efv => errorMessage += $"{efv},");
+                    apiError = new ApiError(errorMessage.Remove(errorMessage.Length - 1));
+                    break;
                 default:
                     apiError = new ApiError(ResponseMessageEnum.Unknown.GetDescription());
                     break;
@@ -231,11 +247,11 @@ namespace Pumpkin.Web.RequestWrapper
             return context.Response.WriteAsync(json);
         }
 
-        private static Task HandleSuccessRequestAsync(HttpContext context, object body, int code)
+        private static Task HandleSuccessRequestAsync(HttpContext context, string body, int code)
         {
             context.Response.ContentType = "application/json";
 
-            var bodyText = !body.ToString().IsValidJson() ? JsonConvert.SerializeObject(body) : body.ToString();
+            var bodyText = !body.IsValidJson() ? JsonConvert.SerializeObject(body) : body;
 
             dynamic bodyContent = JsonConvert.DeserializeObject<dynamic>(bodyText);
 

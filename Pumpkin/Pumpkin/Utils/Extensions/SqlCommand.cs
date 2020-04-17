@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Data;
 using Microsoft.Data.SqlClient;
 
-namespace Pumpkin.Utils
+namespace Pumpkin.Utils.Extensions
 {
-    public static class SqlCommandExtensions
+    public static partial class Extensions
     {
         /// <param name="cmd">The SqlCommand object to add parameters to.</param>
         /// <param name="paramNameRoot">What the parameter should be named followed by a unique value for each value. This value surrounded by {} in the CommandText will be replaced.</param>
