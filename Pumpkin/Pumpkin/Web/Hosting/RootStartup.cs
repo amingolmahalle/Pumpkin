@@ -9,7 +9,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Pumpkin.Core.Registration;
-using Pumpkin.Web.Filters;
 using Pumpkin.Web.Filters.Transaction;
 using Pumpkin.Web.Filters.Validator;
 using Pumpkin.Web.RequestWrapper;
@@ -55,8 +54,6 @@ namespace Pumpkin.Web.Hosting
                     options.Filters.Add<ValidatorActionFilter>();
                 }
             ).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-
-            services.AddDbContext(_configuration);
 
             services.NeedToInstallConfig();
         }

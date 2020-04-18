@@ -8,8 +8,9 @@ using Pumpkin.Contract.Registration;
 
 namespace Pumpkin.Core.Registration
 {
-    public static partial class Extensions
+    public static class DynamicallyInstaller
     {
+        // static string _ddd = AppDomain.CurrentDomain.RelativeSearchPath ?? AppDomain.CurrentDomain.BaseDirectory;
         private static IEnumerable<Type> AllTypes
         {
             get { return AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes()); }
@@ -32,9 +33,11 @@ namespace Pumpkin.Core.Registration
         public static void NeedToRegisterMappingConfig(this ModelBuilder modelBuilder)
         {
             var typesToRegister = AllTypes
-                .Where(type =>
-                    type.BaseType != null && type.BaseType.IsGenericType && type.BaseType.GetGenericTypeDefinition() ==
-                    typeof(IEntityTypeConfiguration<>));
+                .Where(it =>
+                    !(it.IsAbstract || it.IsInterface) &&
+                    it.GetInterfaces().Any(x =>
+                        x.IsGenericType &&
+                        x.GetGenericTypeDefinition() == typeof(IEntityTypeConfiguration<>))).ToList();
 
             foreach (var item in typesToRegister)
             {
@@ -47,15 +50,15 @@ namespace Pumpkin.Core.Registration
         public static void NeedToRegisterAllEntitiesConfig(this ModelBuilder modelBuilder)
         {
             var typesToRegister = AllTypes
-                .Where(type =>
-                    type.BaseType != null && type.BaseType.IsGenericType && type.BaseType.GetGenericTypeDefinition() ==
-                    typeof(IEntity<>));
+                .Where(it =>
+                    !(it.IsAbstract || it.IsInterface) &&
+                    it.GetInterfaces().Any(x =>
+                        x.IsGenericType &&
+                        x.GetGenericTypeDefinition() == typeof(IEntity<>))).ToList();
 
             foreach (var item in typesToRegister)
             {
-                dynamic service = Activator.CreateInstance(item);
-
-                modelBuilder.ApplyConfiguration(service);
+                modelBuilder.Entity(item);
             }
         }
     }

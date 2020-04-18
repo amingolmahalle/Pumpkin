@@ -6,7 +6,9 @@ namespace Sample.Test.Data
 {
     public class ApplicationDbContext : DatabaseContext
     {
-        public ApplicationDbContext(DbContextOptions options, IServiceProvider serviceProvider)
+        public ApplicationDbContext(
+            DbContextOptions options,
+            IServiceProvider serviceProvider)
             : base(options, serviceProvider)
         {
         }
