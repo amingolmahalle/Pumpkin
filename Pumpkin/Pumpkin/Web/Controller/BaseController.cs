@@ -4,10 +4,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace Pumpkin.Web.BaseClasses
+namespace Pumpkin.Web.Controller
 {
     // [Authorize]
     [ApiController]
+    [Produces("application/json")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class BaseController : ControllerBase
     {

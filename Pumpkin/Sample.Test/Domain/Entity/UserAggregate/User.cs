@@ -21,7 +21,7 @@ namespace Sample.Test.Domain.Entity.UserAggregate
 
         public DateTime? LastUpdateTime { get; set; }
 
-        public int SubmitUser { get; set; }
+        public int? SubmitUser { get; set; }
 
         public int? LastUpdateUser { get; set; }
     }

@@ -11,7 +11,7 @@ namespace Pumpkin.Data
     {
         public void Install(IServiceCollection services)
         {
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped(typeof(IRepository<,>), typeof(Repository<,,>));
             services.AddTransient<IBeforeInsertListener, HistoryBeforeInsert>();
             services.AddTransient<IBeforeUpdateListener, HistoryBeforeUpdate>();
             services.AddTransient<IBeforeDeleteListener, HistoryBeforeDelete>();

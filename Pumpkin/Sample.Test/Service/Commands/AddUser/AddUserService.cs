@@ -7,22 +7,22 @@ namespace Sample.Test.Service.Commands.AddUser
 {
     public class AddUserService : IAddUserService
     {
-        private IUserRepository UserRepository { get; }
+        private readonly IUserRepository _userRepository;
 
         public AddUserService(IUserRepository userRepository)
         {
-            UserRepository = userRepository;
+            _userRepository = userRepository;
         }
 
         public async Task ExecuteAsync(AddUserRequest request, CancellationToken cancellationToken)
         {
-            AddUserValidation.CheckValidation(request, UserRepository);
+            AddUserValidation.CheckValidation(request, _userRepository);
 
             var user = AddUserFactory.Create(request);
 
-            UserRepository.Add(user);
+            _userRepository.AddUser(user);
             
-            await UserRepository.SaveAsync(cancellationToken);
+            await _userRepository.SaveAsync(cancellationToken);
         }
     }
 }

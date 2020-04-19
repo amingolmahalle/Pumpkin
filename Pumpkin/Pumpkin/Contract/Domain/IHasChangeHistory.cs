@@ -8,7 +8,7 @@ namespace Pumpkin.Contract.Domain
         
         DateTime? LastUpdateTime { get; set; }
         
-        int SubmitUser { get; set; }
+        int? SubmitUser { get; set; }
         
         int? LastUpdateUser { get; set; }
     }

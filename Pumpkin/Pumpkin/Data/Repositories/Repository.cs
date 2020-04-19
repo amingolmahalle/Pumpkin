@@ -6,16 +6,21 @@ using System.Threading.Tasks;
 using System.Linq.Expressions;
 using System.Threading;
 using Pumpkin.Contract.Domain;
+using Pumpkin.Utils.Extensions;
 
 namespace Pumpkin.Data.Repositories
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IAggregateRoot
+    public class Repository<TEntity, TKey, TDbContext> : IRepository<TEntity, TKey>
+        where TEntity :
+        class,
+        IEntity<TKey>,
+        IAggregateRoot
+        where TDbContext :
+        DbContext
     {
-        private readonly DatabaseContext _session;
+        private readonly TDbContext _session;
 
-        // ILog log = LogManager.GetLogger("RepositoryBase");
-
-        protected Repository(DatabaseContext context)
+        protected Repository(TDbContext context)
         {
             _session = context;
         }
@@ -33,6 +38,11 @@ namespace Pumpkin.Data.Repositories
         public IQueryable<TU> QueryOn<TU>() where TU : class //, IDataModel
         {
             return _session.Set<TU>();
+        }
+
+        public virtual async Task<TEntity> GetByIdAsync(TKey id, CancellationToken cancellationToken)
+        {
+            return await QueryOn<TEntity>().SingleOrDefaultAsync(id.IdentityEquality<TEntity, TKey>(),cancellationToken);
         }
 
         public virtual void Add(TEntity entity)

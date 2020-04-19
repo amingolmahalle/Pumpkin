@@ -1,20 +1,29 @@
+using System.Threading;
 using System.Threading.Tasks;
-using Pumpkin.Data;
 using Pumpkin.Data.Repositories;
-using Sample.Test.Domain.Entity;
 using Sample.Test.Domain.Entity.UserAggregate;
 
 namespace Sample.Test.Data.Repositories
 {
-    public class UserRepository:Repository<User>,IUserRepository
+    public class UserRepository : Repository<User, int,ApplicationDbContext>, IUserRepository
     {
-        protected UserRepository(DatabaseContext context) : base(context)
+        protected UserRepository(ApplicationDbContext context) : base(context)
         {
         }
-        
-        public async Task<User> GetByIdAsync(int id)
+
+        public async Task<User> GetUserByIdAsync(int id, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            return await GetByIdAsync(id, cancellationToken);
+        }
+
+        public void AddUser(User user)
+        {
+            Add(user);
+        }
+
+        public void EditUser(User user)
+        {
+            Update(user);
         }
     }
 }

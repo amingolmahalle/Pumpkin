@@ -1,5 +1,5 @@
+using System.Threading;
 using System.Threading.Tasks;
-using Sample.Test.Data.Repositories;
 using Sample.Test.Domain.Entity.UserAggregate;
 using Sample.Test.Domain.Service.Queries.GetUserById;
 
@@ -7,15 +7,17 @@ namespace Sample.Test.Service.Queries.GetUserById
 {
     public class GetUserByIdService : IGetUserByIdService
     {
-        private IUserRepository UserRepository { get; }
+        private readonly IUserRepository _userRepository;
+
         public GetUserByIdService(IUserRepository userRepository)
         {
-            UserRepository = userRepository;
+            _userRepository = userRepository;
         }
 
-        public async Task<GetUserByIdResponse> ExecuteAsync(GetUserByIdRequest request)
+        public async Task<GetUserByIdResponse> ExecuteAsync(GetUserByIdRequest request,
+            CancellationToken cancellationToken)
         {
-            var user = await UserRepository.GetByIdAsync(request.Id);
+            var user = await _userRepository.GetUserByIdAsync(request.Id, cancellationToken);
 
             if (user == null)
                 return null;
