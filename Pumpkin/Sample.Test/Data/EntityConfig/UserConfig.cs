@@ -25,6 +25,10 @@ namespace Sample.Test.Data.EntityConfig
                 .HasMaxLength(11)
                 .IsRequired();
 
+            builder.Property(c => c.Email)
+                .HasColumnType("nvarchar(30)")
+                .HasMaxLength(30);
+
             builder.Property(c => c.NationalCode)
                 .HasColumnType("char(10)")
                 .HasMaxLength(10);

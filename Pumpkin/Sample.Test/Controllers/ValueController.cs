@@ -25,7 +25,7 @@ namespace Sample.Test.Controllers
                 "flowers",
                 "in",
                 "home",
-                _configuration.GetConnectionString("DefaultConnectionString") ?? "i am empty"
+                _configuration.GetConnectionString("DefaultConnection") ?? "i am empty"
             };
         }
     }

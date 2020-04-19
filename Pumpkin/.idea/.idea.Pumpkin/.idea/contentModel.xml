@@ -145,9 +145,7 @@
           <e p="EntityConfig" t="Include">
             <e p="UserConfig.cs" t="Include" />
           </e>
-          <e p="MigrationScripts" t="Include">
-            <e p="20200418082622_InitialDatabase.sql" t="Include" />
-          </e>
+          <e p="MigrationScripts" t="Include" />
           <e p="Repositories" t="Include">
             <e p="UserRepository.cs" t="Include" />
           </e>
@@ -181,11 +179,6 @@
           <e p="MobileNumberExtension.cs" t="Include" />
           <e p="NationalCodeExtension.cs" t="Include" />
         </e>
-        <e p="Migrations" t="Include">
-          <e p="20200418082622_InitialDatabase.Designer.cs" t="Include" />
-          <e p="20200418082622_InitialDatabase.cs" t="Include" />
-          <e p="ApplicationDbContextModelSnapshot.cs" t="Include" />
-        </e>
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">
           <e p="launchSettings.json" t="Include" />
@@ -210,10 +203,7 @@
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
-        <e p="mono_crash.mem.10983.1.blob" t="Include" />
-        <e p="mono_crash.mem.5454.1.blob" t="Include" />
-        <e p="mono_crash.mem.9269.1.blob" t="Include" />
-        <e p="mono_crash.mem.9969.1.blob" t="Include" />
+        <e p="mono_crash.mem.6761.1.blob" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
