@@ -220,6 +220,11 @@
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
+        <e p="mono_crash.mem.12052.1.blob" t="Include" />
+        <e p="mono_crash.mem.12218.1.blob" t="Include" />
+        <e p="mono_crash.mem.13026.1.blob" t="Include" />
+        <e p="mono_crash.mem.13219.1.blob" t="Include" />
+        <e p="mono_crash.mem.13528.1.blob" t="Include" />
         <e p="mono_crash.mem.5415.1.blob" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">

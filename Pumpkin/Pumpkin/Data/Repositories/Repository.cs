@@ -42,7 +42,8 @@ namespace Pumpkin.Data.Repositories
 
         public virtual async Task<TEntity> GetByIdAsync(TKey id, CancellationToken cancellationToken)
         {
-            return await QueryOn<TEntity>().SingleOrDefaultAsync(id.IdentityEquality<TEntity, TKey>(),cancellationToken);
+            return await QueryOn<TEntity>()
+                .SingleOrDefaultAsync(id.IdentityEquality<TEntity, TKey>(), cancellationToken);
         }
 
         public virtual void Add(TEntity entity)

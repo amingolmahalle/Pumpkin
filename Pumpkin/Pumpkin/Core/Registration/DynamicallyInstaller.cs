@@ -54,7 +54,7 @@ namespace Pumpkin.Core.Registration
                     !(it.IsAbstract || it.IsInterface) &&
                     it.GetInterfaces().Any(x =>
                         x.IsGenericType &&
-                        x.GetGenericTypeDefinition() == typeof(IEntity<>)))
+                        x.GetGenericTypeDefinition() == typeof(IEntity)))
                 .ToList();
 
             foreach (var item in typesToRegister)

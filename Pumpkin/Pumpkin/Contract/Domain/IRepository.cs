@@ -6,10 +6,14 @@ using System.Threading.Tasks;
 
 namespace Pumpkin.Contract.Domain
 {
-    public interface IRepository<TEntity, in TKey> where TEntity : class, IEntity<TKey>, IAggregateRoot
+    public interface IRepository<TEntity, in TKey>
+        where TEntity :
+        class,
+        IEntity<TKey>,
+        IAggregateRoot
     {
         Task<TEntity> GetByIdAsync(TKey id, CancellationToken cancellationToken);
-        
+
         void Add(TEntity entity);
 
         void AddRange(IEnumerable<TEntity> entities);
