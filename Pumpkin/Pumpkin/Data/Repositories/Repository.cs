@@ -10,17 +10,15 @@ using Pumpkin.Utils.Extensions;
 
 namespace Pumpkin.Data.Repositories
 {
-    public class Repository<TEntity, TKey, TDbContext> : IRepository<TEntity, TKey>
+    public class Repository<TEntity, TKey> : IRepository<TEntity, TKey>
         where TEntity :
         class,
         IEntity<TKey>,
         IAggregateRoot
-        where TDbContext :
-        DbContext
     {
-        private readonly TDbContext _session;
+        private readonly DatabaseContext _session;
 
-        protected Repository(TDbContext context)
+        public Repository(DatabaseContext context)
         {
             _session = context;
         }
@@ -35,7 +33,7 @@ namespace Pumpkin.Data.Repositories
             return Set();
         }
 
-        public IQueryable<TU> QueryOn<TU>() where TU : class //, IDataModel
+        public IQueryable<TU> QueryOn<TU>() where TU : class
         {
             return _session.Set<TU>();
         }

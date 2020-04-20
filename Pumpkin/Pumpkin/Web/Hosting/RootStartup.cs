@@ -58,7 +58,10 @@ namespace Pumpkin.Web.Hosting
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors();
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseRequestInterceptor();
 

@@ -4,7 +4,7 @@ using Pumpkin.Contract.Domain;
 
 namespace Sample.Test.Domain.Entity.UserAggregate
 {
-    public interface IUserRepository : IRepository<User, int>
+    public interface IUserRepository: IRepository<User, int>
     {
         Task<User> GetUserByIdAsync(int id, CancellationToken cancellationToken);
 

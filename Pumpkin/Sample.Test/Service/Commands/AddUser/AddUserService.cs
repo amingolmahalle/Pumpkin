@@ -16,8 +16,6 @@ namespace Sample.Test.Service.Commands.AddUser
 
         public async Task ExecuteAsync(AddUserRequest request, CancellationToken cancellationToken)
         {
-            // AddUserValidation.CheckValidation(request, _userRepository);
-
             var user = AddUserFactory.MapEntity(request);
 
             _userRepository.AddUser(user);

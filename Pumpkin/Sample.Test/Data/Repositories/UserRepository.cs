@@ -5,9 +5,9 @@ using Sample.Test.Domain.Entity.UserAggregate;
 
 namespace Sample.Test.Data.Repositories
 {
-    public class UserRepository : Repository<User, int,ApplicationDbContext>, IUserRepository
+    public class UserRepository : Repository<User, int>, IUserRepository
     {
-        protected UserRepository(ApplicationDbContext context) : base(context)
+        public UserRepository(ApplicationDbContext context) : base(context)
         {
         }
 
