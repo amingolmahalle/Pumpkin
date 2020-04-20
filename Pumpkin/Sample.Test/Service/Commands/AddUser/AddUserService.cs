@@ -18,7 +18,7 @@ namespace Sample.Test.Service.Commands.AddUser
         {
             // AddUserValidation.CheckValidation(request, _userRepository);
 
-            var user = AddUserFactory.Create(request);
+            var user = AddUserFactory.MapEntity(request);
 
             _userRepository.AddUser(user);
             

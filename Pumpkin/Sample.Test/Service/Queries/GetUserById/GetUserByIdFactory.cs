@@ -5,7 +5,7 @@ namespace Sample.Test.Service.Queries.GetUserById
 {
     public class GetUserByIdFactory
     {
-        public static GetUserByIdResponse Create(User user)
+        public static GetUserByIdResponse MapResponse(User user)
         {
             return new GetUserByIdResponse
             {

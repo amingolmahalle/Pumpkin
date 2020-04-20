@@ -13,9 +13,4 @@
       <ProjectReference Include="..\Pumpkin\Pumpkin.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Domain\Service\Commands\EditUser" />
-      <Folder Include="Service\Commands\EditUser" />
-    </ItemGroup>
-
 </Project>

@@ -15,7 +15,7 @@ namespace Sample.Test.Helper {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Messages {
+    public class Messages {
         
         private static System.Resources.ResourceManager resourceMan;
         
@@ -26,7 +26,7 @@ namespace Sample.Test.Helper {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static System.Resources.ResourceManager ResourceManager {
+        public static System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.Equals(null, resourceMan)) {
                     System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Sample.Test.Helper.Messages", typeof(Messages).Assembly);
@@ -37,7 +37,7 @@ namespace Sample.Test.Helper {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static System.Globalization.CultureInfo Culture {
+        public static System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -46,25 +46,31 @@ namespace Sample.Test.Helper {
             }
         }
         
-        internal static string FullNameRequired {
+        public static string UserIdRequired {
+            get {
+                return ResourceManager.GetString("UserIdRequired", resourceCulture);
+            }
+        }
+        
+        public static string FullNameRequired {
             get {
                 return ResourceManager.GetString("FullNameRequired", resourceCulture);
             }
         }
         
-        internal static string MobileNumberRequired {
+        public static string MobileNumberRequired {
             get {
                 return ResourceManager.GetString("MobileNumberRequired", resourceCulture);
             }
         }
         
-        internal static string NationalCodeRequired {
+        public static string NationalCodeRequired {
             get {
                 return ResourceManager.GetString("NationalCodeRequired", resourceCulture);
             }
         }
         
-        internal static string EmailRequired {
+        public static string EmailRequired {
             get {
                 return ResourceManager.GetString("EmailRequired", resourceCulture);
             }

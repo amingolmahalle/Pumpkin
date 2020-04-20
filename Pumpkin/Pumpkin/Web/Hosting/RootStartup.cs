@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -22,11 +20,6 @@ namespace Pumpkin.Web.Hosting
         public RootStartup(IConfiguration configuration)
         {
             _configuration = configuration;
-        }
-
-        private List<string> GetRequestInterceptorExceptions()
-        {
-            return new List<string>();
         }
 
         public virtual void ConfigureServices(IServiceCollection services)
@@ -67,8 +60,7 @@ namespace Pumpkin.Web.Hosting
 
             app.UseCors();
 
-            app.UseRequestInterceptor(
-                GetRequestInterceptorExceptions().Union(new List<string>() {"/swagger/"}).ToList());
+            app.UseRequestInterceptor();
 
             app.UseRouting();
 

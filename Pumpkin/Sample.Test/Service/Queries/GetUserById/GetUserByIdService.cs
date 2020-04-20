@@ -22,7 +22,7 @@ namespace Sample.Test.Service.Queries.GetUserById
             if (user == null)
                 return null;
 
-            var result = GetUserByIdFactory.Create(user);
+            var result = GetUserByIdFactory.MapResponse(user);
 
             return result;
         }

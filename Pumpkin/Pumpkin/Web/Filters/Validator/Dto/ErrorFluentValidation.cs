@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Pumpkin.Web.Filters.Validator
+namespace Pumpkin.Web.Filters.Validator.Dto
 {
     public class ErrorFluentValidation
     {

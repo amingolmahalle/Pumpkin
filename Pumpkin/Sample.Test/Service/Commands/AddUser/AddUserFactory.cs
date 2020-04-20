@@ -5,7 +5,7 @@ namespace Sample.Test.Service.Commands.AddUser
 {
     public class AddUserFactory
     {
-        public static User Create(AddUserRequest request)
+        public static User MapEntity(AddUserRequest request)
         {
             return new User
             {

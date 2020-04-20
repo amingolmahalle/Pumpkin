@@ -2,6 +2,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Pumpkin.Utils;
+using Pumpkin.Web.Filters.Validator.Dto;
 
 namespace Pumpkin.Web.Filters.Validator
 {

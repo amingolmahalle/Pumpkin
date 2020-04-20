@@ -9,7 +9,7 @@ using Pumpkin.Contract.Security;
 using Pumpkin.Core.ResponseWrapper;
 using Pumpkin.Utils;
 using Pumpkin.Utils.Extensions;
-using Pumpkin.Web.Filters.Validator;
+using Pumpkin.Web.Filters.Validator.Dto;
 
 namespace Pumpkin.Web.RequestWrapper
 {
@@ -28,7 +28,7 @@ namespace Pumpkin.Web.RequestWrapper
         {
             try
             {
-                if (IgnoreInterception(context))
+                if (IsSwagger(context))
                     await _next(context);
 
                 else
@@ -274,9 +274,10 @@ namespace Pumpkin.Web.RequestWrapper
             return plainBodyText;
         }
 
-        private bool IgnoreInterception(HttpContext context)
+        private static bool IsSwagger(HttpContext context)
         {
-            return ApiRequestInterceptorExtension.Exceptions.Any(it => context.Request.Path.Value.Contains(it));
+            return context.Request.Path.ToString().Contains("/swagger") ||
+                   context.Request.Path.ToString().Contains("/index.html");
         }
     }
 }

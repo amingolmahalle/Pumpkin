@@ -106,14 +106,15 @@
           <e p="Controller" t="Include">
             <e p="BaseController.cs" t="Include" />
           </e>
-          <e p="Extensions" t="Include" />
           <e p="Filters" t="Include">
             <e p="Transaction" t="Include">
               <e p="ActionDescriptorExtension.cs" t="Include" />
               <e p="TransactionActionFilter.cs" t="Include" />
             </e>
             <e p="Validator" t="Include">
-              <e p="ErrorFluentValidation.cs" t="Include" />
+              <e p="Dto" t="Include">
+                <e p="ErrorFluentValidation.cs" t="Include" />
+              </e>
               <e p="ValidatorActionFilter.cs" t="Include" />
             </e>
           </e>
@@ -165,7 +166,10 @@
                 <e p="AddUserRequest.cs" t="Include" />
                 <e p="IAddUserService.cs" t="Include" />
               </e>
-              <e p="EditUser" t="Include" />
+              <e p="EditUser" t="Include">
+                <e p="EditUserRequest.cs" t="Include" />
+                <e p="IEditUserService.cs" t="Include" />
+              </e>
             </e>
             <e p="Queries" t="Include">
               <e p="GetUserById" t="Include">
@@ -197,12 +201,17 @@
               <e p="AddUserService.cs" t="Include" />
               <e p="AddUserValidator.cs" t="Include" />
             </e>
-            <e p="EditUser" t="Include" />
+            <e p="EditUser" t="Include">
+              <e p="EditUserFactory.cs" t="Include" />
+              <e p="EditUserService.cs" t="Include" />
+              <e p="EditUserValidator.cs" t="Include" />
+            </e>
           </e>
           <e p="Queries" t="Include">
             <e p="GetUserById" t="Include">
               <e p="GetUserByIdFactory.cs" t="Include" />
               <e p="GetUserByIdService.cs" t="Include" />
+              <e p="GetUserByIdValidator.cs" t="Include" />
             </e>
           </e>
           <e p="ServiceRegistrator.cs" t="Include" />
@@ -211,6 +220,7 @@
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
+        <e p="mono_crash.mem.5415.1.blob" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">

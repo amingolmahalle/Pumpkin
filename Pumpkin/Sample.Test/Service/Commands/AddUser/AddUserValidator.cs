@@ -23,6 +23,7 @@ namespace Sample.Test.Service.Commands.AddUser
             When(x => x != null, () =>
             {
                 RuleFor(x => x.Email).NotEmpty()
+                    .Matches(Constants.EmailPattern)
                     .WithMessage(Messages.EmailRequired);
             });
         }

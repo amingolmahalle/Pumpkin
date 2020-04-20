@@ -10,7 +10,6 @@ namespace Pumpkin.Core.Registration
 {
     public static class DynamicallyInstaller
     {
-        // static string _ddd = AppDomain.CurrentDomain.RelativeSearchPath ?? AppDomain.CurrentDomain.BaseDirectory;
         private static IEnumerable<Type> AllTypes
         {
             get { return AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes()); }
@@ -37,7 +36,8 @@ namespace Pumpkin.Core.Registration
                     !(it.IsAbstract || it.IsInterface) &&
                     it.GetInterfaces().Any(x =>
                         x.IsGenericType &&
-                        x.GetGenericTypeDefinition() == typeof(IEntityTypeConfiguration<>))).ToList();
+                        x.GetGenericTypeDefinition() == typeof(IEntityTypeConfiguration<>)))
+                .ToList();
 
             foreach (var item in typesToRegister)
             {
@@ -54,7 +54,8 @@ namespace Pumpkin.Core.Registration
                     !(it.IsAbstract || it.IsInterface) &&
                     it.GetInterfaces().Any(x =>
                         x.IsGenericType &&
-                        x.GetGenericTypeDefinition() == typeof(IEntity<>))).ToList();
+                        x.GetGenericTypeDefinition() == typeof(IEntity<>)))
+                .ToList();
 
             foreach (var item in typesToRegister)
             {
