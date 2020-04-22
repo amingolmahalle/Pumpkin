@@ -64,6 +64,8 @@ namespace Pumpkin.Web.RequestWrapper
                             }
                             default:
                             {
+                                // var body = await FormatResponse(context.Response);
+                                
                                 await HandleNotSuccessRequestAsync(context, null, context.Response.StatusCode);
                                 break;
                             }
@@ -82,15 +84,7 @@ namespace Pumpkin.Web.RequestWrapper
                     {
                         // TODO: Add log
                         responseBody.Seek(0, SeekOrigin.Begin);
-                        try
-                        {
-                            await responseBody.CopyToAsync(originalBodyStream);
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
+                        await responseBody.CopyToAsync(originalBodyStream);
                     }
                 }
             }
@@ -217,7 +211,6 @@ namespace Pumpkin.Web.RequestWrapper
             ApiError apiError;
             string errorMessage = string.Empty;
 
-
             switch (code)
             {
                 case (int) HttpStatusCode.NotFound:
@@ -246,9 +239,8 @@ namespace Pumpkin.Web.RequestWrapper
 
             context.Response.StatusCode = code;
 
-            var json = JsonConvert.SerializeObject(apiResponse);
-            context.Response.Body.Position = 0;
-            return context.Response.WriteAsync(json);
+            var jsonString = JsonConvert.SerializeObject(apiResponse);
+            return context.Response.WriteAsync(jsonString);
         }
 
         private static Task HandleSuccessRequestAsync(HttpContext context, string body, int code)

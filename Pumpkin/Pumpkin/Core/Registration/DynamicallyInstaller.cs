@@ -62,5 +62,10 @@ namespace Pumpkin.Core.Registration
                 modelBuilder.Entity(item);
             }
         }
+
+        public static void NeedToRegisterRepositoriesConfig(this IServiceCollection services)
+        {
+            // TODO: Dynamically Inject repositories
+        }
     }
 }

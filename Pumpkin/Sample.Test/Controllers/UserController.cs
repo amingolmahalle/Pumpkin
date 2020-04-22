@@ -35,20 +35,14 @@ namespace Sample.Test.Controllers
             return await _getUserByIdService.ExecuteAsync(request, cancellationToken);
         }
 
-        [HttpGet("GetId/{Id}")]
-        public async Task<ActionResult<GetUserByIdResponse>> GetById([FromRoute] GetUserByIdRequest request)
-        {
-            return null;
-        }
-
         [HttpPost("AddUser")]
         public async Task Add([FromBody] AddUserRequest request, CancellationToken cancellationToken)
         {
             await _addUserService.ExecuteAsync(request, cancellationToken);
         }
 
-        [HttpGet("EditUser")]
-        public async Task Edit(EditUserRequest request, CancellationToken cancellationToken)
+        [HttpPost("EditUser")]
+        public async Task Edit([FromBody] EditUserRequest request, CancellationToken cancellationToken)
         {
              await _editUserService.ExecuteAsync(request, cancellationToken);
         }
