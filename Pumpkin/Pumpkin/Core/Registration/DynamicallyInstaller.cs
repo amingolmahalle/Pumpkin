@@ -47,7 +47,7 @@ namespace Pumpkin.Core.Registration
             }
         }
 
-        public static void NeedToRegisterAllEntitiesConfig(this ModelBuilder modelBuilder)
+        public static void NeedToRegisterEntitiesConfig(this ModelBuilder modelBuilder)
         {
             var typesToRegister = AllTypes
                 .Where(it =>

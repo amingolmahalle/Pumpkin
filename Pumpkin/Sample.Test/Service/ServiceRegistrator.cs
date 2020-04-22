@@ -1,3 +1,4 @@
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Pumpkin.Contract.Registration;
 using Sample.Test.Domain.Service.Commands.AddUser;
@@ -16,6 +17,10 @@ namespace Sample.Test.Service
             services.AddScoped<IGetUserByIdService, GetUserByIdService>();
             services.AddScoped<IAddUserService, AddUserService>();
             services.AddScoped<IEditUserService, EditUserService>();
+
+            services.AddScoped<IValidator<AddUserRequest>, AddUserValidator>();
+            services.AddScoped<IValidator<EditUserRequest>, EditUserValidator>();
+            services.AddScoped<IValidator<GetUserByIdRequest>, GetUserByIdValidator>();
         }
     }
 }

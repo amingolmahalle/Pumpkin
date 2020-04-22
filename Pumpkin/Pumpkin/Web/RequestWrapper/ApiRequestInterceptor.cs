@@ -26,69 +26,73 @@ namespace Pumpkin.Web.RequestWrapper
 
         public async Task InvokeAsync(HttpContext context, ICurrentRequest currentRequest)
         {
-            try
+            if (IsSwagger(context))
+                await _next(context);
+
+            else
             {
-                if (IsSwagger(context))
-                    await _next(context);
+                _currentRequest = currentRequest;
 
-                else
+                InterceptRequest(context);
+
+                var originalBodyStream = context.Response.Body;
+
+                using (var responseBody = new MemoryStream())
                 {
-                    _currentRequest = currentRequest;
+                    context.Response.Body = responseBody;
 
-                    InterceptRequest(context);
-
-                    var originalBodyStream = context.Response.Body;
-
-                    using (var responseBody = new MemoryStream())
+                    try
                     {
-                        context.Response.Body = responseBody;
+                        await _next.Invoke(context);
 
-                        try
+                        switch (context.Response.StatusCode)
                         {
-                            await _next.Invoke(context);
-
-                            switch (context.Response.StatusCode)
+                            case (int) HttpStatusCode.OK:
                             {
-                                case (int) HttpStatusCode.OK:
-                                {
-                                    var body = await FormatResponse(context.Response);
+                                var body = await FormatResponse(context.Response);
 
-                                    await HandleSuccessRequestAsync(context, body, context.Response.StatusCode);
-                                    break;
-                                }
-                                case Constants.FluentValidationHttpStatusCode:
-                                {
-                                    var body = await FormatResponse(context.Response);
-                                    await HandleNotSuccessRequestAsync(context, body,
-                                        Constants.FluentValidationHttpStatusCode);
-                                    break;
-                                }
-                                default:
-                                    await HandleNotSuccessRequestAsync(context, null, context.Response.StatusCode);
-                                    break;
+                                await HandleSuccessRequestAsync(context, body, context.Response.StatusCode);
+                                break;
+                            }
+                            case Constants.FluentValidationHttpStatusCode:
+                            {
+                                var body = await FormatResponse(context.Response);
+
+                                await HandleNotSuccessRequestAsync(context, body,
+                                    Constants.FluentValidationHttpStatusCode);
+                                break;
+                            }
+                            default:
+                            {
+                                await HandleNotSuccessRequestAsync(context, null, context.Response.StatusCode);
+                                break;
                             }
                         }
-                        catch (ApiException ex)
-                        {
-                            await HandleValidationErrorAsync(context, ex);
-                        }
-                        catch (Exception ex)
-                        {
-                            await HandleExceptionAsync(context, ex);
-                        }
+                    }
+                    catch (ApiException ex)
+                    {
+                        await HandleValidationErrorAsync(context, ex);
+                    }
+                    catch (Exception ex)
+                    {
+                        await HandleExceptionAsync(context, ex);
+                    }
 
-                        finally
+                    finally
+                    {
+                        // TODO: Add log
+                        responseBody.Seek(0, SeekOrigin.Begin);
+                        try
                         {
-                            responseBody.Seek(0, SeekOrigin.Begin);
-
                             await responseBody.CopyToAsync(originalBodyStream);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            throw;
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                await HandleExceptionAsync(context, ex);
             }
         }
 
@@ -243,7 +247,7 @@ namespace Pumpkin.Web.RequestWrapper
             context.Response.StatusCode = code;
 
             var json = JsonConvert.SerializeObject(apiResponse);
-
+            context.Response.Body.Position = 0;
             return context.Response.WriteAsync(json);
         }
 

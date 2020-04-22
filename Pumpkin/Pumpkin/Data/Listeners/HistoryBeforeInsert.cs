@@ -8,7 +8,12 @@ namespace Pumpkin.Data.Listeners
 {
     internal class HistoryBeforeInsert : IBeforeInsertListener
     {
-        public ICurrentRequest CurrentRequest { get; set; }
+        private readonly ICurrentRequest _currentRequest;
+
+        public HistoryBeforeInsert(ICurrentRequest currentRequest)
+        {
+            _currentRequest = currentRequest;
+        }
 
         public void OnBeforeInsert(EntityEntry entry)
         {
@@ -17,7 +22,7 @@ namespace Pumpkin.Data.Listeners
                 var history = changeHistory;
 
                 history.SubmitTime = DateTime.UtcNow;
-                history.SubmitUser = CurrentRequest.UserId;
+                history.SubmitUser = _currentRequest.UserId;
             }
         }
     }

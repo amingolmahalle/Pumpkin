@@ -27,7 +27,7 @@ namespace Pumpkin.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.NeedToRegisterAllEntitiesConfig();
+            modelBuilder.NeedToRegisterEntitiesConfig();
             modelBuilder.NeedToRegisterMappingConfig();
 
             base.OnModelCreating(modelBuilder);

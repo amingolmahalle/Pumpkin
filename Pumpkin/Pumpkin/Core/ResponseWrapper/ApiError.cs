@@ -26,7 +26,7 @@ namespace Pumpkin.Core.ResponseWrapper
         public ApiError(string message, IEnumerable<ValidationError> validationErrors)
         {
             ExceptionMessage = message;
-            this.ValidationErrors = validationErrors;
+            ValidationErrors = validationErrors;
         }
     }
 }

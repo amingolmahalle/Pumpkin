@@ -12,7 +12,7 @@ namespace Sample.Test.Service.Commands.AddUser
                 Fullname = request.Fullname,
                 NationalCode = request.NationalCode,
                 MobileNumber = request.MobileNumber,
-                Status = request.Status,
+                Status = true,
                 BirthDate = request.BirthDate,
                 Email = request.Email
             };

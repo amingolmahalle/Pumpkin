@@ -143,6 +143,7 @@
         </e>
         <e p="Data" t="Include">
           <e p="ApplicationDbContext.cs" t="Include" />
+          <e p="DataRegistrator.cs" t="Include" />
           <e p="EntityConfig" t="Include">
             <e p="UserConfig.cs" t="Include" />
           </e>

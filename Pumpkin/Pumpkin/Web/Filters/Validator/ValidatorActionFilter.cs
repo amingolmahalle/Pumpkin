@@ -6,7 +6,7 @@ using Pumpkin.Web.Filters.Validator.Dto;
 
 namespace Pumpkin.Web.Filters.Validator
 {
-    public class ValidatorActionFilter : ActionFilterAttribute
+    public class ValidatorActionFilter :  ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
@@ -23,6 +23,7 @@ namespace Pumpkin.Web.Filters.Validator
                     StatusCode = Constants.FluentValidationHttpStatusCode
                 };
             }
+
         }
     }
 }

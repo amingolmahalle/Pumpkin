@@ -1,4 +1,5 @@
 using System;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -40,13 +41,30 @@ namespace Pumpkin.Web.Hosting
                 options.ApiVersionSelector = new CurrentImplementationApiVersionSelector(options);
             });
 
-            services.AddControllers(
-                options =>
+            // services.AddControllers(
+            //         options =>
+            //         {
+            //            
+            //         }
+            //     ).AddFluentValidation(fv =>
+            //     {
+            //         fv.RegisterValidatorsFromAssemblies(RegisterFluentValidation);
+            //         fv.ImplicitlyValidateChildProperties = true;
+            //     })
+            services.AddControllers(options =>
                 {
                     options.Filters.Add<TransactionActionFilter>();
                     options.Filters.Add<ValidatorActionFilter>();
-                }
-            ).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+                }).ConfigureApiBehaviorOptions(options =>
+                {
+                    options.SuppressConsumesConstraintForFormFileParameters = true;
+                    options.SuppressModelStateInvalidFilter = true;
+                }).AddFluentValidation(fv =>
+                {
+                fv.RegisterValidatorsFromAssemblyContaining<RootStartup>();
+                    fv.ImplicitlyValidateChildProperties = true;
+                })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             services.NeedToInstallConfig();
         }

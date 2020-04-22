@@ -9,7 +9,12 @@ namespace Pumpkin.Data.Listeners
 {
     public class HistoryBeforeDelete : IBeforeDeleteListener
     {
-        public ICurrentRequest CurrentRequest { get; set; }
+        private readonly ICurrentRequest _currentRequest;
+
+        public HistoryBeforeDelete(ICurrentRequest currentRequest)
+        {
+            _currentRequest = currentRequest;
+        }
 
         public void OnBeforeDelete(EntityEntry entry)
         {
@@ -20,7 +25,7 @@ namespace Pumpkin.Data.Listeners
                 var history = changeHistory;
 
                 history.ArchiveTime = DateTime.UtcNow;
-                history.ArchiveUser = CurrentRequest.UserId;
+                history.ArchiveUser = _currentRequest.UserId;
                 history.Deleted = true;
             }
         }

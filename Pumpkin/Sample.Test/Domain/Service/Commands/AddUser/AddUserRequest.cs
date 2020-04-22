@@ -13,7 +13,5 @@ namespace Sample.Test.Domain.Service.Commands.AddUser
         public string Email { get; set; }
 
         public DateTime BirthDate { get; set; }
-
-        public bool Status { get; set; }
     }
 }

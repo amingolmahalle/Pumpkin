@@ -8,7 +8,12 @@ namespace Pumpkin.Data.Listeners
 {
     internal class HistoryBeforeUpdate : IBeforeUpdateListener
     {
-        public ICurrentRequest CurrentRequest { get; set; }
+        private readonly ICurrentRequest _currentRequest;
+
+        public HistoryBeforeUpdate(ICurrentRequest currentRequest)
+        {
+            _currentRequest = currentRequest;
+        }
 
         public void OnBeforeUpdate(EntityEntry entry)
         {
@@ -17,7 +22,7 @@ namespace Pumpkin.Data.Listeners
                 var history = changeHistory;
 
                 history.LastUpdateTime = DateTime.UtcNow;
-                history.LastUpdateUser = CurrentRequest.UserId;
+                history.LastUpdateUser = _currentRequest.UserId;
             }
         }
     }

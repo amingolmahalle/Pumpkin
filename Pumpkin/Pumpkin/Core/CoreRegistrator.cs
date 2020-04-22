@@ -9,7 +9,7 @@ namespace Pumpkin.Core
     {
         public void Install(IServiceCollection services)
         {
-            services.AddTransient<ISerializer, NewtonSoftSerializer>();
+            // services.AddTransient<ISerializer, NewtonSoftSerializer>();
         }
     }
 }
