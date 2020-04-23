@@ -6,7 +6,13 @@
     <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="Pumpkin" t="IncludeRecursive">
         <e p="Contract" t="Include">
-          <e p="Caching" t="Include" />
+          <e p="Caching" t="Include">
+            <e p="CacheGroup.cs" t="Include" />
+            <e p="CacheOptions.cs" t="Include" />
+            <e p="CacheProviderType.cs" t="Include" />
+            <e p="ICacheProvider.cs" t="Include" />
+            <e p="ICacheService.cs" t="Include" />
+          </e>
           <e p="DataServices" t="Include">
             <e p="DataResult.cs" t="Include" />
             <e p="IDataResult.cs" t="Include" />
@@ -27,7 +33,6 @@
             <e p="IBeforeInsertListener.cs" t="Include" />
             <e p="IBeforeUpdateListener.cs" t="Include" />
           </e>
-          <e p="Logging" t="Include" />
           <e p="Registration" t="Include">
             <e p="INeedToInstall.cs" t="Include" />
           </e>
@@ -47,6 +52,21 @@
           </e>
         </e>
         <e p="Core" t="Include">
+          <e p="Caching" t="Include">
+            <e p="CacheService.cs" t="Include" />
+            <e p="Providers" t="Include">
+              <e p="Local" t="Include">
+                <e p="InMemoryCacheProvider.cs" t="Include" />
+              </e>
+              <e p="Shared" t="Include">
+                <e p="Redis" t="Include">
+                  <e p="RedisCacheProvider.cs" t="Include" />
+                  <e p="RedisConnectionEntry.cs" t="Include" />
+                  <e p="RedisConnectionFactory.cs" t="Include" />
+                </e>
+              </e>
+            </e>
+          </e>
           <e p="CoreRegistrator.cs" t="Include" />
           <e p="Registration" t="Include">
             <e p="DynamicallyInstaller.cs" t="Include" />
@@ -221,6 +241,7 @@
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
+        <e p="mono_crash.mem.5205.1.blob" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
