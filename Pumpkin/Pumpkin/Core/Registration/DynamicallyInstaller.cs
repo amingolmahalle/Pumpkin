@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Pumpkin.Contract.Caching;
 using Pumpkin.Contract.Domain;
 using Pumpkin.Contract.Registration;
 
@@ -63,19 +64,16 @@ namespace Pumpkin.Core.Registration
             }
         }
 
-        public static void NeedToRegisterRepositoriesConfig(this IServiceCollection services)
+        public static void NeedToRegisterCacheProviderConfig(this IServiceCollection services)
         {
-            // TODO: Dynamically Inject repositories
-            // System.Reflection.Assembly.GetExecutingAssembly()
-            //     .GetTypes()
-            //     .Where(item => item.GetInterfaces()
-            //         .Where(i => i.IsGenericType).Any(i => i.GetGenericTypeDefinition() == typeof(IRepository<,,>)) && !item.IsAbstract && !item.IsInterface)
-            //     .ToList()
-            //     .ForEach(assignedTypes =>
-            //     {
-            //         var serviceType = assignedTypes.GetInterfaces().First(i => i.GetGenericTypeDefinition() == typeof(IRepository<,,>));
-            //         services.AddScoped(serviceType, assignedTypes);
-            //     });
+            var typesToRegister = AllTypes
+                .Where(it => typeof(ICacheProvider).IsAssignableFrom(it) && !it.IsInterface && !it.IsAbstract)
+                .ToList();
+
+            foreach (var item in typesToRegister)
+            {
+                services.AddScoped(typeof(ICacheProvider), item);
+            }
         }
     }
 }

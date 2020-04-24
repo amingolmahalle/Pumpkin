@@ -3,36 +3,28 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LightInject;
+using Microsoft.Extensions.DependencyInjection;
 using Pumpkin.Contract.Caching;
+using Pumpkin.Core.Caching.Providers.Shared.Redis;
 using Pumpkin.Utils.Extensions;
 
 namespace Pumpkin.Core.Caching
 {
     public class CacheService : ICacheService
     {
-        private readonly Scope _scope;
-
+        private readonly IServiceProvider _serviceProvider;
+        
         private static List<ICacheProvider> _allProviders;
 
         private static ConcurrentDictionary<CacheProviderType, List<ICacheProvider>> _providers;
 
-        public CacheService()
+        public CacheService(IServiceProvider serviceProvider)
         {
-            IServiceContainer container = new ServiceContainer(new ContainerOptions
-            {
-                EnableVariance = false
-            })
-            {
-                ScopeManagerProvider = new PerLogicalCallContextScopeManagerProvider()
-            };
-
+            _serviceProvider = serviceProvider;
             if (_allProviders == null)
             {
                 _allProviders = GetAllProviders();
             }
-
-            _scope = container.BeginScope();
 
             _providers = new ConcurrentDictionary<CacheProviderType, List<ICacheProvider>>();
         }
@@ -49,7 +41,7 @@ namespace Pumpkin.Core.Caching
                     return res;
             }
 
-            return default(T);
+            return default;
         }
 
         public async Task<T> GetAsync<T>(string key, string group, CacheOptions options = null)
@@ -64,7 +56,7 @@ namespace Pumpkin.Core.Caching
                     return res;
             }
 
-            return default(T);
+            return default;
         }
 
         public T GetOrCreate<T>(string key, string group, DateTime expiry, Func<T> method, CacheOptions options = null)
@@ -79,7 +71,7 @@ namespace Pumpkin.Core.Caching
                     return res;
             }
 
-            return default(T);
+            return default;
         }
 
         public async Task<T> GetOrCreateAsync<T>(string key, string group, DateTime expiry, Func<Task<T>> method,
@@ -95,7 +87,7 @@ namespace Pumpkin.Core.Caching
                     return res;
             }
 
-            return default(T);
+            return default;
         }
 
         public IDictionary<string, T> GetMany<T>(IEnumerable<string> keys, string group, CacheOptions options = null)
@@ -299,8 +291,9 @@ namespace Pumpkin.Core.Caching
                     case CacheProviderType.Local:
                         cacheProviders = GetAllProviders()
                             .Where(p =>
-                                (CacheProviderType) (p.GetType().GetProperty("ProviderType").GetValue(p, null)) ==
-                                CacheProviderType.Local)
+                                (CacheProviderType) p.GetType()
+                                    .GetProperty("ProviderType")
+                                    .GetValue(p, null) == CacheProviderType.Local)
                             .OrderBy(p => p.Priority)
                             .ToList();
                         break;
@@ -308,8 +301,9 @@ namespace Pumpkin.Core.Caching
                     case CacheProviderType.Shared:
                         cacheProviders = GetAllProviders()
                             .Where(p =>
-                                (CacheProviderType) (p.GetType().GetProperty("ProviderType").GetValue(p, null)) ==
-                                CacheProviderType.Shared)
+                                (CacheProviderType) p.GetType()
+                                    .GetProperty("ProviderType")
+                                    .GetValue(p, null) == CacheProviderType.Shared)
                             .OrderBy(p => p.Priority)
                             .ToList();
                         break;
@@ -328,10 +322,7 @@ namespace Pumpkin.Core.Caching
 
         private List<ICacheProvider> GetAllProviders()
         {
-            return _scope?
-                .GetAllInstances(typeof(ICacheProvider))
-                .Cast<ICacheProvider>()
-                .ToList();
+            return _serviceProvider.GetServices<ICacheProvider>().ToList();
         }
     }
 }

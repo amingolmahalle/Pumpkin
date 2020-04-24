@@ -20,7 +20,7 @@ namespace Sample.Test
             base.ConfigureServices(services);
 
             services.AddDbContextEx<ApplicationDbContext>(
-                _configuration.GetConnectionString("DefaultConnection"));
+                _configuration.GetConnectionString("SqlServer"));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.Configuration;
 using StackExchange.Redis;
 
 namespace Pumpkin.Core.Caching.Providers.Shared.Redis
@@ -9,10 +10,13 @@ namespace Pumpkin.Core.Caching.Providers.Shared.Redis
     {
         private List<RedisConnectionEntry> _cacheDatabases;
 
+        private readonly IConfiguration _configuration;
+
         private string[] _nodesArray;
 
-        public RedisConnectionFactory()
+        public RedisConnectionFactory(IConfiguration configuration)
         {
+            _configuration = configuration;
             InitializeConnection();
         }
 
@@ -28,7 +32,7 @@ namespace Pumpkin.Core.Caching.Providers.Shared.Redis
 
             _cacheDatabases = new List<RedisConnectionEntry>();
 
-            var nodes = "127.0.0.1:6379";
+            var nodes = _configuration.GetConnectionString("Redis");
 
             _nodesArray = nodes.Split(',');
 
@@ -68,14 +72,16 @@ namespace Pumpkin.Core.Caching.Providers.Shared.Redis
 
         public RedisConnectionEntry GetMaster()
         {
-            return _cacheDatabases.SingleOrDefault(it => it.Index == 0) ?? new RedisConnectionEntry();
+            return _cacheDatabases.SingleOrDefault(it => it.Index == 0)
+                   ?? new RedisConnectionEntry();
         }
 
         public RedisConnectionEntry GetRandomDatabase()
         {
             var index = new Random().Next(0, _nodesArray.Count());
 
-            return _cacheDatabases.SingleOrDefault(it => it.Index == index) ?? new RedisConnectionEntry();
+            return _cacheDatabases.SingleOrDefault(it => it.Index == index)
+                   ?? new RedisConnectionEntry();
         }
     }
 }

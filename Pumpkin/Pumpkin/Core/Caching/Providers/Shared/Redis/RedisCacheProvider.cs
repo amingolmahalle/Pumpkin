@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
 using Pumpkin.Contract.Caching;
-using Pumpkin.Contract.Registration;
 using Pumpkin.Contract.Serialization;
 using Pumpkin.Utils.Extensions;
 using StackExchange.Redis;
@@ -32,18 +30,18 @@ namespace Pumpkin.Core.Caching.Providers.Shared.Redis
 
         public T Get<T>(string key, string group)
         {
-            var resultFromCache = _connectionFactory.GetRandomDatabase().Database.StringGet(createKey(key, group));
-            if (resultFromCache == default(RedisValue))
-                return default(T);
+            var resultFromCache = _connectionFactory.GetRandomDatabase().Database.StringGet(CreateKey(key, group));
+            if (resultFromCache == default)
+                return default;
             return _serializer.Deserialize<T>(resultFromCache);
         }
 
         public async Task<T> GetAsync<T>(string key, string group)
         {
             var resultFromCache =
-                await _connectionFactory.GetRandomDatabase().Database.StringGetAsync(createKey(key, group));
-            if (resultFromCache == default(RedisValue))
-                return default(T);
+                await _connectionFactory.GetRandomDatabase().Database.StringGetAsync(CreateKey(key, group));
+            if (resultFromCache == default)
+                return default;
             return _serializer.Deserialize<T>(resultFromCache);
         }
 
@@ -51,7 +49,7 @@ namespace Pumpkin.Core.Caching.Providers.Shared.Redis
             where T : class, new()
         {
             var result = new Dictionary<string, T>();
-            var keysForRedis = keys.Select(p => (RedisKey) createKey(p, group)).ToArray();
+            var keysForRedis = keys.Select(p => (RedisKey) CreateKey(p, group)).ToArray();
             var resultFromCache = _connectionFactory.GetRandomDatabase().Database.StringGet(keysForRedis);
             if (keysForRedis.HasItem() && resultFromCache.HasItem())
             {
@@ -59,7 +57,7 @@ namespace Pumpkin.Core.Caching.Providers.Shared.Redis
                 for (int i = 0; i < keysForRedis.Length; i++)
                 {
                     result.Add(keysArray[i],
-                        resultFromCache[i] != default(RedisValue)
+                        resultFromCache[i] != default
                             ? _serializer.Deserialize<T>(resultFromCache[i])
                             : null);
                 }
@@ -71,15 +69,16 @@ namespace Pumpkin.Core.Caching.Providers.Shared.Redis
         public IDictionary<string, object> GetMany(IEnumerable<string> keys, string group)
         {
             var result = new Dictionary<string, object>();
-            var keysForRedis = keys.Select(p => (RedisKey) createKey(p, group)).ToArray();
+            var keysForRedis = keys.Select(p => (RedisKey) CreateKey(p, group)).ToArray();
             var resultFromCache = _connectionFactory.GetRandomDatabase().Database.StringGet(keysForRedis);
+
             if (keysForRedis.HasItem() && resultFromCache.HasItem())
             {
                 var keysArray = keys.ToArray();
                 for (int i = 0; i < keysForRedis.Length; i++)
                 {
                     result.Add(keysArray[i],
-                        resultFromCache[i] != default(RedisValue)
+                        resultFromCache[i] != default
                             ? _serializer.Deserialize<object>(resultFromCache[i])
                             : null);
                 }
@@ -92,7 +91,7 @@ namespace Pumpkin.Core.Caching.Providers.Shared.Redis
             where T : class, new()
         {
             var result = new Dictionary<string, T>();
-            var keysForRedis = keys.Select(p => (RedisKey) createKey(p, group)).ToArray();
+            var keysForRedis = keys.Select(p => (RedisKey) CreateKey(p, group)).ToArray();
             var resultFromCache = await _connectionFactory.GetRandomDatabase().Database.StringGetAsync(keysForRedis);
             if (keysForRedis.HasItem() && resultFromCache.HasItem())
             {
@@ -100,7 +99,7 @@ namespace Pumpkin.Core.Caching.Providers.Shared.Redis
                 for (int i = 0; i < keysForRedis.Length; i++)
                 {
                     result.Add(keysArray[i],
-                        resultFromCache[i] != default(RedisValue)
+                        resultFromCache[i] != default
                             ? _serializer.Deserialize<T>(resultFromCache[i])
                             : null);
                 }
@@ -112,15 +111,16 @@ namespace Pumpkin.Core.Caching.Providers.Shared.Redis
         public async Task<IDictionary<string, object>> GetManyAsync(IEnumerable<string> keys, string group)
         {
             var result = new Dictionary<string, object>();
-            var keysForRedis = keys.Select(p => (RedisKey) createKey(p, group)).ToArray();
+            var enumerable = keys.ToList();
+            var keysForRedis = enumerable.Select(p => (RedisKey) CreateKey(p, group)).ToArray();
             var resultFromCache = await _connectionFactory.GetRandomDatabase().Database.StringGetAsync(keysForRedis);
             if (keysForRedis.HasItem() && resultFromCache.HasItem())
             {
-                var keysArray = keys.ToArray();
+                var keysArray = enumerable.ToArray();
                 for (int i = 0; i < keysForRedis.Length; i++)
                 {
                     result.Add(keysArray[i],
-                        resultFromCache[i] != default(RedisValue)
+                        resultFromCache[i] != default
                             ? _serializer.Deserialize<object>(resultFromCache[i])
                             : null);
                 }
@@ -153,7 +153,7 @@ namespace Pumpkin.Core.Caching.Providers.Shared.Redis
         {
             try
             {
-                _connectionFactory.GetMaster().Database.KeyDelete(createKey(key, group));
+                _connectionFactory.GetMaster().Database.KeyDelete(CreateKey(key, group));
             }
             catch (Exception ex)
             {
@@ -167,7 +167,7 @@ namespace Pumpkin.Core.Caching.Providers.Shared.Redis
         {
             try
             {
-                await _connectionFactory.GetMaster().Database.KeyDeleteAsync(createKey(key, group));
+                await _connectionFactory.GetMaster().Database.KeyDeleteAsync(CreateKey(key, group));
             }
             catch (Exception ex)
             {
@@ -197,7 +197,9 @@ namespace Pumpkin.Core.Caching.Providers.Shared.Redis
             try
             {
                 var keyList = _connectionFactory.GetMaster().Server.Keys(pattern: $"{group}:*");
-                var keyDeleteAsync = await _connectionFactory.GetMaster().Database.KeyDeleteAsync(keyList.ToArray());
+                var keyDeleteAsync = await _connectionFactory.GetMaster()
+                    .Database
+                    .KeyDeleteAsync(keyList.ToArray());
             }
             catch (Exception ex)
             {
@@ -211,7 +213,7 @@ namespace Pumpkin.Core.Caching.Providers.Shared.Redis
         {
             try
             {
-                _connectionFactory.GetMaster().Database.StringSet(createKey(key, group), _serializer.Serialize(data),
+                _connectionFactory.GetMaster().Database.StringSet(CreateKey(key, group), _serializer.Serialize(data),
                     expiry.TimeOfDay);
             }
             catch (Exception ex)
@@ -226,7 +228,7 @@ namespace Pumpkin.Core.Caching.Providers.Shared.Redis
         {
             try
             {
-                await _connectionFactory.GetMaster().Database.StringSetAsync(createKey(key, group),
+                await _connectionFactory.GetMaster().Database.StringSetAsync(CreateKey(key, group),
                     _serializer.Serialize(data), expiry.TimeOfDay);
             }
             catch (Exception ex)
@@ -247,7 +249,7 @@ namespace Pumpkin.Core.Caching.Providers.Shared.Redis
             await _connectionFactory.GetMaster().Server.FlushAllDatabasesAsync();
         }
 
-        private string createKey(string key, string group)
+        private string CreateKey(string key, string group)
         {
             return $"{group}::{key}";
         }
