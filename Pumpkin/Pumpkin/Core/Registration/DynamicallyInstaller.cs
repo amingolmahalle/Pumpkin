@@ -63,7 +63,7 @@ namespace Pumpkin.Core.Registration
                 modelBuilder.Entity(item);
             }
         }
-
+        
         public static void NeedToRegisterCacheProviderConfig(this IServiceCollection services)
         {
             var typesToRegister = AllTypes

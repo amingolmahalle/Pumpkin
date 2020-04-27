@@ -8,6 +8,8 @@ namespace Sample.Test.Domain.Entity.UserAggregate
     {
         Task<User> GetUserByIdAsync(int id, CancellationToken cancellationToken);
 
+        Task<User> GetUserByMobileAsync(string mobileNumber, CancellationToken cancellationToken);
+
         void AddUser(User user);
 
         void EditUser(User user);

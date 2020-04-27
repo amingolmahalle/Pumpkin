@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using Microsoft.SqlServer.Types;
 using Pumpkin.Contract.DataServices;
-using Pumpkin.Utils;
 using Pumpkin.Utils.Extensions;
 
 namespace Pumpkin.Data.DataServices.DataProviders
@@ -15,16 +17,14 @@ namespace Pumpkin.Data.DataServices.DataProviders
     public class SqlDataProvider : IDisposable
     {
         // private static ILog _logger;
+
         private readonly string _connectionString;
 
-        public SqlDataProvider() : this(
-            "Data Source=192.168.88.29;Initial Catalog=YourDbName;Persist Security Info=True;User ID=dba;Password=aD@9588K@m31;MultipleActiveResultSets=True;Application Name=CRM")
-        {
-        }
+        [Inject] private IConfiguration Configuration { get; set; }
 
-        public SqlDataProvider(string connectionString)
+        public SqlDataProvider()
         {
-            _connectionString = connectionString;
+            _connectionString = Configuration.GetConnectionString("SqlServer");
 
             //   if (_logger == null)
             //     _logger = LogManager.GetLogger(typeof(SqlDataProvider));
@@ -124,8 +124,9 @@ namespace Pumpkin.Data.DataServices.DataProviders
             }
         }
 
-        public async Task<T> ExecuteSingleRecordQueryCommandAsync<T>(string command,
-            Dictionary<string, object> parameters = null)
+        public async Task<T> ExecuteSingleRecordQueryCommandAsync<T>(
+            string command,
+            CancellationToken cancellationToken, Dictionary<string, object> parameters = null)
             where T : class
         {
             SqlConnection con = null;
@@ -133,8 +134,12 @@ namespace Pumpkin.Data.DataServices.DataProviders
             {
                 using (con = new SqlConnection(_connectionString))
                 {
-                    var res = await con.QueryFirstOrDefaultAsync<T>(new CommandDefinition(command, parameters));
-                    return res;
+                    var result = await con.QueryFirstOrDefaultAsync<T>(new CommandDefinition(
+                        command,
+                        parameters,
+                        cancellationToken: cancellationToken));
+                    
+                    return result;
                 }
             }
             catch (Exception ex)

@@ -6,12 +6,15 @@ using Pumpkin.Web.Controller;
 using Sample.Test.Domain.Service.Commands.AddUser;
 using Sample.Test.Domain.Service.Commands.EditUser;
 using Sample.Test.Domain.Service.Queries.GetUserById;
+using Sample.Test.Domain.Service.Queries.GetUserByMobile;
 
 namespace Sample.Test.Controllers
 {
     public class UserController : BaseController
     {
         private readonly IGetUserByIdService _getUserByIdService;
+
+        private readonly IGetUserByMobileService _getUserByMobileService;
 
         private readonly IAddUserService _addUserService;
 
@@ -21,11 +24,13 @@ namespace Sample.Test.Controllers
             IServiceProvider serviceProvider,
             IGetUserByIdService getUserByIdService,
             IAddUserService addUserService,
-            IEditUserService editUserService) : base(serviceProvider)
+            IEditUserService editUserService,
+            IGetUserByMobileService getUserByMobileService) : base(serviceProvider)
         {
             _getUserByIdService = getUserByIdService;
             _addUserService = addUserService;
             _editUserService = editUserService;
+            _getUserByMobileService = getUserByMobileService;
         }
 
         [HttpGet("GetUserById/{Id}")]
@@ -33,6 +38,13 @@ namespace Sample.Test.Controllers
             CancellationToken cancellationToken)
         {
             return await _getUserByIdService.ExecuteAsync(request, cancellationToken);
+        }
+
+        [HttpGet("GetUserByMobile/{MobileNumber}")]
+        public async Task<GetUserByMobileResponse> GetByMobile([FromRoute] GetUserByMobileRequest request,
+            CancellationToken cancellationToken)
+        {
+            return await _getUserByMobileService.ExecuteAsync(request, cancellationToken);
         }
 
         [HttpPost("AddUser")]
@@ -44,7 +56,7 @@ namespace Sample.Test.Controllers
         [HttpPost("EditUser")]
         public async Task Edit([FromBody] EditUserRequest request, CancellationToken cancellationToken)
         {
-             await _editUserService.ExecuteAsync(request, cancellationToken);
+            await _editUserService.ExecuteAsync(request, cancellationToken);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Sample.Test.Data
     {
         public void Install(IServiceCollection services)
         {
-            services.AddScoped<IUserRepository, UserRepository>();
+           services.AddScoped<IUserRepository, UserRepository>();
         }
     }
 }
