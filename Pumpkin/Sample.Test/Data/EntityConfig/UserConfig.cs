@@ -23,6 +23,7 @@ namespace Sample.Test.Data.EntityConfig
             builder.Property(c => c.MobileNumber)
                 .HasColumnType("char(11)")
                 .HasMaxLength(11)
+                .IsUnicode()
                 .IsRequired();
 
             builder.Property(c => c.Email)

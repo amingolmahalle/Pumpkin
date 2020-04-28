@@ -5,12 +5,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
-using Microsoft.AspNetCore.Components;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
 using Microsoft.SqlServer.Types;
 using Pumpkin.Contract.DataServices;
 using Pumpkin.Utils.Extensions;
+using Pumpkin.Web.Configs;
 
 namespace Pumpkin.Data.DataServices.DataProviders
 {
@@ -20,11 +19,9 @@ namespace Pumpkin.Data.DataServices.DataProviders
 
         private readonly string _connectionString;
 
-        [Inject] private IConfiguration Configuration { get; set; }
-
         public SqlDataProvider()
         {
-            _connectionString = Configuration.GetConnectionString("SqlServer");
+            _connectionString = ConfigManager.GetConnectionString("SqlServer");
 
             //   if (_logger == null)
             //     _logger = LogManager.GetLogger(typeof(SqlDataProvider));
@@ -51,8 +48,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
             {
                 try
                 {
-                    con.Close();
-                    con.Dispose();
+                    Close(con);
                 }
                 catch (Exception innerEx)
                 {
@@ -83,8 +79,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
             {
                 try
                 {
-                    con.Close();
-                    con.Dispose();
+                    Close(con);
                 }
                 catch (Exception innerEx)
                 {
@@ -114,8 +109,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
             {
                 try
                 {
-                    con.Close();
-                    con.Dispose();
+                    Close(con);
                 }
                 catch (Exception innerEx)
                 {
@@ -138,7 +132,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
                         command,
                         parameters,
                         cancellationToken: cancellationToken));
-                    
+
                     return result;
                 }
             }
@@ -151,8 +145,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
             {
                 try
                 {
-                    con.Close();
-                    con.Dispose();
+                    Close(con);
                 }
                 catch (Exception innerEx)
                 {
@@ -230,9 +223,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
             {
                 try
                 {
-                    con.Close();
-                    con.Dispose();
-                    cmd.Dispose();
+                    Close(con, cmd);
                 }
                 catch (Exception ex)
                 {
@@ -290,9 +281,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
             {
                 try
                 {
-                    con.Close();
-                    con.Dispose();
-                    cmd.Dispose();
+                    Close(con, cmd);
                 }
                 catch (Exception innerEx)
                 {
@@ -332,9 +321,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
             }
             finally
             {
-                con.Close();
-                con.Dispose();
-                cmd.Dispose();
+                Close(con, cmd);
             }
         }
 
@@ -369,9 +356,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
             }
             finally
             {
-                con.Close();
-                con.Dispose();
-                cmd.Dispose();
+                Close(con, cmd);
             }
         }
 
@@ -406,9 +391,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
             }
             finally
             {
-                con.Close();
-                con.Dispose();
-                cmd.Dispose();
+                Close(con, cmd);
             }
         }
 
@@ -444,9 +427,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
             }
             finally
             {
-                con.Close();
-                con.Dispose();
-                cmd.Dispose();
+                Close(con, cmd);
             }
         }
 
@@ -543,8 +524,20 @@ namespace Pumpkin.Data.DataServices.DataProviders
             return p.ToArray();
         }
 
+        private void Close(SqlConnection connection = null, SqlCommand sqlCommand = null)
+        {
+            if (connection != null)
+            {
+                connection.Close();
+                connection.Dispose();
+            }
+
+            sqlCommand?.Dispose();
+        }
+        
         public void Dispose()
         {
+            GC.Collect();
         }
     }
 }

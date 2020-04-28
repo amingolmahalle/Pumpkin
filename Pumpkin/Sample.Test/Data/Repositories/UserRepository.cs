@@ -23,14 +23,15 @@ namespace Sample.Test.Data.Repositories
             {
                 var query = $@"SELECT 
                                                 Id,
+                                                Fullname,
                                                 MobileNumber,
                                                 NationalCode,
                                                 Email,
                                                 BirthDate,
                                                 Status
                                         FROM 
-                                                User
-                                        where 
+                                                Users
+                                        WHERE 
                                                 MobileNumber = {mobileNumber}";
 
                 return await dataProvider.ExecuteSingleRecordQueryCommandAsync<User>(query,cancellationToken);
