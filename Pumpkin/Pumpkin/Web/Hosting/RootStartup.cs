@@ -1,27 +1,26 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using Pumpkin.Core.Registration;
+using Pumpkin.Utils;
 using Pumpkin.Web.Filters.Transaction;
 using Pumpkin.Web.Filters.Validator;
 using Pumpkin.Web.RequestWrapper;
+using Pumpkin.Web.Swagger;
 
 namespace Pumpkin.Web.Hosting
 {
     public class RootStartup
     {
-        private readonly IConfiguration _configuration;
-
-        public RootStartup(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
+        protected virtual IEnumerable<int> Versions => new[] {1};
 
         public virtual void ConfigureServices(IServiceCollection services)
         {
@@ -39,18 +38,9 @@ namespace Pumpkin.Web.Hosting
                 options.AssumeDefaultVersionWhenUnspecified = true;
                 options.ApiVersionReader = new MediaTypeApiVersionReader();
                 options.ApiVersionSelector = new CurrentImplementationApiVersionSelector(options);
+                options.DefaultApiVersion = new ApiVersion(1, 0);
             });
 
-            // services.AddControllers(
-            //         options =>
-            //         {
-            //            
-            //         }
-            //     ).AddFluentValidation(fv =>
-            //     {
-            //         fv.RegisterValidatorsFromAssemblies(RegisterFluentValidation);
-            //         fv.ImplicitlyValidateChildProperties = true;
-            //     })
             services.AddControllers(options =>
                 {
                     options.Filters.Add<TransactionActionFilter>();
@@ -61,10 +51,24 @@ namespace Pumpkin.Web.Hosting
                     options.SuppressModelStateInvalidFilter = true;
                 }).AddFluentValidation(fv =>
                 {
-                fv.RegisterValidatorsFromAssemblyContaining<RootStartup>();
+                    fv.RegisterValidatorsFromAssemblyContaining<RootStartup>();
                     fv.ImplicitlyValidateChildProperties = true;
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
+            services.AddSwaggerGen(options =>
+            {
+                Versions.ToList()
+                    .ForEach(v =>
+                        options.SwaggerDoc($"v{v}",
+                            new OpenApiInfo
+                            {
+                                Title = $"{Constants.HostTitle}:v{v}", Version = $"v{v}"
+                            }));
+
+                options.OperationFilter<RemoveVersionFromParameter>();
+                options.DocumentFilter<ReplaceVersionWithExactValueInPath>();
+            });
 
             services.NeedToInstallConfig();
         }
@@ -83,7 +87,20 @@ namespace Pumpkin.Web.Hosting
 
             app.UseRequestInterceptor();
 
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                Versions.ToList()
+                    .ForEach(v => options.SwaggerEndpoint($"/swagger/v{v}/swagger.json",
+                        $"{Constants.HostTitle}:v{v}"));
+
+                options.RoutePrefix = $"{Constants.HostApiRouteDiscriminator}swagger";
+            });
+
             app.UseRouting();
+
+            //app.UseAuthentication();
+            // app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

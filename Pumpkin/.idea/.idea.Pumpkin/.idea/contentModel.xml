@@ -148,6 +148,10 @@
             <e p="ApiRequestInterceptor.cs" t="Include" />
             <e p="ApiRequestInterceptorExtension.cs" t="Include" />
           </e>
+          <e p="Swagger" t="Include">
+            <e p="RemoveVersionFromParameter.cs" t="Include" />
+            <e p="ReplaceVersionWithExactValueInPath.cs" t="Include" />
+          </e>
           <e p="WebRegistrator.cs" t="Include" />
         </e>
         <e p="bin" t="ExcludeRecursive" />

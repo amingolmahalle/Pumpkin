@@ -10,6 +10,7 @@ using Sample.Test.Domain.Service.Queries.GetUserByMobile;
 
 namespace Sample.Test.Controllers
 {
+    [ApiVersion("1")]
     public class UserController : BaseController
     {
         private readonly IGetUserByIdService _getUserByIdService;
@@ -53,7 +54,7 @@ namespace Sample.Test.Controllers
             await _addUserService.ExecuteAsync(request, cancellationToken);
         }
 
-        [HttpPost("EditUser")]
+        [HttpPut("EditUser")]
         public async Task Edit([FromBody] EditUserRequest request, CancellationToken cancellationToken)
         {
             await _editUserService.ExecuteAsync(request, cancellationToken);

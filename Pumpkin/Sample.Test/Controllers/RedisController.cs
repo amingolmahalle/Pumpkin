@@ -6,6 +6,7 @@ using Pumpkin.Web.Controller;
 
 namespace Sample.Test.Controllers
 {
+    [ApiVersion("1")]
     public class RedisController : BaseController
     {
         private readonly ICacheService _cacheService;
@@ -21,13 +22,13 @@ namespace Sample.Test.Controllers
         public async Task<string> SendOtp()
         {
             await _cacheService.SetAsync("otp",
-                "family",
+                "test",
                 "your code is: 1234",
                 DateTime.Now.AddMinutes(5),
                 new CacheOptions(CacheProviderType.Shared));
             
            return await _cacheService.GetAsync<string>("otp",
-                "family",
+                "test",
                 new CacheOptions(CacheProviderType.Shared));
         }
     }

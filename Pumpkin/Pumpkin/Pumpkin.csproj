@@ -16,6 +16,8 @@
       <PackageReference Include="NetTopologySuite.IO.GeoJSON" Version="2.0.2" />
       <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
       <PackageReference Include="StackExchange.Redis" Version="2.1.30" />
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
+      <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.4.1" />
     </ItemGroup>
 
     <ItemGroup>
@@ -26,6 +28,7 @@
       <Folder Include="Core\Serialization" />
       <Folder Include="Core\Transaction" />
       <Folder Include="Data\DataServices\DataProviders" />
+      <Folder Include="Web\Swagger" />
     </ItemGroup>
 
 </Project>
