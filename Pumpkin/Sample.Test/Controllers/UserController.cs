@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Pumpkin.Contract.Logging;
 using Pumpkin.Web.Controller;
 using Sample.Test.Domain.Service.Commands.AddUser;
 using Sample.Test.Domain.Service.Commands.EditUser;
@@ -21,6 +22,8 @@ namespace Sample.Test.Controllers
 
         private readonly IEditUserService _editUserService;
 
+        private static ILog _logger;
+
         public UserController(
             IServiceProvider serviceProvider,
             IGetUserByIdService getUserByIdService,
@@ -32,12 +35,15 @@ namespace Sample.Test.Controllers
             _addUserService = addUserService;
             _editUserService = editUserService;
             _getUserByMobileService = getUserByMobileService;
+            
+            _logger = LogManager.GetLogger(typeof(UserController));
         }
 
         [HttpGet("GetUserById/{Id}")]
         public async Task<GetUserByIdResponse> GetById([FromRoute] GetUserByIdRequest request,
             CancellationToken cancellationToken)
         {
+            _logger.Info("info log in user controller for test log");
             return await _getUserByIdService.ExecuteAsync(request, cancellationToken);
         }
 

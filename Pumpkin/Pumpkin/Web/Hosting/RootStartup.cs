@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Pumpkin.Contract.Logging;
+using Pumpkin.Core.Logging.NLog;
 using Pumpkin.Core.Registration;
 using Pumpkin.Utils;
 using Pumpkin.Web.Filters.Transaction;
@@ -29,8 +31,9 @@ namespace Pumpkin.Web.Hosting
                 throw new ArgumentNullException(nameof(services));
             }
 
-            services.AddHttpContextAccessor();
             services.AddCors();
+
+            services.AddHttpContextAccessor();
 
             services.AddApiVersioning(options =>
             {
@@ -40,21 +43,6 @@ namespace Pumpkin.Web.Hosting
                 options.ApiVersionSelector = new CurrentImplementationApiVersionSelector(options);
                 options.DefaultApiVersion = new ApiVersion(1, 0);
             });
-
-            services.AddControllers(options =>
-                {
-                    options.Filters.Add<TransactionActionFilter>();
-                    options.Filters.Add<ValidatorActionFilter>();
-                }).ConfigureApiBehaviorOptions(options =>
-                {
-                    options.SuppressConsumesConstraintForFormFileParameters = true;
-                    options.SuppressModelStateInvalidFilter = true;
-                }).AddFluentValidation(fv =>
-                {
-                    fv.RegisterValidatorsFromAssemblyContaining<RootStartup>();
-                    fv.ImplicitlyValidateChildProperties = true;
-                })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             services.AddSwaggerGen(options =>
             {
@@ -69,8 +57,26 @@ namespace Pumpkin.Web.Hosting
                 options.OperationFilter<RemoveVersionFromParameter>();
                 options.DocumentFilter<ReplaceVersionWithExactValueInPath>();
             });
+            
+            LoggingConfigurationManager.Configure();
+            LogManager.Use<NLogFactory>();
 
             services.NeedToInstallConfig();
+            
+            services.AddControllers(options =>
+                {
+                    options.Filters.Add<TransactionActionFilter>();
+                    options.Filters.Add<ValidatorActionFilter>();
+                }).ConfigureApiBehaviorOptions(options =>
+                {
+                    options.SuppressConsumesConstraintForFormFileParameters = true;
+                    options.SuppressModelStateInvalidFilter = true;
+                }).AddFluentValidation(fv =>
+                {
+                    fv.RegisterValidatorsFromAssemblyContaining<RootStartup>();
+                    fv.ImplicitlyValidateChildProperties = true;
+                })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
         public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -99,7 +105,7 @@ namespace Pumpkin.Web.Hosting
 
             app.UseRouting();
 
-            //app.UseAuthentication();
+            // app.UseAuthentication();
             // app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

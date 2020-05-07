@@ -33,6 +33,13 @@
             <e p="IBeforeInsertListener.cs" t="Include" />
             <e p="IBeforeUpdateListener.cs" t="Include" />
           </e>
+          <e p="Logging" t="Include">
+            <e p="EmptyLogger.cs" t="Include" />
+            <e p="ILog.cs" t="Include" />
+            <e p="ILoggerFactory.cs" t="Include" />
+            <e p="LogManager.cs" t="Include" />
+            <e p="LoggingFactoryDefinition.cs" t="Include" />
+          </e>
           <e p="Registration" t="Include">
             <e p="INeedToInstall.cs" t="Include" />
           </e>
@@ -68,6 +75,14 @@
             </e>
           </e>
           <e p="CoreRegistrator.cs" t="Include" />
+          <e p="Logging" t="Include">
+            <e p="NLog" t="Include">
+              <e p="Logger.cs" t="Include" />
+              <e p="LoggerFactory.cs" t="Include" />
+              <e p="LoggingConfigurationManager.cs" t="Include" />
+              <e p="NLogFactory.cs" t="Include" />
+            </e>
+          </e>
           <e p="Registration" t="Include">
             <e p="DynamicallyInstaller.cs" t="Include" />
             <e p="ServiceCollection.cs" t="Include" />
@@ -117,6 +132,9 @@
             <e p="String.cs" t="Include" />
             <e p="StringBuilder.cs" t="Include" />
             <e p="Type.cs" t="Include" />
+          </e>
+          <e p="Helpers" t="Include">
+            <e p="Guard.cs" t="Include" />
           </e>
         </e>
         <e p="Web" t="Include">
