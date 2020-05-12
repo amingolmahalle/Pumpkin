@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Pumpkin.Contract.Caching;
-using Pumpkin.Core.Caching.Providers.Shared.Redis;
 using Pumpkin.Utils.Extensions;
 
 namespace Pumpkin.Core.Caching

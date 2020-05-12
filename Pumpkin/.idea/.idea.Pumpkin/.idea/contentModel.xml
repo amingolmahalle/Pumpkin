@@ -183,10 +183,6 @@
       </e>
       <e p="Pumpkin.sln" t="IncludeFlat" />
       <e p="Sample.Test" t="IncludeRecursive">
-        <e p="Controllers" t="Include">
-          <e p="RedisController.cs" t="Include" />
-          <e p="UserController.cs" t="Include" />
-        </e>
         <e p="Data" t="Include">
           <e p="ApplicationDbContext.cs" t="Include" />
           <e p="DataRegistrator.cs" t="Include" />
@@ -274,6 +270,12 @@
           <e p="ServiceRegistrator.cs" t="Include" />
         </e>
         <e p="Startup.cs" t="Include" />
+        <e p="Web" t="Include">
+          <e p="Controllers" t="Include">
+            <e p="RedisController.cs" t="Include" />
+            <e p="UserController.cs" t="Include" />
+          </e>
+        </e>
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />

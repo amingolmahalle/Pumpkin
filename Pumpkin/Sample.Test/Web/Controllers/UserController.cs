@@ -9,7 +9,7 @@ using Sample.Test.Domain.Service.Commands.EditUser;
 using Sample.Test.Domain.Service.Queries.GetUserById;
 using Sample.Test.Domain.Service.Queries.GetUserByMobile;
 
-namespace Sample.Test.Controllers
+namespace Sample.Test.Web.Controllers
 {
     [ApiVersion("1")]
     public class UserController : BaseController

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Pumpkin.Contract.Caching;
 using Pumpkin.Web.Controller;
 
-namespace Sample.Test.Controllers
+namespace Sample.Test.Web.Controllers
 {
     [ApiVersion("1")]
     public class RedisController : BaseController

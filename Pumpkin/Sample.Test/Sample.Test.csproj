@@ -13,4 +13,8 @@
       <ProjectReference Include="..\Pumpkin\Pumpkin.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Web" />
+    </ItemGroup>
+
 </Project>
