@@ -58,7 +58,7 @@ namespace Pumpkin.Web.Hosting
                 options.DocumentFilter<ReplaceVersionWithExactValueInPath>();
             });
             
-            LoggingConfigurationManager.Configure();
+            NLogConfigurationManager.Configure();
             LogManager.Use<NLogFactory>();
 
             services.NeedToInstallConfig();

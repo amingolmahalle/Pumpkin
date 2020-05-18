@@ -1,7 +1,6 @@
 ﻿using System;
 using NLog;
 using Pumpkin.Contract.Logging;
-#pragma warning disable 618
 
 namespace Pumpkin.Core.Logging.NLog
 {

@@ -9,7 +9,7 @@ using Pumpkin.Web.Configs;
 
 namespace Pumpkin.Core.Logging.NLog
 {
-    public static class LoggingConfigurationManager
+    public static class NLogConfigurationManager
     {
         public static void Configure()
         {
@@ -90,7 +90,7 @@ namespace Pumpkin.Core.Logging.NLog
             });
             
             loggingConfiguration.AddTarget(target);
-            loggingConfiguration.AddRule(LogLevel.Error, LogLevel.Fatal, target, $"{nameof(Pumpkin)}.*");
+           loggingConfiguration.AddRule(LogLevel.Error, LogLevel.Fatal, target, $"{nameof(Pumpkin)}.*");
         }
 
         public static void AddColoredConsole(LoggingConfiguration loggingConfiguration)
@@ -123,13 +123,13 @@ namespace Pumpkin.Core.Logging.NLog
                 LogLevel.Warn,
                 LogLevel.Fatal,
                 target);
-
+            
             loggingConfiguration.AddRule(
                 LogLevel.Warn,
                 LogLevel.Fatal,
                 target,
                 "Microsoft.EntityFrameworkCore.*");
-
+            
             loggingConfiguration.AddRule(
                 LogLevel.Trace,
                 LogLevel.Fatal,

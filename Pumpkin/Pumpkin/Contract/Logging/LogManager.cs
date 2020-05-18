@@ -5,6 +5,8 @@ namespace Pumpkin.Contract.Logging
 {
     public static class LogManager
     {
+        private static Lazy<ILoggerFactory> _loggerFactory;
+
         public static T Use<T>() where T : LoggingFactoryDefinition, new()
         {
             var loggingDefinition = new T();
@@ -26,35 +28,16 @@ namespace Pumpkin.Contract.Logging
             return GetLogger(typeof(T));
         }
 
-        public static ILog GetLogger(Type type)
+        private static ILog GetLogger(Type type)
         {
             try
             {
-                Guard.AgainstNull(nameof(type), type);
-                
-                return _loggerFactory.Value.GetLogger(nameof(type),type);
+                return _loggerFactory.Value.GetLogger(type.FullName);
             }
             catch (Exception)
             {
                 return new EmptyLogger();
             }
         }
-
-        public static ILog GetLogger(string name)
-        {
-            try
-            {
-                Guard.AgainstNullAndEmpty(nameof(name), name);
-                
-                return _loggerFactory.Value.GetLogger(name);
-            }
-            catch (Exception)
-            {
-
-                return new EmptyLogger();
-            }
-        }
-
-        private static Lazy<ILoggerFactory> _loggerFactory;
     }
 }

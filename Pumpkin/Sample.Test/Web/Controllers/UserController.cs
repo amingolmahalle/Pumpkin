@@ -36,7 +36,7 @@ namespace Sample.Test.Web.Controllers
             _editUserService = editUserService;
             _getUserByMobileService = getUserByMobileService;
             
-            _logger = LogManager.GetLogger(typeof(UserController));
+            _logger = LogManager.GetLogger<UserController>();
         }
 
         [HttpGet("GetUserById/{Id}")]
