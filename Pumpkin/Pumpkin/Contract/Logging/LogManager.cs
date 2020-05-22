@@ -1,5 +1,4 @@
 ﻿using System;
-using Pumpkin.Utils.Helpers;
 
 namespace Pumpkin.Contract.Logging
 {
@@ -16,23 +15,23 @@ namespace Pumpkin.Contract.Logging
             return loggingDefinition;
         }
 
-        public static void UseFactory(ILoggerFactory loggerFactory)
-        {
-            Guard.AgainstNull(nameof(loggerFactory), loggerFactory);
-
-            _loggerFactory = new Lazy<ILoggerFactory>(() => loggerFactory);
-        }
-
         public static ILog GetLogger<T>()
-        {
-            return GetLogger(typeof(T));
-        }
-
-        private static ILog GetLogger(Type type)
         {
             try
             {
-                return _loggerFactory.Value.GetLogger(type.FullName);
+                return _loggerFactory.Value.GetLogger(typeof(T).FullName);
+            }
+            catch (Exception)
+            {
+                return new EmptyLogger();
+            }
+        }
+
+        public static ILog GetLogger(string name)
+        {
+            try
+            {
+                return _loggerFactory.Value.GetLogger(name);
             }
             catch (Exception)
             {

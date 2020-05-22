@@ -8,6 +8,7 @@ using Dapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.SqlServer.Types;
 using Pumpkin.Contract.DataServices;
+using Pumpkin.Contract.Logging;
 using Pumpkin.Utils.Extensions;
 using Pumpkin.Web.Configs;
 
@@ -15,7 +16,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
 {
     public class SqlDataProvider : IDisposable
     {
-        // private static ILog _logger;
+        private static ILog _logger;
 
         private readonly string _connectionString;
 
@@ -23,8 +24,8 @@ namespace Pumpkin.Data.DataServices.DataProviders
         {
             _connectionString = ConfigManager.GetConnectionString("SqlServer");
 
-            //   if (_logger == null)
-            //     _logger = LogManager.GetLogger(typeof(SqlDataProvider));
+            if (_logger == null)
+              _logger = LogManager.GetLogger<SqlDataProvider>();
         }
 
         public List<T> ExecuteQueryCommand<T>(string command, Dictionary<string, object> parameters = null)
@@ -41,8 +42,9 @@ namespace Pumpkin.Data.DataServices.DataProviders
             }
             catch (Exception ex)
             {
-                // _logger.Fatal(ex.Message, ex);
-                throw ex;
+                _logger.Fatal(ex.Message, ex);
+                
+                throw ;
             }
             finally
             {
@@ -52,7 +54,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
                 }
                 catch (Exception innerEx)
                 {
-                    //  _logger.Fatal(innerEx.Message, innerEx);
+                    _logger.Fatal(innerEx.Message, innerEx);
                 }
             }
         }
@@ -72,8 +74,8 @@ namespace Pumpkin.Data.DataServices.DataProviders
             }
             catch (Exception ex)
             {
-                //  _logger.Fatal(ex.Message, ex);
-                throw ex;
+                _logger.Fatal(ex.Message, ex);
+                throw;
             }
             finally
             {
@@ -83,7 +85,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
                 }
                 catch (Exception innerEx)
                 {
-                    // _logger.Fatal(innerEx.Message, innerEx);
+                    _logger.Fatal(innerEx.Message, innerEx);
                 }
             }
         }
@@ -97,13 +99,15 @@ namespace Pumpkin.Data.DataServices.DataProviders
                 using (con = new SqlConnection(_connectionString))
                 {
                     var res = con.QueryFirstOrDefault<T>(new CommandDefinition(command, parameters));
+                    
                     return res;
                 }
             }
             catch (Exception ex)
             {
-                //  _logger.Fatal(ex.Message, ex);
-                throw ex;
+                _logger.Fatal(ex.Message, ex);
+                
+                throw;
             }
             finally
             {
@@ -113,7 +117,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
                 }
                 catch (Exception innerEx)
                 {
-                    // _logger.Fatal(innerEx.Message, innerEx);
+                    _logger.Fatal(innerEx.Message, innerEx);
                 }
             }
         }
@@ -138,8 +142,9 @@ namespace Pumpkin.Data.DataServices.DataProviders
             }
             catch (Exception ex)
             {
-                // _logger.Fatal(ex.Message, ex);
-                throw ex;
+                _logger.Fatal(ex.Message, ex);
+                
+                throw;
             }
             finally
             {
@@ -149,7 +154,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
                 }
                 catch (Exception innerEx)
                 {
-                    //  _logger.Fatal(innerEx.Message, innerEx);
+                    _logger.Fatal(innerEx.Message, innerEx);
                 }
             }
         }
@@ -175,8 +180,11 @@ namespace Pumpkin.Data.DataServices.DataProviders
                         DataTable dt = new DataTable();
 
                         int count = 0;
+                        
                         con.Open();
+                        
                         var reader = cmd.ExecuteReader();
+                        
                         if (reader.HasRows)
                         {
                             dt.Load(reader);
@@ -189,6 +197,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
                         }
 
                         List<Dictionary<string, object>> lst = new List<Dictionary<string, object>>();
+                        
                         foreach (DataRow dataRow in dt.Rows)
                         {
                             lst.Add(dataRow.Table.Columns
@@ -216,8 +225,9 @@ namespace Pumpkin.Data.DataServices.DataProviders
             }
             catch (Exception ex)
             {
-                // _logger.Fatal(ex.Message, ex);
-                throw ex;
+                _logger.Fatal(ex.Message, ex);
+                
+                throw;
             }
             finally
             {
@@ -225,9 +235,9 @@ namespace Pumpkin.Data.DataServices.DataProviders
                 {
                     Close(con, cmd);
                 }
-                catch (Exception ex)
+                catch (Exception innerEx)
                 {
-                    // _logger.Fatal(innerEx.Message, ex);
+                    _logger.Fatal(innerEx.Message, innerEx);
                 }
             }
         }
@@ -274,8 +284,9 @@ namespace Pumpkin.Data.DataServices.DataProviders
             }
             catch (Exception ex)
             {
-                //  _logger.Fatal(ex.Message, ex);
-                throw ex;
+                _logger.Fatal(ex.Message, ex);
+                
+                throw;
             }
             finally
             {
@@ -285,7 +296,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
                 }
                 catch (Exception innerEx)
                 {
-                    //  _logger.Fatal(innerEx.Message, innerEx);
+                    _logger.Fatal(innerEx.Message, innerEx);
                 }
             }
         }
@@ -316,8 +327,9 @@ namespace Pumpkin.Data.DataServices.DataProviders
             }
             catch (Exception ex)
             {
-                //  _logger.Fatal(ex.Message, ex);
-                throw ex;
+                _logger.Fatal(ex.Message, ex);
+                
+                throw;
             }
             finally
             {
@@ -344,15 +356,18 @@ namespace Pumpkin.Data.DataServices.DataProviders
                         }
 
                         con.Open();
+                        
                         var res = await cmd.ExecuteNonQueryAsync();
+                        
                         return res;
                     }
                 }
             }
             catch (Exception ex)
             {
-                // _logger.Fatal(ex.Message, ex);
-                throw ex;
+                _logger.Fatal(ex.Message, ex);
+                
+                throw;
             }
             finally
             {
@@ -386,8 +401,9 @@ namespace Pumpkin.Data.DataServices.DataProviders
             }
             catch (Exception ex)
             {
-                //  _logger.Fatal(ex.Message, ex);
-                throw ex;
+                _logger.Fatal(ex.Message, ex);
+                
+                throw;
             }
             finally
             {
@@ -422,8 +438,8 @@ namespace Pumpkin.Data.DataServices.DataProviders
             }
             catch (Exception ex)
             {
-                // _logger.Fatal(ex.Message, ex);
-                throw ex;
+                _logger.Fatal(ex.Message, ex);
+                throw;
             }
             finally
             {

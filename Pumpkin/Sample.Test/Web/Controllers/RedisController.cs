@@ -2,6 +2,8 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Pumpkin.Contract.Caching;
+using Pumpkin.Contract.Logging;
+using Pumpkin.Utils.Helpers;
 using Pumpkin.Web.Controller;
 
 namespace Sample.Test.Web.Controllers
@@ -11,25 +13,27 @@ namespace Sample.Test.Web.Controllers
     {
         private readonly ICacheService _cacheService;
 
+        private readonly ILog _logger;
+
         public RedisController(
             IServiceProvider serviceProvider,
             ICacheService cacheService) : base(serviceProvider)
         {
             _cacheService = cacheService;
+            _logger = LogManager.GetLogger<UserController>();
         }
 
-        [HttpGet("SendOtp")]
-        public async Task<string> SendOtp()
+        [HttpGet("SendOtp/{mobileNumber}")]
+        public async Task SendOtp([FromRoute] string mobileNumber)
         {
-            await _cacheService.SetAsync("otp",
+            var code = Helpers.RandomRange(1111, 9999, 4);
+            await _cacheService.SetAsync($"otp::${mobileNumber}",
                 "test",
-                "your code is: 1234",
+                code,
                 DateTime.Now.AddMinutes(5),
                 new CacheOptions(CacheProviderType.Shared));
-            
-           return await _cacheService.GetAsync<string>("otp",
-                "test",
-                new CacheOptions(CacheProviderType.Shared));
+
+            _logger.Info($"send otp successfully:{code}");
         }
     }
 }

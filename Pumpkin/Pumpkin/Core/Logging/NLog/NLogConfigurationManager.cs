@@ -88,9 +88,17 @@ namespace Pumpkin.Core.Logging.NLog
             {
                 Name = "Message", Layout = new SimpleLayout("${message}")
             });
-            
+
             loggingConfiguration.AddTarget(target);
-           loggingConfiguration.AddRule(LogLevel.Error, LogLevel.Fatal, target, $"{nameof(Pumpkin)}.*");
+            var rules = new LoggingRule("*", target);
+            
+            rules.EnableLoggingForLevel(LogLevel.Info);
+            rules.EnableLoggingForLevel(LogLevel.Error);
+            rules.EnableLoggingForLevel(LogLevel.Warn);
+            rules.EnableLoggingForLevel(LogLevel.Debug);
+            rules.EnableLoggingForLevel(LogLevel.Fatal);
+            
+            loggingConfiguration.LoggingRules.Add(rules);
         }
 
         public static void AddColoredConsole(LoggingConfiguration loggingConfiguration)
@@ -123,13 +131,13 @@ namespace Pumpkin.Core.Logging.NLog
                 LogLevel.Warn,
                 LogLevel.Fatal,
                 target);
-            
+
             loggingConfiguration.AddRule(
                 LogLevel.Warn,
                 LogLevel.Fatal,
                 target,
                 "Microsoft.EntityFrameworkCore.*");
-            
+
             loggingConfiguration.AddRule(
                 LogLevel.Trace,
                 LogLevel.Fatal,

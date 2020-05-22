@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using Pumpkin.Contract.Logging;
 using Pumpkin.Contract.Security;
 using Pumpkin.Core.ResponseWrapper;
 using Pumpkin.Utils;
@@ -24,6 +25,7 @@ namespace Pumpkin.Web.RequestWrapper
             _next = next;
         }
 
+        private readonly ILog _logger = LogManager.GetLogger("RequestInterceptor");
         public async Task InvokeAsync(HttpContext context, ICurrentRequest currentRequest)
         {
             if (IsSwagger(context))
@@ -64,8 +66,6 @@ namespace Pumpkin.Web.RequestWrapper
                             }
                             default:
                             {
-                                // var body = await FormatResponse(context.Response);
-                                
                                 await HandleNotSuccessRequestAsync(context, null, context.Response.StatusCode);
                                 break;
                             }
@@ -73,17 +73,21 @@ namespace Pumpkin.Web.RequestWrapper
                     }
                     catch (ApiException ex)
                     {
+                        _logger.Error(ex.Message, ex);
+                        
                         await HandleValidationErrorAsync(context, ex);
                     }
                     catch (Exception ex)
                     {
+                        _logger.Error(ex.Message, ex);
+                        
                         await HandleExceptionAsync(context, ex);
                     }
 
                     finally
                     {
-                        // TODO: Add log
                         responseBody.Seek(0, SeekOrigin.Begin);
+                        
                         await responseBody.CopyToAsync(originalBodyStream);
                     }
                 }

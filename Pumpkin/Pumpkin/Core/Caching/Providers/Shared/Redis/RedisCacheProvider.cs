@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Pumpkin.Contract.Caching;
+using Pumpkin.Contract.Logging;
 using Pumpkin.Contract.Serialization;
 using Pumpkin.Utils.Extensions;
 using StackExchange.Redis;
@@ -17,15 +18,16 @@ namespace Pumpkin.Core.Caching.Providers.Shared.Redis
 
         private readonly ISerializer _serializer;
 
-        //  private static ILog _logger;
+        private static ILog _logger;
 
         public CacheProviderType ProviderType => CacheProviderType.Shared;
 
         public RedisCacheProvider(RedisConnectionFactory connectionFactory, ISerializer serializer)
         {
             _connectionFactory = connectionFactory;
-            //   _logger = LogManager.GetLogger(typeof(RedisCacheProvider));
             _serializer = serializer;
+            _logger = LogManager.GetLogger<RedisCacheProvider>();
+
         }
 
         public T Get<T>(string key, string group)
@@ -157,9 +159,9 @@ namespace Pumpkin.Core.Caching.Providers.Shared.Redis
             }
             catch (Exception ex)
             {
-                //   _logger.Fatal(ex.Message, ex);
+                _logger.Fatal(ex.Message, ex);
 
-                throw ex;
+                throw;
             }
         }
 
@@ -171,9 +173,9 @@ namespace Pumpkin.Core.Caching.Providers.Shared.Redis
             }
             catch (Exception ex)
             {
-                //    _logger.Fatal(ex.Message, ex);
+                _logger.Fatal(ex.Message, ex);
 
-                throw ex;
+                throw;
             }
         }
 
@@ -182,13 +184,14 @@ namespace Pumpkin.Core.Caching.Providers.Shared.Redis
             try
             {
                 var keyList = _connectionFactory.GetMaster().Server.Keys(pattern: $"{group}:*");
+                
                 var keyDeleteAsync = _connectionFactory.GetMaster().Database.KeyDelete(keyList.ToArray());
             }
             catch (Exception ex)
             {
-                //   _logger.Fatal(ex.Message, ex);
+                _logger.Fatal(ex.Message, ex);
 
-                throw ex;
+                throw;
             }
         }
 
@@ -203,9 +206,9 @@ namespace Pumpkin.Core.Caching.Providers.Shared.Redis
             }
             catch (Exception ex)
             {
-                //   _logger.Fatal(ex.Message, ex);
+                _logger.Fatal(ex.Message, ex);
 
-                throw ex;
+                throw;
             }
         }
 
@@ -218,9 +221,9 @@ namespace Pumpkin.Core.Caching.Providers.Shared.Redis
             }
             catch (Exception ex)
             {
-                //      _logger.Error(ex.Message, ex);
+                _logger.Error(ex.Message, ex);
 
-                throw ex;
+                throw;
             }
         }
 
@@ -233,9 +236,9 @@ namespace Pumpkin.Core.Caching.Providers.Shared.Redis
             }
             catch (Exception ex)
             {
-                //    _logger.Error(ex.Message, ex);
+                _logger.Error(ex.Message, ex);
 
-                throw ex;
+                throw;
             }
         }
 

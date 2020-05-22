@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Pumpkin.Utils.Helpers
 {
-    public static class Guard
+    public static partial class Helpers
     {
         public static void AgainstNull(string argumentName, object value)
         {
