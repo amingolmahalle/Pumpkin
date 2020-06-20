@@ -1,6 +1,8 @@
 # Pumpkin
 <h4>Create Core Service using Asp.net Core 3.1</h4>
 
+This project includes the capabilities of a Caching(redis and Inmemory Cache), logging with Elasticsearch and Kibana and Dapper Data Provider and etc...
+
 How to Install <b>Redis</b> by Docker:
 
   <code> sudo docker run --rm --name redis -p 6379:6379 redis </code>
