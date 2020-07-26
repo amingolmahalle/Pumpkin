@@ -12,7 +12,7 @@ namespace Sample.Test
         {
             base.ConfigureServices(services);
 
-            services.AddDbContextEx<ApplicationDbContext>(ConfigManager.GetConnectionString("SqlServer"));
+            services.AddDatabaseContext<ApplicationDbContext>(ConfigManager.GetConnectionString("SqlServer"));
         }
     }
 }

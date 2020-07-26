@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Pumpkin.Contract.Domain
 {
@@ -12,24 +12,15 @@ namespace Pumpkin.Contract.Domain
         IEntity<TKey>,
         IAggregateRoot
     {
-        Task<TEntity> GetByIdAsync(TKey id, CancellationToken cancellationToken);
-
-        void Add(TEntity entity);
-
-        void AddRange(IEnumerable<TEntity> entities);
-
-        Task<TEntity> AddOrUpdate(TEntity entity, Expression<Func<TEntity, bool>> predicate);
-
-        void DeleteRange(IEnumerable<TEntity> entities);
-
-        void Delete(TEntity entity);
-
-        void Update(TEntity entity);
-
-        Task<long> CountAsync(Expression<Func<TEntity, bool>> predicate = null);
-
-        int Save();
-
-        Task<int> SaveAsync(CancellationToken cancellationToken);
+        DbSet<TEntity> Entities { get; }
+        IQueryable<TEntity> Table { get; }
+        IQueryable<TEntity> TableNoTracking { get; }
+        Task AddAsync(TEntity entity, CancellationToken cancellationToken, bool saveNow = true);
+        Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken, bool saveNow = true);
+        Task DeleteAsync(TEntity entity, CancellationToken cancellationToken, bool saveNow = true);
+        Task DeleteRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken, bool saveNow = true);
+        ValueTask<TEntity> GetByIdAsync(CancellationToken cancellationToken, params object[] ids);
+        Task UpdateAsync(TEntity entity, CancellationToken cancellationToken, bool saveNow = true);
+        Task UpdateRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken, bool saveNow = true);
     }
 }

@@ -1,5 +1,5 @@
 using FluentValidation;
-using Pumpkin.Utils;
+using Pumpkin.Common;
 using Sample.Test.Domain.Service.Commands.AddUser;
 using Sample.Test.Helper;
 

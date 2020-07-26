@@ -18,9 +18,7 @@ namespace Sample.Test.Service.Commands.AddUser
         {
             var user = AddUserFactory.MapEntity(request);
 
-            _userRepository.AddUser(user);
-            
-            await _userRepository.SaveAsync(cancellationToken);
+            await _userRepository.AddUserAsync(user, cancellationToken);
         }
     }
 }

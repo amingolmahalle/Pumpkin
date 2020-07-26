@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Pumpkin.Contract.Caching;
 using Pumpkin.Contract.Logging;
-using Pumpkin.Utils.Helpers;
 using Pumpkin.Web.Controller;
+using Helpers = Pumpkin.Common.Helpers.Helpers;
 
 namespace Sample.Test.Web.Controllers
 {

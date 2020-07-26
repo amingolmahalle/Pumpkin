@@ -20,9 +20,7 @@ namespace Sample.Test.Service.Commands.EditUser
 
             EditUserFactory.MapEntity(ref user, request);
 
-            _userRepository.EditUser(user);
-
-            await _userRepository.SaveAsync(cancellationToken);
+            await _userRepository.EditUserAsync(user, cancellationToken);
         }
     }
 }

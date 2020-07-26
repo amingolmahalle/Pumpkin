@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.DependencyInjection;
+using Pumpkin.Common.Extensions;
 using Pumpkin.Contract.Domain;
 using Pumpkin.Contract.Listeners;
-using Pumpkin.Core.Registration;
-using Pumpkin.Utils.Extensions;
 
 namespace Pumpkin.Data
 {
@@ -27,8 +26,10 @@ namespace Pumpkin.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.NeedToRegisterEntitiesConfig();
+            modelBuilder.NeedToRegisterEntitiesConfig<IEntity>();
             modelBuilder.NeedToRegisterMappingConfig();
+            modelBuilder.AddSequentialGuidForIdConvention();
+            modelBuilder.AddPluralizingTableNameConvention();
 
             base.OnModelCreating(modelBuilder);
         }

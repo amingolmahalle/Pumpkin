@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Pumpkin.Utils.Extensions
+namespace Pumpkin.Common.Extensions
 {
     public static partial class Extensions
     {

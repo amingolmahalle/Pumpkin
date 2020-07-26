@@ -5,11 +5,11 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using Pumpkin.Common;
+using Pumpkin.Common.Extensions;
 using Pumpkin.Contract.Logging;
 using Pumpkin.Contract.Security;
 using Pumpkin.Core.ResponseWrapper;
-using Pumpkin.Utils;
-using Pumpkin.Utils.Extensions;
 using Pumpkin.Web.Filters.Validator.Dto;
 
 namespace Pumpkin.Web.RequestWrapper

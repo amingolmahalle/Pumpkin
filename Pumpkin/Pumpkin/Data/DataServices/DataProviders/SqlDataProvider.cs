@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.SqlServer.Types;
+using Pumpkin.Common.Extensions;
 using Pumpkin.Contract.DataServices;
 using Pumpkin.Contract.Logging;
-using Pumpkin.Utils.Extensions;
 using Pumpkin.Web.Configs;
 
 namespace Pumpkin.Data.DataServices.DataProviders

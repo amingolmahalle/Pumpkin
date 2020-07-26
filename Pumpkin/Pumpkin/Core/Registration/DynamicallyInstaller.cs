@@ -1,24 +1,21 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Pumpkin.Contract.Caching;
-using Pumpkin.Contract.Domain;
 using Pumpkin.Contract.Registration;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Pumpkin.Contract.Transaction;
+using Pumpkin.Core.Transaction;
+using Pumpkin.Data;
 
 namespace Pumpkin.Core.Registration
 {
     public static class DynamicallyInstaller
     {
-        private static IEnumerable<Type> AllTypes
-        {
-            get { return AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes()); }
-        }
-
         public static void NeedToInstallConfig(this IServiceCollection services)
         {
-            var typesToRegister = AllTypes
+            var typesToRegister = Common.AssemblyScanner.AllTypes
                 .Where(it => !(it.IsAbstract || it.IsInterface)
                              && typeof(INeedToInstall).IsAssignableFrom(it));
 
@@ -30,43 +27,9 @@ namespace Pumpkin.Core.Registration
             }
         }
 
-        public static void NeedToRegisterMappingConfig(this ModelBuilder modelBuilder)
-        {
-            var typesToRegister = AllTypes
-                .Where(it =>
-                    !(it.IsAbstract || it.IsInterface) &&
-                    it.GetInterfaces().Any(x =>
-                        x.IsGenericType &&
-                        x.GetGenericTypeDefinition() == typeof(IEntityTypeConfiguration<>)))
-                .ToList();
-
-            foreach (var item in typesToRegister)
-            {
-                dynamic service = Activator.CreateInstance(item);
-
-                modelBuilder.ApplyConfiguration(service);
-            }
-        }
-
-        public static void NeedToRegisterEntitiesConfig(this ModelBuilder modelBuilder)
-        {
-            var typesToRegister = AllTypes
-                .Where(it =>
-                    !(it.IsAbstract || it.IsInterface) &&
-                    it.GetInterfaces().Any(x =>
-                        x.IsGenericType &&
-                        x.GetGenericTypeDefinition() == typeof(IEntity)))
-                .ToList();
-
-            foreach (var item in typesToRegister)
-            {
-                modelBuilder.Entity(item);
-            }
-        }
-        
         public static void NeedToRegisterCacheProviderConfig(this IServiceCollection services)
         {
-            var typesToRegister = AllTypes
+            var typesToRegister = Common.AssemblyScanner.AllTypes
                 .Where(it => typeof(ICacheProvider).IsAssignableFrom(it) && !it.IsInterface && !it.IsAbstract)
                 .ToList();
 
@@ -74,6 +37,21 @@ namespace Pumpkin.Core.Registration
             {
                 services.AddScoped(typeof(ICacheProvider), item);
             }
+        }
+        
+        public static void AddDatabaseContext<TDbContext>(
+            this IServiceCollection services,
+            string connectionString,
+            Action<SqlServerDbContextOptionsBuilder> sqlServerOptionsAction = null)
+            where TDbContext : DatabaseContext
+        {
+            services.AddDbContext<TDbContext>(optionsBuilder =>
+            {
+                optionsBuilder.UseSqlServer(connectionString, sqlServerOptionsAction)
+                    .EnableDetailedErrors();
+            });
+
+            services.AddScoped<ITransactionService, TransactionService<TDbContext>>();
         }
     }
 }

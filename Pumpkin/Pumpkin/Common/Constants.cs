@@ -1,5 +1,5 @@
 
-namespace Pumpkin.Utils
+namespace Pumpkin.Common
 {
     public static class Constants
     {

@@ -1,12 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using System.Linq.Expressions;
 using System.Threading;
+using Pumpkin.Common.Helpers;
 using Pumpkin.Contract.Domain;
-using Pumpkin.Utils.Extensions;
 
 namespace Pumpkin.Data.Repositories
 {
@@ -18,103 +16,69 @@ namespace Pumpkin.Data.Repositories
     {
         private readonly DatabaseContext _session;
 
+        public DbSet<TEntity> Entities { get; }
+
         public Repository(DatabaseContext context)
         {
             _session = context;
+            Entities = _session.Set<TEntity>(); // City => Cities
         }
 
-        private DbSet<TEntity> Set()
+        public virtual IQueryable<TEntity> Table => Entities;
+
+        public virtual IQueryable<TEntity> TableNoTracking => Entities.AsNoTracking();
+
+        public virtual ValueTask<TEntity> GetByIdAsync(CancellationToken cancellationToken, params object[] ids)
         {
-            return _session.Set<TEntity>();
+            return Entities.FindAsync(ids, cancellationToken);
         }
 
-        public virtual IQueryable<TEntity> Query()
+        public virtual async Task AddAsync(TEntity entity, CancellationToken cancellationToken, bool saveNow = true)
         {
-            return Set();
+            Helpers.NotNull(entity, nameof(entity));
+            await Entities.AddAsync(entity, cancellationToken).ConfigureAwait(false);
+            if (saveNow)
+                await _session.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        public IQueryable<TU> QueryOn<TU>() where TU : class
+        public virtual async Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken, bool saveNow = true)
         {
-            return _session.Set<TU>();
+            Helpers.NotNull(entities, nameof(entities));
+            await Entities.AddRangeAsync(entities, cancellationToken).ConfigureAwait(false);
+            if (saveNow)
+                await _session.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        public virtual async Task<TEntity> GetByIdAsync(TKey id, CancellationToken cancellationToken)
+        public virtual async Task UpdateAsync(TEntity entity, CancellationToken cancellationToken, bool saveNow = true)
         {
-            return await QueryOn<TEntity>()
-                .SingleOrDefaultAsync(id.IdentityEquality<TEntity, TKey>(), cancellationToken);
+            Helpers.NotNull(entity, nameof(entity));
+            Entities.Update(entity);
+            if (saveNow)
+                await _session.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        public virtual void Add(TEntity entity)
+        public virtual async Task UpdateRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken, bool saveNow = true)
         {
-            Set().Add(entity);
-
-            _session.Entry(entity).State = EntityState.Added;
+            Helpers.NotNull(entities, nameof(entities));
+            Entities.UpdateRange(entities);
+            if (saveNow)
+                await _session.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        public virtual void AddRange(IEnumerable<TEntity> entities)
+        public virtual async Task DeleteAsync(TEntity entity, CancellationToken cancellationToken, bool saveNow = true)
         {
-            Set().AddRange(entities);
+            Helpers.NotNull(entity, nameof(entity));
+            Entities.Remove(entity);
+            if (saveNow)
+                await _session.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        public virtual async Task<TEntity> AddOrUpdate(TEntity entity, Expression<Func<TEntity, bool>> predicate)
+        public virtual async Task DeleteRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken, bool saveNow = true)
         {
-            var existEntity = await Set().Where(predicate).FirstOrDefaultAsync();
-
-            if (existEntity != null)
-            {
-                Set().Update(existEntity);
-            }
-
-            else
-            {
-                Set().Add(entity);
-            }
-
-            return entity;
-        }
-
-        public virtual void DeleteRange(IEnumerable<TEntity> entities)
-        {
-            Set().RemoveRange(entities);
-        }
-
-        public virtual void Delete(TEntity entity)
-        {
-            Set().Remove(entity);
-
-            _session.Entry(entity).State = EntityState.Deleted;
-        }
-
-        public virtual void Update(TEntity entity)
-        {
-            _session.Entry(entity).State = EntityState.Modified;
-        }
-
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
-        {
-            return await _session.Set<TEntity>()
-                .AsNoTracking()
-                .ToListAsync();
-        }
-
-        public async Task<long> CountAsync(Expression<Func<TEntity, bool>> predicate = null)
-        {
-            if (predicate != null)
-                return await _session.Set<TEntity>()
-                    .CountAsync(predicate);
-
-            return await _session.Set<TEntity>()
-                .CountAsync();
-        }
-
-        public int Save()
-        {
-            return _session.SaveChanges();
-        }
-
-        public async Task<int> SaveAsync(CancellationToken cancellationToken)
-        {
-            return await _session.SaveChangesAsync(cancellationToken);
+            Helpers.NotNull(entities, nameof(entities));
+            Entities.RemoveRange(entities);
+            if (saveNow)
+                await _session.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
     }
 }

@@ -5,6 +5,25 @@
     <e p="$USER_HOME$/.Rider2019.3/system/resharper-host/local/Transient/ReSharperHost/v193/SolutionCaches/_Pumpkin.781919638.00" t="ExcludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="Pumpkin" t="IncludeRecursive">
+        <e p="Common" t="Include">
+          <e p="AssemblyScanner.cs" t="Include" />
+          <e p="Constants.cs" t="Include" />
+          <e p="Extensions" t="Include">
+            <e p="Enum.cs" t="Include" />
+            <e p="Enumurable.cs" t="Include" />
+            <e p="Linq.cs" t="Include" />
+            <e p="ModelBuilder.cs" t="Include" />
+            <e p="SqlCommand.cs" t="Include" />
+            <e p="String.cs" t="Include" />
+            <e p="StringBuilder.cs" t="Include" />
+            <e p="Type.cs" t="Include" />
+          </e>
+          <e p="Helpers" t="Include">
+            <e p="Assert.cs" t="Include" />
+            <e p="Random.cs" t="Include" />
+            <e p="Security.cs" t="Include" />
+          </e>
+        </e>
         <e p="Contract" t="Include">
           <e p="Caching" t="Include">
             <e p="CacheGroup.cs" t="Include" />
@@ -85,7 +104,6 @@
           </e>
           <e p="Registration" t="Include">
             <e p="DynamicallyInstaller.cs" t="Include" />
-            <e p="ServiceCollection.cs" t="Include" />
           </e>
           <e p="ResponseWrapper" t="Include">
             <e p="APIResponse.cs" t="Include" />
@@ -122,22 +140,6 @@
           </e>
         </e>
         <e p="Pumpkin.csproj" t="IncludeRecursive" />
-        <e p="Utils" t="Include">
-          <e p="Constants.cs" t="Include" />
-          <e p="Extensions" t="Include">
-            <e p="Enum.cs" t="Include" />
-            <e p="Enumurable.cs" t="Include" />
-            <e p="Linq.cs" t="Include" />
-            <e p="SqlCommand.cs" t="Include" />
-            <e p="String.cs" t="Include" />
-            <e p="StringBuilder.cs" t="Include" />
-            <e p="Type.cs" t="Include" />
-          </e>
-          <e p="Helpers" t="Include">
-            <e p="Guard.cs" t="Include" />
-            <e p="Random.cs" t="Include" />
-          </e>
-        </e>
         <e p="Web" t="Include">
           <e p="Authorization" t="Include">
             <e p="CurrentRequest.cs" t="Include" />

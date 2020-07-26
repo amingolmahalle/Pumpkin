@@ -14,14 +14,13 @@ namespace Sample.Test.Data.Repositories
 
         public async Task<User> GetUserByIdAsync(int id, CancellationToken cancellationToken)
         {
-            return await GetByIdAsync(id, cancellationToken);
+            return await GetByIdAsync(cancellationToken, id);
         }
 
         public async Task<User> GetUserByMobileAsync(string mobileNumber, CancellationToken cancellationToken)
         {
-            using (var dataProvider = new SqlDataProvider())
-            {
-                var query = $@"SELECT 
+            using var dataProvider = new SqlDataProvider();
+            var query = $@"SELECT 
                                                 Id,
                                                 Fullname,
                                                 MobileNumber,
@@ -34,18 +33,17 @@ namespace Sample.Test.Data.Repositories
                                         WHERE 
                                                 MobileNumber = {mobileNumber}";
 
-                return await dataProvider.ExecuteSingleRecordQueryCommandAsync<User>(query,cancellationToken);
-            }
+            return await dataProvider.ExecuteSingleRecordQueryCommandAsync<User>(query, cancellationToken);
         }
 
-        public void AddUser(User user)
+        public async Task AddUserAsync(User user, CancellationToken cancellationToken)
         {
-            Add(user);
+            await AddAsync(user, cancellationToken);
         }
 
-        public void EditUser(User user)
+        public async Task EditUserAsync(User user, CancellationToken cancellationToken)
         {
-            Update(user);
+            await UpdateAsync(user, cancellationToken);
         }
     }
 }

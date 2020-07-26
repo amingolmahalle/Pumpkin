@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 
-namespace Pumpkin.Utils.Extensions
+namespace Pumpkin.Common.Extensions
 {
     public static partial class Extensions
     {

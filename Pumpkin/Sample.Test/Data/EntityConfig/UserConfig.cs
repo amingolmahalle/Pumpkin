@@ -8,8 +8,6 @@ namespace Sample.Test.Data.EntityConfig
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.ToTable("Users");
-
             builder.HasKey(c => c.Id);
 
             builder.Property(c => c.Id)

@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using Pumpkin.Common.Extensions;
 using Pumpkin.Contract.Caching;
-using Pumpkin.Utils.Extensions;
 
 namespace Pumpkin.Core.Caching
 {

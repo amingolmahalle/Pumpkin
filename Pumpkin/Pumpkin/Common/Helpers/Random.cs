@@ -1,6 +1,6 @@
 using System;
 
-namespace Pumpkin.Utils.Helpers
+namespace Pumpkin.Common.Helpers
 {
     public static partial class Helpers
     {

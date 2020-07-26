@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Data;
 using Microsoft.Data.SqlClient;
 
-namespace Pumpkin.Utils.Extensions
+namespace Pumpkin.Common.Extensions
 {
     public static partial class Extensions
     {

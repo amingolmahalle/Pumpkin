@@ -10,8 +10,8 @@ namespace Sample.Test.Domain.Entity.UserAggregate
 
         Task<User> GetUserByMobileAsync(string mobileNumber, CancellationToken cancellationToken);
 
-        void AddUser(User user);
+        Task AddUserAsync(User user, CancellationToken cancellationToken);
 
-        void EditUser(User user);
+        Task EditUserAsync(User user, CancellationToken cancellationToken);
     }
 }

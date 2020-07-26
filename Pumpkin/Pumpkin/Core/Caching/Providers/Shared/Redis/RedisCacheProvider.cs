@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Pumpkin.Common.Extensions;
 using Pumpkin.Contract.Caching;
 using Pumpkin.Contract.Logging;
 using Pumpkin.Contract.Serialization;
-using Pumpkin.Utils.Extensions;
 using StackExchange.Redis;
 
 namespace Pumpkin.Core.Caching.Providers.Shared.Redis

@@ -1,5 +1,5 @@
 using FluentValidation;
-using Pumpkin.Utils;
+using Pumpkin.Common;
 using Sample.Test.Domain.Service.Queries.GetUserByMobile;
 using Sample.Test.Helper;
 
