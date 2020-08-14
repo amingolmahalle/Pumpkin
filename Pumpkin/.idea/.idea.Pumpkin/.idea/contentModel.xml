@@ -106,9 +106,9 @@
             <e p="DynamicallyInstaller.cs" t="Include" />
           </e>
           <e p="ResponseWrapper" t="Include">
-            <e p="APIResponse.cs" t="Include" />
             <e p="ApiError.cs" t="Include" />
             <e p="ApiException.cs" t="Include" />
+            <e p="ApiResponse.cs" t="Include" />
             <e p="ResponseMessageEnum.cs" t="Include" />
             <e p="ValidationError.cs" t="Include" />
           </e>

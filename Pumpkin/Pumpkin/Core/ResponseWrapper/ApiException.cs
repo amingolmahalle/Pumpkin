@@ -1,31 +1,34 @@
 ﻿using System.Collections.Generic;
+using System;
+using System.Net;
 
 namespace Pumpkin.Core.ResponseWrapper
 {
-    public class ApiException : System.Exception
+    public abstract class ApiException : Exception
     {
-        // public int StatusCode { get; set; }
+        public HttpStatusCode HttpStatusCode { get; }
 
-        public IEnumerable<ValidationError> Errors { get; set; }
+        public object AdditionalData { get; }
 
-        public string ReferenceErrorCode { get; set; }
+        public Action<IEnumerable<ValidationError>> Errors { get; }
 
-        public string ReferenceDocumentLink { get; set; }
-
-        public ApiException(
+        protected ApiException(
             string message,
-            IEnumerable<ValidationError> errors = null,
-            string errorCode = "",
-            string refLink = "") : base(message)
+            HttpStatusCode httpStatusCode,
+            Action<IEnumerable<ValidationError>> errors) : base(message)
         {
+            HttpStatusCode = httpStatusCode;
             Errors = errors;
-            ReferenceErrorCode = errorCode;
-            ReferenceDocumentLink = refLink;
         }
 
-        public ApiException(System.Exception ex, int statusCode = 500) : base(ex.Message)
+        protected ApiException(
+            string message,
+            HttpStatusCode httpStatusCode,
+            Action<IEnumerable<ValidationError>> errors,
+            object additionalData)
+            : this(message, httpStatusCode, errors)
         {
-//            StatusCode = statusCode;
+            AdditionalData = additionalData;
         }
     }
 }

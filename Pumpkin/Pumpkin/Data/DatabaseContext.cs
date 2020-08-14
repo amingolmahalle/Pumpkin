@@ -95,7 +95,7 @@ namespace Pumpkin.Data
                     {
                         var newVal = val.FixPersianChars().Fa2En().NullIfEmpty();
 
-                        if (newVal == val)
+                        if (newVal.Equals(val))
                             continue;
 
                         property.SetValue(item.Entity, newVal, null);

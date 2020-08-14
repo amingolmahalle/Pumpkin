@@ -35,10 +35,10 @@ namespace Sample.Test.Web.Controllers
         }
 
         [HttpGet("GetUserById/{Id}")]
-        public async Task<GetUserByIdResponse> GetById([FromRoute] GetUserByIdRequest request,
+        public async Task<object> GetById([FromRoute] GetUserByIdRequest request,
             CancellationToken cancellationToken)
         {
-            return await _getUserByIdService.ExecuteAsync(request, cancellationToken);
+           return await _getUserByIdService.ExecuteAsync(request, cancellationToken);
         }
 
         [HttpGet("GetUserByMobile/{MobileNumber}")]

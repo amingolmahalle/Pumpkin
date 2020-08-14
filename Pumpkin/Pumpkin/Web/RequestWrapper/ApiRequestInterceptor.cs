@@ -1,9 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Pumpkin.Common;
 using Pumpkin.Common.Extensions;
@@ -20,264 +23,281 @@ namespace Pumpkin.Web.RequestWrapper
 
         private ICurrentRequest _currentRequest;
 
+        private IWebHostEnvironment _environment;
+
+        private readonly ILog _logger = LogManager.GetLogger(nameof(ApiRequestInterceptor));
+
         public ApiRequestInterceptor(RequestDelegate next)
         {
             _next = next;
         }
 
-        private readonly ILog _logger = LogManager.GetLogger("RequestInterceptor");
-        public async Task InvokeAsync(HttpContext context, ICurrentRequest currentRequest)
+        public async Task InvokeAsync(
+            HttpContext context,
+            ICurrentRequest currentRequest,
+            IWebHostEnvironment environment)
         {
-            if (IsSwagger(context))
+            if (IsSwagger())
                 await _next(context);
 
             else
             {
                 _currentRequest = currentRequest;
+                _environment = environment;
 
-                InterceptRequest(context);
+                InterceptRequest();
 
                 var originalBodyStream = context.Response.Body;
 
-                using (var responseBody = new MemoryStream())
+                await using var responseBody = new MemoryStream();
+                context.Response.Body = responseBody;
+
+                try
                 {
-                    context.Response.Body = responseBody;
+                    await _next.Invoke(context);
 
-                    try
+                    switch (context.Response.StatusCode)
                     {
-                        await _next.Invoke(context);
-
-                        switch (context.Response.StatusCode)
+                        case (int) HttpStatusCode.OK:
                         {
-                            case (int) HttpStatusCode.OK:
-                            {
-                                var body = await FormatResponse(context.Response);
+                            var body = await FormatResponse(context.Response);
 
-                                await HandleSuccessRequestAsync(context, body, context.Response.StatusCode);
-                                break;
-                            }
-                            case Constants.FluentValidationHttpStatusCode:
-                            {
-                                var body = await FormatResponse(context.Response);
+                            await HandleSuccessRequestAsync(body);
+                            break;
+                        }
+                        case Constants.FluentValidationHttpStatusCode:
+                        {
+                            var body = await FormatResponse(context.Response);
 
-                                await HandleNotSuccessRequestAsync(context, body,
-                                    Constants.FluentValidationHttpStatusCode);
-                                break;
-                            }
-                            default:
-                            {
-                                await HandleNotSuccessRequestAsync(context, null, context.Response.StatusCode);
-                                break;
-                            }
+                            await HandleNotSuccessRequestAsync(body,
+                                Constants.FluentValidationHttpStatusCode);
+                            break;
+                        }
+                        default:
+                        {
+                            await HandleNotSuccessRequestAsync(null, context.Response.StatusCode);
+                            break;
                         }
                     }
-                    catch (ApiException ex)
-                    {
-                        _logger.Error(ex.Message, ex);
-                        
-                        await HandleValidationErrorAsync(context, ex);
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.Error(ex.Message, ex);
-                        
-                        await HandleExceptionAsync(context, ex);
-                    }
+                }
+                catch (ApiException ex)
+                {
+                    _logger.Error(ex.Message, ex);
 
-                    finally
-                    {
-                        responseBody.Seek(0, SeekOrigin.Begin);
-                        
-                        await responseBody.CopyToAsync(originalBodyStream);
-                    }
+                    await HandleValidationErrorAsync(ex);
+                }
+                catch (Exception ex)
+                {
+                    _logger.Error(ex.Message, ex);
+
+                    await HandleExceptionAsync(ex);
+                }
+
+                finally
+                {
+                    responseBody.Seek(0, SeekOrigin.Begin);
+
+                    await responseBody.CopyToAsync(originalBodyStream);
                 }
             }
-        }
 
-        private void InterceptRequest(HttpContext context)
-        {
-            foreach (var header in context.Request.Headers.Where(it => it.Key.ToLower().StartsWith("request")))
+            void InterceptRequest()
             {
-                _currentRequest.Headers[header.Key.ToLower()] = header.Value;
+                foreach (var header in context.Request.Headers.Where(it => it.Key.ToLower().StartsWith("request")))
+                {
+                    _currentRequest.Headers[header.Key.ToLower()] = header.Value;
+                }
+
+                if (!_currentRequest.Headers.ContainsKey("request-gateway"))
+                    throw new Exception($"empty header detected [request-gateway]");
+
+                _currentRequest.Gateway = _currentRequest.GetEnumHeader<GatewayType>("request-gateway");
+                _currentRequest.UserSessionId = _currentRequest.GetHeader("request-client-id");
+                _currentRequest.CorrelationId = Guid.NewGuid().ToString();
+
+                if (string.IsNullOrEmpty(_currentRequest.UserSessionId))
+                    throw new Exception($"empty header detected [request-client-id]");
+
+                if (context.User.Identity.IsAuthenticated)
+                {
+                    _currentRequest.UserId = int.Parse(context.User.FindFirst("sub").Value);
+                    _currentRequest.UserName = context.User.FindFirst("name").Value;
+
+                    switch (context.User.FindFirst("amr").Value)
+                    {
+                        case "otp":
+                            _currentRequest.AuthenticationType = AuthenticationType.OtpAuthentication;
+                            break;
+                        case "password":
+                        case "pwd":
+                            _currentRequest.AuthenticationType = AuthenticationType.PasswordAuthentication;
+                            break;
+                    }
+                }
+                else
+                {
+                    _currentRequest.AuthenticationType = AuthenticationType.NotAuthenticated;
+                }
+
+                context.Items.Add("CoreRequest", _currentRequest);
             }
 
-            if (!_currentRequest.Headers.ContainsKey("request-gateway"))
-                throw new Exception($"empty header detected [request-gateway]");
-
-            _currentRequest.Gateway = _currentRequest.GetEnumHeader<GatewayType>("request-gateway");
-            _currentRequest.UserSessionId = _currentRequest.GetHeader("request-client-id");
-            _currentRequest.CorrelationId = Guid.NewGuid().ToString();
-
-            if (string.IsNullOrEmpty(_currentRequest.UserSessionId))
-                throw new Exception($"empty header detected [request-client-id]");
-
-            if (context.User.Identity.IsAuthenticated)
+            async Task HandleExceptionAsync(Exception exception)
             {
-                _currentRequest.UserId = int.Parse(context.User.FindFirst("sub").Value);
-                _currentRequest.UserName = context.User.FindFirst("name").Value;
+                ApiError apiError;
+                
+                int statusCode = (int) HttpStatusCode.InternalServerError;
 
-                switch (context.User.FindFirst("amr").Value)
+                if (exception is UnauthorizedAccessException)
                 {
-                    case "otp":
-                        _currentRequest.AuthenticationType = AuthenticationType.OtpAuthentication;
+                    apiError = new ApiError(ResponseMessageEnum.UnAuthorized.GetDescription());
+                    statusCode = (int) HttpStatusCode.Unauthorized;
+                }
+                else
+                {
+                    var exceptionMessage = ResponseMessageEnum.Unhandled.GetDescription();
+
+                    string message;
+                    if (_environment.IsDevelopment())
+                    {
+                        var dict = new Dictionary<string, string>
+                        {
+                            ["Exception"] = $"{exceptionMessage} => {exception.Message}",
+                            ["StackTrace"] = exception.StackTrace,
+                        };
+                        message = JsonConvert.SerializeObject(dict);
+                    }
+                    else
+                    {
+                        message = exception.Message;
+                    }
+
+                    apiError = new ApiError(message);
+                }
+
+                await WriteToResponseAsync(null, apiError, statusCode, ResponseMessageEnum.Exception);
+            }
+
+            async Task HandleValidationErrorAsync(ApiException exception)
+            {
+                string message;
+
+                if (_environment.IsDevelopment())
+                {
+                    var dict = new Dictionary<string, string>
+                    {
+                        ["Exception"] = exception.Message,
+                        ["StackTrace"] = exception.StackTrace,
+                    };
+
+                    if (exception.InnerException != null)
+                    {
+                        dict.Add("InnerException.Exception", exception.InnerException.Message);
+                        dict.Add("InnerException.StackTrace", exception.InnerException.StackTrace);
+                    }
+
+                    if (exception.AdditionalData != null)
+                        dict.Add("AdditionalData", JsonConvert.SerializeObject(exception.AdditionalData));
+
+                    message = JsonConvert.SerializeObject(dict);
+                }
+                else
+                {
+                    message = exception.Message;
+                }
+
+                var apiError = new ApiError(message, exception.Errors);
+
+                await WriteToResponseAsync(
+                    null,
+                    apiError,
+                    (int) exception.HttpStatusCode,
+                    ResponseMessageEnum.Exception);
+            }
+
+            async Task HandleNotSuccessRequestAsync(string body, int code)
+            {
+                ApiError apiError;
+                var errorMessage = string.Empty;
+
+                switch (code)
+                {
+                    case (int) HttpStatusCode.NotFound:
+                        apiError = new ApiError(ResponseMessageEnum.NotFound.GetDescription());
                         break;
-                    case "password":
-                    case "pwd":
-                        _currentRequest.AuthenticationType = AuthenticationType.PasswordAuthentication;
+                    case (int) HttpStatusCode.NoContent:
+                        apiError = new ApiError(ResponseMessageEnum.NotContent.GetDescription());
+                        break;
+                    case (int) HttpStatusCode.MethodNotAllowed:
+                        apiError = new ApiError(ResponseMessageEnum.MethodNotAllowed.GetDescription());
+                        break;
+                    case (int) HttpStatusCode.BadRequest:
+                        apiError = new ApiError(ResponseMessageEnum.BadRequest.GetDescription());
+                        break;
+                    case Constants.FluentValidationHttpStatusCode:
+                        JsonConvert.DeserializeObject<ErrorFluentValidation>(body).Errors
+                            .ForEach(efv => errorMessage += $"{efv}, ");
+                        apiError = new ApiError(
+                            $"{ResponseMessageEnum.ValidationError.GetDescription()} => {errorMessage.Remove(errorMessage.Length - 1)}");
+                        break;
+                    default:
+                        apiError = new ApiError(ResponseMessageEnum.Unknown.GetDescription());
                         break;
                 }
-            }
-            else
-            {
-                _currentRequest.AuthenticationType = AuthenticationType.NotAuthenticated;
+
+                await WriteToResponseAsync(null, apiError, code, ResponseMessageEnum.Failure);
             }
 
-            context.Items.Add("CoreRequest", _currentRequest);
-        }
-
-        private static Task HandleExceptionAsync(HttpContext context, Exception exception)
-        {
-            ApiError apiError;
-            int code = 0;
-
-            if (exception is ApiException ex)
+            async Task HandleSuccessRequestAsync(string body)
             {
-                apiError = new ApiError(ex.Message)
-                {
-                    ValidationErrors = ex.Errors,
-                    ReferenceErrorCode = ex.ReferenceErrorCode,
-                    ReferenceDocumentLink = ex.ReferenceDocumentLink
-                };
+                var bodyText = !body.IsValidJson() ? JsonConvert.SerializeObject(body) : body;
 
-                context.Response.StatusCode = code;
-            }
-            else if (exception is UnauthorizedAccessException)
-            {
-                apiError = new ApiError(ResponseMessageEnum.UnAuthorized.GetDescription());
-                code = (int) HttpStatusCode.Unauthorized;
-                context.Response.StatusCode = code;
-            }
-            else
-            {
-                var exceptionMessage = ResponseMessageEnum.Unhandled.GetDescription();
-#if !DEBUG
-                var message = exceptionMessage;
-                string stackTrace = null;
-#else
-                var message = $"{exceptionMessage} {exception.GetBaseException().Message}";
-                string stackTrace = exception.StackTrace;
-#endif
+                dynamic bodyContent = JsonConvert.DeserializeObject<dynamic>(bodyText);
 
-                apiError = new ApiError(message)
-                {
-                    Details = stackTrace
-                };
-                code = (int) HttpStatusCode.InternalServerError;
-                context.Response.StatusCode = code;
+                await WriteToResponseAsync(
+                    bodyContent,
+                    null,
+                    (int) HttpStatusCode.OK,
+                    ResponseMessageEnum.Success);
             }
 
-            context.Response.ContentType = "application/json";
-
-            var apiResponse = new ApiResponse(code, ResponseMessageEnum.Exception.GetDescription(), null, apiError);
-
-            var json = JsonConvert.SerializeObject(apiResponse);
-
-            return context.Response.WriteAsync(json);
-        }
-
-        private static Task HandleValidationErrorAsync(HttpContext context, ApiException exception)
-        {
-            var ex = exception;
-
-            var apiError = new ApiError(ResponseMessageEnum.ValidationError.GetDescription(), ex.Errors)
+            async Task WriteToResponseAsync(
+                object result,
+                ApiError apiError,
+                int httpStatusCode,
+                ResponseMessageEnum apiStatusCode)
             {
-                ValidationErrors = ex.Errors,
-                ReferenceErrorCode = ex.ReferenceErrorCode,
-                ReferenceDocumentLink = ex.ReferenceDocumentLink
-            };
+                if (context.Response.HasStarted)
+                    throw new InvalidOperationException(
+                        "The response has already started, the http status code middleware will not be executed.");
 
-            context.Response.StatusCode = (int) HttpStatusCode.OK;
+                var apiResponse = new ApiResponse(httpStatusCode, apiStatusCode.GetDescription(), result, apiError);
+                
+                var json = JsonConvert.SerializeObject(apiResponse);
 
-            context.Response.ContentType = "application/json";
+                context.Response.ContentType = "application/json";
+                context.Response.StatusCode = httpStatusCode;
 
-            var apiResponse = new ApiResponse((int) HttpStatusCode.BadRequest,
-                ResponseMessageEnum.Exception.GetDescription(), null, apiError);
-
-            var json = JsonConvert.SerializeObject(apiResponse);
-
-            return context.Response.WriteAsync(json);
-        }
-
-        private static Task HandleNotSuccessRequestAsync(HttpContext context, string body, int code)
-        {
-            context.Response.ContentType = "application/json";
-
-            ApiError apiError;
-            string errorMessage = string.Empty;
-
-            switch (code)
-            {
-                case (int) HttpStatusCode.NotFound:
-                    apiError = new ApiError(ResponseMessageEnum.NotFound.GetDescription());
-                    break;
-                case (int) HttpStatusCode.NoContent:
-                    apiError = new ApiError(ResponseMessageEnum.NotContent.GetDescription());
-                    break;
-                case (int) HttpStatusCode.MethodNotAllowed:
-                    apiError = new ApiError(ResponseMessageEnum.MethodNotAllowed.GetDescription());
-                    break;
-                case (int) HttpStatusCode.BadRequest:
-                    apiError = new ApiError(ResponseMessageEnum.BadRequest.GetDescription());
-                    break;
-                case Constants.FluentValidationHttpStatusCode:
-                    JsonConvert.DeserializeObject<ErrorFluentValidation>(body).Errors
-                        .ForEach(efv => errorMessage += $"{efv},");
-                    apiError = new ApiError(errorMessage.Remove(errorMessage.Length - 1));
-                    break;
-                default:
-                    apiError = new ApiError(ResponseMessageEnum.Unknown.GetDescription());
-                    break;
+                await context.Response.WriteAsync(json);
             }
 
-            var apiResponse = new ApiResponse(code, ResponseMessageEnum.Failure.GetDescription(), null, apiError);
+            async Task<string> FormatResponse(HttpResponse response)
+            {
+                response.Body.Seek(0, SeekOrigin.Begin);
 
-            context.Response.StatusCode = code;
+                var plainBodyText = await new StreamReader(response.Body).ReadToEndAsync();
 
-            var jsonString = JsonConvert.SerializeObject(apiResponse);
-            return context.Response.WriteAsync(jsonString);
-        }
+                response.Body.Seek(0, SeekOrigin.Begin);
+                response.Body.SetLength(0);
 
-        private static Task HandleSuccessRequestAsync(HttpContext context, string body, int code)
-        {
-            context.Response.ContentType = "application/json";
+                return plainBodyText;
+            }
 
-            var bodyText = !body.IsValidJson() ? JsonConvert.SerializeObject(body) : body;
-
-            dynamic bodyContent = JsonConvert.DeserializeObject<dynamic>(bodyText);
-
-            var apiResponse = new ApiResponse(code, ResponseMessageEnum.Success.GetDescription(), bodyContent, null);
-
-            var jsonString = JsonConvert.SerializeObject(apiResponse);
-
-            return context.Response.WriteAsync(jsonString);
-        }
-
-        private async Task<string> FormatResponse(HttpResponse response)
-        {
-            response.Body.Seek(0, SeekOrigin.Begin);
-
-            var plainBodyText = await new StreamReader(response.Body).ReadToEndAsync();
-
-            response.Body.Seek(0, SeekOrigin.Begin);
-            response.Body.SetLength(0);
-
-            return plainBodyText;
-        }
-
-        private static bool IsSwagger(HttpContext context)
-        {
-            return context.Request.Path.ToString().Contains("/swagger") ||
-                   context.Request.Path.ToString().Contains("/index.html");
+            bool IsSwagger()
+            {
+                return context.Request.Path.ToString().Contains("/swagger") ||
+                       context.Request.Path.ToString().Contains("/index.html");
+            }
         }
     }
 }

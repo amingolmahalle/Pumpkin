@@ -1,31 +1,25 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Pumpkin.Core.ResponseWrapper
 {
     public class ApiError
     {
-        public bool IsError { get; set; }
+        private bool IsError { get; }
 
         public string ExceptionMessage { get; set; }
 
-        public string Details { get; set; }
-
-        public string ReferenceErrorCode { get; set; }
-
-        public string ReferenceDocumentLink { get; set; }
-
-        public IEnumerable<ValidationError> ValidationErrors { get; set; }
-        
+        public Action<IEnumerable<ValidationError>> ValidationErrors { get; set; }
 
         public ApiError(string message)
         {
-            ExceptionMessage = message;
             IsError = true;
-        }
-        
-        public ApiError(string message, IEnumerable<ValidationError> validationErrors)
-        {
             ExceptionMessage = message;
+        }
+
+        public ApiError(string message, Action<IEnumerable<ValidationError>> validationErrors)
+            : this(message)
+        {
             ValidationErrors = validationErrors;
         }
     }
