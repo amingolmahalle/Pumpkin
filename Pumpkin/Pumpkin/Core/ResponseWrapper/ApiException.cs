@@ -10,12 +10,12 @@ namespace Pumpkin.Core.ResponseWrapper
 
         public object AdditionalData { get; }
 
-        public Action<IEnumerable<ValidationError>> Errors { get; }
+        public IEnumerable<ValidationError> Errors { get; set; }
 
         protected ApiException(
             string message,
             HttpStatusCode httpStatusCode,
-            Action<IEnumerable<ValidationError>> errors) : base(message)
+            IEnumerable<ValidationError> errors) : base(message)
         {
             HttpStatusCode = httpStatusCode;
             Errors = errors;
@@ -24,7 +24,7 @@ namespace Pumpkin.Core.ResponseWrapper
         protected ApiException(
             string message,
             HttpStatusCode httpStatusCode,
-            Action<IEnumerable<ValidationError>> errors,
+            IEnumerable<ValidationError> errors,
             object additionalData)
             : this(message, httpStatusCode, errors)
         {

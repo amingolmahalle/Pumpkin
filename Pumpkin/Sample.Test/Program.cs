@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Pumpkin.Web.Hosting;
 
 namespace Sample.Test
 {

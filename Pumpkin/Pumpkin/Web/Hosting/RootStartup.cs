@@ -5,8 +5,8 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Pumpkin.Common;
 using Pumpkin.Contract.Logging;
@@ -34,14 +34,7 @@ namespace Pumpkin.Web.Hosting
 
             services.AddHttpContextAccessor();
 
-            services.AddApiVersioning(options =>
-            {
-                options.ReportApiVersions = true;
-                options.AssumeDefaultVersionWhenUnspecified = true;
-                options.ApiVersionReader = new MediaTypeApiVersionReader();
-                options.ApiVersionSelector = new CurrentImplementationApiVersionSelector(options);
-                options.DefaultApiVersion = new ApiVersion(1, 0);
-            });
+            services.AddCustomApiVersioning();
 
             services.AddSwaggerGen(options =>
             {
@@ -56,12 +49,12 @@ namespace Pumpkin.Web.Hosting
                 options.OperationFilter<RemoveVersionFromParameter>();
                 options.DocumentFilter<ReplaceVersionWithExactValueInPath>();
             });
-            
+
             NLogConfigurationManager.Configure();
             LogManager.Use<NLogFactory>();
 
             services.NeedToInstallConfig();
-            
+
             services.AddControllers(options =>
                 {
                     options.Filters.Add<TransactionActionFilter>();
@@ -80,10 +73,9 @@ namespace Pumpkin.Web.Hosting
 
         public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // if (env.IsDevelopment())
-            // {
-            //     app.UseDeveloperExceptionPage();
-            // }
+            if (env.IsDevelopment())
+            {
+            }
 
             app.UseCors(x => x
                 .AllowAnyOrigin()

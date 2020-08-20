@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Pumpkin.Core.ResponseWrapper
 {
@@ -9,7 +8,7 @@ namespace Pumpkin.Core.ResponseWrapper
 
         public string ExceptionMessage { get; set; }
 
-        public Action<IEnumerable<ValidationError>> ValidationErrors { get; set; }
+        public IEnumerable<ValidationError> ValidationErrors { get; set; }
 
         public ApiError(string message)
         {
@@ -17,7 +16,7 @@ namespace Pumpkin.Core.ResponseWrapper
             ExceptionMessage = message;
         }
 
-        public ApiError(string message, Action<IEnumerable<ValidationError>> validationErrors)
+        public ApiError(string message, IEnumerable<ValidationError> validationErrors)
             : this(message)
         {
             ValidationErrors = validationErrors;
