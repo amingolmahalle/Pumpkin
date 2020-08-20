@@ -26,12 +26,12 @@ namespace Pumpkin.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.NeedToRegisterEntitiesConfig<IEntity>();
             modelBuilder.NeedToRegisterMappingConfig();
             modelBuilder.AddSequentialGuidForIdConvention();
             modelBuilder.AddPluralizingTableNameConvention();
-
-            base.OnModelCreating(modelBuilder);
         }
 
         public override int SaveChanges()

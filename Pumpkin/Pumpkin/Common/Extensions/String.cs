@@ -68,6 +68,11 @@ namespace Pumpkin.Common.Extensions
 
             return (T) res;
         }
+        
+        public static bool HasValue(this string value, bool ignoreWhiteSpace = true)
+        {
+            return ignoreWhiteSpace ? !string.IsNullOrWhiteSpace(value) : !string.IsNullOrEmpty(value);
+        }
 
         public static bool IsValidJson(this string text)
         {
