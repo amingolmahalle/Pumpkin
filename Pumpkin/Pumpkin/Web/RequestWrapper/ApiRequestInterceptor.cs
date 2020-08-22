@@ -12,8 +12,8 @@ using Pumpkin.Common;
 using Pumpkin.Common.Extensions;
 using Pumpkin.Contract.Logging;
 using Pumpkin.Contract.Security;
-using Pumpkin.Core.ResponseWrapper;
 using Pumpkin.Web.Filters.Validator.Dto;
+using Pumpkin.Web.ResponseWrapper;
 
 namespace Pumpkin.Web.RequestWrapper
 {
@@ -109,14 +109,14 @@ namespace Pumpkin.Web.RequestWrapper
                 }
 
                 if (!_currentRequest.Headers.ContainsKey("request-gateway"))
-                    throw new Exception($"empty header detected [request-gateway]");
+                    throw new ApiException(HttpStatusCode.BadRequest, $"empty header detected [request-gateway]");
 
                 _currentRequest.Gateway = _currentRequest.GetEnumHeader<GatewayType>("request-gateway");
                 _currentRequest.UserSessionId = _currentRequest.GetHeader("request-client-id");
                 _currentRequest.CorrelationId = Guid.NewGuid().ToString();
 
                 if (string.IsNullOrEmpty(_currentRequest.UserSessionId))
-                    throw new Exception($"empty header detected [request-client-id]");
+                    throw new ApiException(HttpStatusCode.BadRequest, $"empty header detected [request-client-id]");
 
                 if (context.User.Identity.IsAuthenticated)
                 {
@@ -145,7 +145,7 @@ namespace Pumpkin.Web.RequestWrapper
             async Task HandleExceptionAsync(Exception exception)
             {
                 ApiError apiError;
-                
+
                 int statusCode = (int) HttpStatusCode.InternalServerError;
 
                 if (exception is UnauthorizedAccessException)
@@ -196,8 +196,8 @@ namespace Pumpkin.Web.RequestWrapper
                         dict.Add("InnerException.StackTrace", exception.InnerException.StackTrace);
                     }
 
-                    if (exception.AdditionalData != null)
-                        dict.Add("AdditionalData", JsonConvert.SerializeObject(exception.AdditionalData));
+                    if (exception.AdditionalDataList != null)
+                        dict.Add("AdditionalData", JsonConvert.SerializeObject(exception.AdditionalDataList));
 
                     message = JsonConvert.SerializeObject(dict);
                 }
@@ -206,7 +206,7 @@ namespace Pumpkin.Web.RequestWrapper
                     message = exception.Message;
                 }
 
-                var apiError = new ApiError(message, exception.Errors);
+                var apiError = new ApiError(message, exception.AdditionalDataList);
 
                 await WriteToResponseAsync(
                     null,
@@ -272,7 +272,7 @@ namespace Pumpkin.Web.RequestWrapper
                         "The response has already started, the http status code middleware will not be executed.");
 
                 var apiResponse = new ApiResponse(httpStatusCode, apiStatusCode.GetDescription(), result, apiError);
-                
+
                 var json = JsonConvert.SerializeObject(apiResponse);
 
                 context.Response.ContentType = "application/json";

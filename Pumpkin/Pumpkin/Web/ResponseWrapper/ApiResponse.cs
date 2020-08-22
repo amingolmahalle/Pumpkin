@@ -1,6 +1,6 @@
 using System.Runtime.Serialization;
 
-namespace Pumpkin.Core.ResponseWrapper
+namespace Pumpkin.Web.ResponseWrapper
 {
     [DataContract]
     public class ApiResponse

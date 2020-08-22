@@ -18,7 +18,7 @@ namespace Pumpkin.Core.Registration
             {
                 var service = (INeedToInstall) Activator.CreateInstance(item);
 
-                service.Install(services);
+                service?.Install(services);
             }
         }
 

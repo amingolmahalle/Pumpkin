@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 
-namespace Pumpkin.Core.ResponseWrapper
+namespace Pumpkin.Web.ResponseWrapper
 {
     public class ApiError
     {
-        private bool IsError { get; }
+        private bool IsError { get; set; }
 
         public string ExceptionMessage { get; set; }
 
-        public IEnumerable<ValidationError> ValidationErrors { get; set; }
+        public IEnumerable<AdditionalData> AdditionalDatalist { get; set; }
 
         public ApiError(string message)
         {
@@ -16,10 +16,10 @@ namespace Pumpkin.Core.ResponseWrapper
             ExceptionMessage = message;
         }
 
-        public ApiError(string message, IEnumerable<ValidationError> validationErrors)
+        public ApiError(string message, IEnumerable<AdditionalData> additionalDatalist)
             : this(message)
         {
-            ValidationErrors = validationErrors;
+            AdditionalDatalist = additionalDatalist;
         }
     }
 }

@@ -5,6 +5,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
@@ -23,16 +24,30 @@ namespace Pumpkin.Web.Hosting
     {
         protected virtual IEnumerable<int> Versions => new[] {1};
 
+        //private readonly SecuritySettings _securitySettings;
+
+        protected readonly IConfiguration Configuration;
+
+        public RootStartup(IConfiguration configuration)//, SecuritySettings securitySettings)
+        {
+            Configuration = configuration;
+          //  _securitySettings = securitySettings;
+        }
+
         public virtual void ConfigureServices(IServiceCollection services)
         {
             if (services == null)
             {
                 throw new ArgumentNullException(nameof(services));
             }
+            
+         //   services.Configure<SecuritySettings>(Configuration.GetSection(nameof(SecuritySettings)));
 
             services.AddCors();
 
             services.AddHttpContextAccessor();
+            
+           // services.AddJwtAuthentication(_securitySettings.JwtSettings);
 
             services.AddCustomApiVersioning();
 
@@ -96,8 +111,8 @@ namespace Pumpkin.Web.Hosting
 
             app.UseRouting();
 
-            // app.UseAuthentication();
-            // app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

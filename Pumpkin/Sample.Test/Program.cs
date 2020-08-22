@@ -4,15 +4,12 @@ using Pumpkin.Web.Hosting;
 
 namespace Sample.Test
 {
-    public class Program
+    public class Program : RootProgram<Startup>
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            CreateWebHostBuilder(args).Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
     }
 }
