@@ -19,8 +19,8 @@ namespace Pumpkin.Core
             services.NeedToRegisterCacheProviderConfig();
             services.AddScoped<ICacheService, CacheService>();
             services.AddScoped<IMemoryCache, MemoryCache>();
-            // Redis
 
+            //NewtonSoft
             services.AddTransient<ISerializer, NewtonSoftSerializer>();
         }
     }

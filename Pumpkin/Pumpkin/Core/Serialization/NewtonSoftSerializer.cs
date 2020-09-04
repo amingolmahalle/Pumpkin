@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using NetTopologySuite.Geometries;
 using NetTopologySuite.IO;
 using Newtonsoft.Json;
@@ -22,9 +21,6 @@ namespace Pumpkin.Core.Serialization
             foreach (var converter in GeoJsonSerializer.Create(new GeometryFactory(new PrecisionModel(), 4326))
                 .Converters)
             {
-                if (Setting.Converters == null) 
-                    Setting.Converters = new List<JsonConverter>();
-                
                 Setting.Converters.Add(converter);
             }
         }

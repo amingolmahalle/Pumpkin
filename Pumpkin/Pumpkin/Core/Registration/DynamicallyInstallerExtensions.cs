@@ -6,7 +6,7 @@ using Pumpkin.Contract.Registration;
 
 namespace Pumpkin.Core.Registration
 {
-    public static class DynamicallyInstaller
+    public static class DynamicallyInstallerExtensions
     {
         public static void NeedToInstallConfig(this IServiceCollection services)
         {

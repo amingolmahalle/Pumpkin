@@ -61,7 +61,7 @@ namespace Pumpkin.Core.Caching.Providers.Shared.Redis
 
         private string GetConnectionString(int index)
         {
-            var extraConfigs = "allowAdmin=true,abortConnect=false,connectRetry=5,connectTimeout=500";
+            const string extraConfigs = "allowAdmin=true,abortConnect=false,connectRetry=5,connectTimeout=500";
 
             var selected = _nodesArray[index];
             var servers = selected;

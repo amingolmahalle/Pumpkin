@@ -25,7 +25,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
             _connectionString = ConfigManager.GetConnectionString("SqlServer");
 
             if (_logger == null)
-              _logger = LogManager.GetLogger<SqlDataProvider>();
+                _logger = LogManager.GetLogger<SqlDataProvider>();
         }
 
         public List<T> ExecuteQueryCommand<T>(string command, Dictionary<string, object> parameters = null)
@@ -34,17 +34,16 @@ namespace Pumpkin.Data.DataServices.DataProviders
             SqlConnection con = null;
             try
             {
-                using (con = new SqlConnection(_connectionString))
-                {
-                    var res = con.Query<T>(new CommandDefinition(command, parameters));
-                    return res.ToList();
-                }
+                using var connection = con = new SqlConnection(_connectionString);
+                var res = con.Query<T>(new CommandDefinition(command, parameters));
+                
+                return res.ToList();
             }
             catch (Exception ex)
             {
                 _logger.Fatal(ex.Message, ex);
-                
-                throw ;
+
+                throw;
             }
             finally
             {
@@ -66,7 +65,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
             SqlConnection con = null;
             try
             {
-                using (con = new SqlConnection(_connectionString))
+                await using (con = new SqlConnection(_connectionString))
                 {
                     var res = await con.QueryAsync<T>(new CommandDefinition(command, parameters));
                     return res.ToList();
@@ -96,17 +95,15 @@ namespace Pumpkin.Data.DataServices.DataProviders
             SqlConnection con = null;
             try
             {
-                using (con = new SqlConnection(_connectionString))
-                {
-                    var res = con.QueryFirstOrDefault<T>(new CommandDefinition(command, parameters));
-                    
-                    return res;
-                }
+                using var connection = con = new SqlConnection(_connectionString);
+                var res = con.QueryFirstOrDefault<T>(new CommandDefinition(command, parameters));
+
+                return res;
             }
             catch (Exception ex)
             {
                 _logger.Fatal(ex.Message, ex);
-                
+
                 throw;
             }
             finally
@@ -130,7 +127,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
             SqlConnection con = null;
             try
             {
-                using (con = new SqlConnection(_connectionString))
+                await using (con = new SqlConnection(_connectionString))
                 {
                     var result = await con.QueryFirstOrDefaultAsync<T>(new CommandDefinition(
                         command,
@@ -143,7 +140,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
             catch (Exception ex)
             {
                 _logger.Fatal(ex.Message, ex);
-                
+
                 throw;
             }
             finally
@@ -165,68 +162,63 @@ namespace Pumpkin.Data.DataServices.DataProviders
             SqlCommand cmd = null;
             try
             {
-                using (con = new SqlConnection(_connectionString))
+                using var connection = con = new SqlConnection(_connectionString);
+                using var sqlCommand = cmd = new SqlCommand(command, con);
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandTimeout = 30000000;
+                
+                if (parameters != null && parameters.Any())
                 {
-                    using (cmd = new SqlCommand(command, con))
-                    {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.CommandTimeout = 30000000;
-                        if (parameters != null && parameters.Any())
-                        {
-                            var p = CastParameters(cmd, parameters);
-                            cmd.Parameters.AddRange(p);
-                        }
-
-                        DataTable dt = new DataTable();
-
-                        int count = 0;
-                        
-                        con.Open();
-                        
-                        var reader = cmd.ExecuteReader();
-                        
-                        if (reader.HasRows)
-                        {
-                            dt.Load(reader);
-                        }
-
-                        if (!reader.IsClosed)
-                        {
-                            if (reader.Read())
-                                count = (int) reader[0];
-                        }
-
-                        List<Dictionary<string, object>> lst = new List<Dictionary<string, object>>();
-                        
-                        foreach (DataRow dataRow in dt.Rows)
-                        {
-                            lst.Add(dataRow.Table.Columns
-                                .Cast<DataColumn>()
-                                .ToDictionary(c => c.ColumnName, c =>
-                                {
-                                    if (dataRow[c] is SqlGeometry)
-                                    {
-                                        var value = ((SqlGeometry) dataRow[c]);
-
-                                        if (value.ToString() == "Null")
-                                            return null;
-                                        return new NetTopologySuite.IO.WKTReader().Read(dataRow[c] == null
-                                            ? ""
-                                            : dataRow[c].ToString());
-                                    }
-
-                                    return dataRow[c];
-                                }));
-                        }
-
-                        return new DataResult(lst, count);
-                    }
+                    var p = CastParameters(cmd, parameters);
+                    cmd.Parameters.AddRange(p);
                 }
+
+                var dt = new DataTable();
+
+                int count = 0;
+
+                con.Open();
+
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    dt.Load(reader);
+                }
+
+                if (!reader.IsClosed)
+                {
+                    if (reader.Read())
+                        count = (int) reader[0];
+                }
+
+                var lst = new List<Dictionary<string, object>>();
+
+                foreach (DataRow dataRow in dt.Rows)
+                {
+                    lst.Add(dataRow.Table.Columns
+                        .Cast<DataColumn>()
+                        .ToDictionary(c => c.ColumnName, c =>
+                        {
+                            if (dataRow[c] is SqlGeometry)
+                            {
+                                var value = ((SqlGeometry) dataRow[c]);
+
+                                return value.ToString() == "Null"
+                                    ? null
+                                    : new NetTopologySuite.IO.WKTReader().Read(dataRow[c].ToString());
+                            }
+
+                            return dataRow[c];
+                        }));
+                }
+
+                return new DataResult(lst, count);
             }
             catch (Exception ex)
             {
                 _logger.Fatal(ex.Message, ex);
-                
+
                 throw;
             }
             finally
@@ -249,12 +241,13 @@ namespace Pumpkin.Data.DataServices.DataProviders
             SqlCommand cmd = null;
             try
             {
-                using (con = new SqlConnection(_connectionString))
+                await using (con = new SqlConnection(_connectionString))
                 {
-                    using (cmd = new SqlCommand(command, con))
+                    await using (cmd = new SqlCommand(command, con))
                     {
                         cmd.CommandType = CommandType.Text;
                         cmd.CommandTimeout = 30000000;
+
                         if (parameters != null && parameters.Any())
                         {
                             var p = CastParameters(cmd, parameters);
@@ -262,7 +255,9 @@ namespace Pumpkin.Data.DataServices.DataProviders
                         }
 
                         DataTable dt = new DataTable();
+                        
                         int count = 0;
+                        
                         con.Open();
 
                         var reader = await cmd.ExecuteReaderAsync();
@@ -285,7 +280,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
             catch (Exception ex)
             {
                 _logger.Fatal(ex.Message, ex);
-                
+
                 throw;
             }
             finally
@@ -307,28 +302,26 @@ namespace Pumpkin.Data.DataServices.DataProviders
             SqlCommand cmd = null;
             try
             {
-                using (con = new SqlConnection(_connectionString))
+                using var connection = con = new SqlConnection(_connectionString);
+                using (cmd = new SqlCommand(command, con))
                 {
-                    using (cmd = new SqlCommand(command, con))
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandTimeout = 30000000;
+                    if (parameters != null && parameters.Any())
                     {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.CommandTimeout = 30000000;
-                        if (parameters != null && parameters.Any())
-                        {
-                            var p = CastParameters(cmd, parameters);
-                            cmd.Parameters.AddRange(p);
-                        }
-
-                        con.Open();
-                        var res = cmd.ExecuteNonQuery();
-                        return res;
+                        var p = CastParameters(cmd, parameters);
+                        cmd.Parameters.AddRange(p);
                     }
+
+                    con.Open();
+                    var res = cmd.ExecuteNonQuery();
+                    return res;
                 }
             }
             catch (Exception ex)
             {
                 _logger.Fatal(ex.Message, ex);
-                
+
                 throw;
             }
             finally
@@ -343,9 +336,9 @@ namespace Pumpkin.Data.DataServices.DataProviders
             SqlCommand cmd = null;
             try
             {
-                using (con = new SqlConnection(_connectionString))
+                await using (con = new SqlConnection(_connectionString))
                 {
-                    using (cmd = new SqlCommand(command, con))
+                    await using (cmd = new SqlCommand(command, con))
                     {
                         cmd.CommandType = CommandType.Text;
                         cmd.CommandTimeout = 30000000;
@@ -356,9 +349,9 @@ namespace Pumpkin.Data.DataServices.DataProviders
                         }
 
                         con.Open();
-                        
+
                         var res = await cmd.ExecuteNonQueryAsync();
-                        
+
                         return res;
                     }
                 }
@@ -366,7 +359,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
             catch (Exception ex)
             {
                 _logger.Fatal(ex.Message, ex);
-                
+
                 throw;
             }
             finally
@@ -381,28 +374,24 @@ namespace Pumpkin.Data.DataServices.DataProviders
             SqlCommand cmd = null;
             try
             {
-                using (con = new SqlConnection(_connectionString))
+                using var connection = con = new SqlConnection(_connectionString);
+                using var sqlCommand = cmd = new SqlCommand(command, con);
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandTimeout = 30000000;
+                if (parameters != null && parameters.Any())
                 {
-                    using (cmd = new SqlCommand(command, con))
-                    {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.CommandTimeout = 30000000;
-                        if (parameters != null && parameters.Any())
-                        {
-                            var p = CastParameters(cmd, parameters);
-                            cmd.Parameters.AddRange(p);
-                        }
-
-                        con.Open();
-                        var res = cmd.ExecuteScalar();
-                        return (T) res;
-                    }
+                    var p = CastParameters(cmd, parameters);
+                    cmd.Parameters.AddRange(p);
                 }
+
+                con.Open();
+                var res = cmd.ExecuteScalar();
+                return (T) res;
             }
             catch (Exception ex)
             {
                 _logger.Fatal(ex.Message, ex);
-                
+
                 throw;
             }
             finally
@@ -418,9 +407,9 @@ namespace Pumpkin.Data.DataServices.DataProviders
             SqlCommand cmd = null;
             try
             {
-                using (con = new SqlConnection(_connectionString))
+                await using (con = new SqlConnection(_connectionString))
                 {
-                    using (cmd = new SqlCommand(command, con))
+                    await using (cmd = new SqlCommand(command, con))
                     {
                         cmd.CommandType = CommandType.Text;
                         cmd.CommandTimeout = 30000000;
@@ -439,6 +428,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
             catch (Exception ex)
             {
                 _logger.Fatal(ex.Message, ex);
+                
                 throw;
             }
             finally
@@ -449,7 +439,8 @@ namespace Pumpkin.Data.DataServices.DataProviders
 
         private SqlParameter[] CastParameters(SqlCommand cmd, Dictionary<string, object> parameters)
         {
-            var p = new List<SqlParameter>();
+            var parameterList = new List<SqlParameter>();
+
             foreach (var (key, value) in parameters.Where(e => e.Value != null))
             {
                 if (value.GetType().IsArray || value.GetType().IsList())
@@ -529,7 +520,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
                 }
                 else
                 {
-                    p.Add(new SqlParameter
+                    parameterList.Add(new SqlParameter
                     {
                         Value = value,
                         ParameterName = key
@@ -537,7 +528,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
                 }
             }
 
-            return p.ToArray();
+            return parameterList.ToArray();
         }
 
         private void Close(SqlConnection connection = null, SqlCommand sqlCommand = null)
@@ -550,7 +541,7 @@ namespace Pumpkin.Data.DataServices.DataProviders
 
             sqlCommand?.Dispose();
         }
-        
+
         public void Dispose()
         {
             GC.Collect();

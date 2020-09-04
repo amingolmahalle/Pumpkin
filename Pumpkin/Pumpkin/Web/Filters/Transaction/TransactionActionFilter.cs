@@ -6,28 +6,26 @@ namespace Pumpkin.Web.Filters.Transaction
 {
     public class TransactionActionFilter : IAsyncActionFilter
     {
-        public ITransactionService TransactionService { get; set; }
+        private readonly ITransactionService _transactionService;
 
         public TransactionActionFilter(ITransactionService transactionService)
         {
-            TransactionService = transactionService;
+            _transactionService = transactionService;
         }
 
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             var transactionAttr = context.ActionDescriptor.GetMethodInfo().GetTransactionAttribute();
 
-            using (var tran = TransactionService.Begin(transactionAttr.CreateOptions()))
+            using var tran = _transactionService.Begin(transactionAttr.CreateOptions());
+            var result = await next();
+
+            if (result.Exception == null || result.ExceptionHandled)
             {
-                var result = await next();
-                
-                if (result.Exception == null || result.ExceptionHandled)
-                {
-                    tran.Complete();
-                }
-                else
-                    tran.Rollback();
+                tran.Complete();
             }
+            else
+                tran.Rollback();
         }
     }
 }

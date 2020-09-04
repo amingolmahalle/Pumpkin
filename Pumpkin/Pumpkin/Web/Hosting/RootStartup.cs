@@ -1,20 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Pumpkin.Common;
 using Pumpkin.Contract.Logging;
 using Pumpkin.Core.Logging.NLog;
 using Pumpkin.Core.Registration;
-using Pumpkin.Web.Filters.Transaction;
-using Pumpkin.Web.Filters.Validator;
 using Pumpkin.Web.RequestWrapper;
 using Pumpkin.Web.Swagger;
 
@@ -28,10 +23,10 @@ namespace Pumpkin.Web.Hosting
 
         protected readonly IConfiguration Configuration;
 
-        public RootStartup(IConfiguration configuration)//, SecuritySettings securitySettings)
+        public RootStartup(IConfiguration configuration) //, SecuritySettings securitySettings)
         {
             Configuration = configuration;
-          //  _securitySettings = securitySettings;
+            //  _securitySettings = securitySettings;
         }
 
         public virtual void ConfigureServices(IServiceCollection services)
@@ -40,14 +35,14 @@ namespace Pumpkin.Web.Hosting
             {
                 throw new ArgumentNullException(nameof(services));
             }
-            
-         //   services.Configure<SecuritySettings>(Configuration.GetSection(nameof(SecuritySettings)));
+
+            //   services.Configure<SecuritySettings>(Configuration.GetSection(nameof(SecuritySettings)));
 
             services.AddCors();
 
             services.AddHttpContextAccessor();
-            
-           // services.AddJwtAuthentication(_securitySettings.JwtSettings);
+
+            // services.AddJwtAuthentication(_securitySettings.JwtSettings);
 
             services.AddCustomApiVersioning();
 
@@ -70,28 +65,11 @@ namespace Pumpkin.Web.Hosting
 
             services.NeedToInstallConfig();
 
-            services.AddControllers(options =>
-                {
-                    options.Filters.Add<TransactionActionFilter>();
-                    options.Filters.Add<ValidatorActionFilter>();
-                }).ConfigureApiBehaviorOptions(options =>
-                {
-                    options.SuppressConsumesConstraintForFormFileParameters = true;
-                    options.SuppressModelStateInvalidFilter = true;
-                }).AddFluentValidation(fv =>
-                {
-                    fv.RegisterValidatorsFromAssemblyContaining<RootStartup>();
-                    fv.ImplicitlyValidateChildProperties = true;
-                })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddMinimalMvc();
         }
 
         public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-            }
-
             app.UseCors(x => x
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
@@ -99,7 +77,10 @@ namespace Pumpkin.Web.Hosting
 
             app.UseRequestInterceptor();
 
+            app.UseHsts(env);
+
             app.UseSwagger();
+
             app.UseSwaggerUI(options =>
             {
                 Versions.ToList()
@@ -112,6 +93,7 @@ namespace Pumpkin.Web.Hosting
             app.UseRouting();
 
             app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

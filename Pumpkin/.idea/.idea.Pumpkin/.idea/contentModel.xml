@@ -104,8 +104,9 @@
             </e>
           </e>
           <e p="Registration" t="Include">
-            <e p="DynamicallyInstaller.cs" t="Include" />
-            <e p="ServiceCollection.cs" t="Include" />
+            <e p="ApplicationBuilderExtensions.cs" t="Include" />
+            <e p="DynamicallyInstallerExtensions.cs" t="Include" />
+            <e p="ServiceCollectionExtensions.cs" t="Include" />
           </e>
           <e p="Serialization" t="Include">
             <e p="NewtonSoftSerializer.cs" t="Include" />
