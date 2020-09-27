@@ -1,7 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Pumpkin.Contract.Domain;
 using Pumpkin.Contract.Listeners;
-using Pumpkin.Contract.Registration;
 using Pumpkin.Data.Listeners;
 using Pumpkin.Data.Repositories;
 

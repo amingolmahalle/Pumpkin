@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Configuration;
 
-namespace Pumpkin.Web.Configs
+namespace Pumpkin.Web.Configuration
 {
     public static class ConfigManager
     {

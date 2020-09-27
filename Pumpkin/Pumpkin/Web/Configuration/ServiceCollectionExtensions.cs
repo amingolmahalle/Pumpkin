@@ -12,7 +12,7 @@ using Pumpkin.Web.Filters.Transaction;
 using Pumpkin.Web.Filters.Validator;
 using Pumpkin.Web.Hosting;
 
-namespace Pumpkin.Core.Registration
+namespace Pumpkin.Web.Configuration
 {
     public static class ServiceCollectionExtensions
     {
@@ -55,7 +55,7 @@ namespace Pumpkin.Core.Registration
             {
                 options.ReportApiVersions = true;
                 options.AssumeDefaultVersionWhenUnspecified = true;
-                options.ApiVersionReader = new MediaTypeApiVersionReader();
+                options.ApiVersionReader = new UrlSegmentApiVersionReader();
                 options.ApiVersionSelector = new CurrentImplementationApiVersionSelector(options);
                 options.DefaultApiVersion = new ApiVersion(1, 0);
             });

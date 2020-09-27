@@ -6,7 +6,6 @@ using Microsoft.Extensions.Logging;
 
 namespace Pumpkin.Web.Controller
 {
-    // [Authorize]
     [ApiController]
     [Produces("application/json")]
     [Route("api/v{version:apiVersion}/[controller]")]
@@ -15,6 +14,8 @@ namespace Pumpkin.Web.Controller
         protected ILogger Logger { get; }
 
         protected IConfiguration Configuration { get; }
+        
+        protected bool UserIsAuthenticated => HttpContext.User.Identity.IsAuthenticated;
 
         protected BaseController(IServiceProvider serviceProvider)
         {

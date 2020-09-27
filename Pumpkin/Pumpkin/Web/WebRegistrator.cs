@@ -1,5 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
-using Pumpkin.Contract.Registration;
+using Pumpkin.Contract.Domain;
 using Pumpkin.Contract.Security;
 using Pumpkin.Web.Authorization;
 

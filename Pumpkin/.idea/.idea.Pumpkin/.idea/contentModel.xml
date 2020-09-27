@@ -45,6 +45,7 @@
             <e p="IDataInitializer.cs" t="Include" />
             <e p="IEntity.cs" t="Include" />
             <e p="IHasChangeHistory.cs" t="Include" />
+            <e p="INeedToInstall.cs" t="Include" />
             <e p="IRepository.cs" t="Include" />
             <e p="ISoftDelete.cs" t="Include" />
           </e>
@@ -59,9 +60,6 @@
             <e p="ILoggerFactory.cs" t="Include" />
             <e p="LogManager.cs" t="Include" />
             <e p="LoggingFactoryDefinition.cs" t="Include" />
-          </e>
-          <e p="Registration" t="Include">
-            <e p="INeedToInstall.cs" t="Include" />
           </e>
           <e p="Security" t="Include">
             <e p="AuthenticationType.cs" t="Include" />
@@ -103,11 +101,6 @@
               <e p="NLogFactory.cs" t="Include" />
             </e>
           </e>
-          <e p="Registration" t="Include">
-            <e p="ApplicationBuilderExtensions.cs" t="Include" />
-            <e p="DynamicallyInstallerExtensions.cs" t="Include" />
-            <e p="ServiceCollectionExtensions.cs" t="Include" />
-          </e>
           <e p="Serialization" t="Include">
             <e p="NewtonSoftSerializer.cs" t="Include" />
           </e>
@@ -140,8 +133,11 @@
           <e p="Authorization" t="Include">
             <e p="CurrentRequest.cs" t="Include" />
           </e>
-          <e p="Configs" t="Include">
+          <e p="Configuration" t="Include">
+            <e p="ApplicationBuilderExtensions.cs" t="Include" />
             <e p="ConfigManager.cs" t="Include" />
+            <e p="DynamicallyInstallerExtensions.cs" t="Include" />
+            <e p="ServiceCollectionExtensions.cs" t="Include" />
           </e>
           <e p="Controller" t="Include">
             <e p="BaseController.cs" t="Include" />
@@ -175,8 +171,10 @@
             <e p="ResponseMessageEnum.cs" t="Include" />
           </e>
           <e p="Swagger" t="Include">
-            <e p="RemoveVersionFromParameter.cs" t="Include" />
-            <e p="ReplaceVersionWithExactValueInPath.cs" t="Include" />
+            <e p="ApplySummariesOperationFilter.cs" t="Include" />
+            <e p="RemoveVersionParameters.cs" t="Include" />
+            <e p="SetVersionInPaths.cs" t="Include" />
+            <e p="UnauthorizedResponsesOperationFilter.cs" t="Include" />
           </e>
           <e p="WebRegistrator.cs" t="Include" />
         </e>
@@ -279,6 +277,10 @@
         </e>
         <e p="Startup.cs" t="Include" />
         <e p="Web" t="Include">
+          <e p="Configuration" t="Include">
+            <e p="ApplicationBuilderExtensions.cs" t="Include" />
+            <e p="ServiceCollectionExtensions.cs" t="Include" />
+          </e>
           <e p="Controllers" t="Include">
             <e p="RedisController.cs" t="Include" />
             <e p="UserController.cs" t="Include" />

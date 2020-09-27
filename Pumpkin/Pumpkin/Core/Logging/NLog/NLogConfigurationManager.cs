@@ -5,7 +5,7 @@ using NLog.Config;
 using NLog.Layouts;
 using NLog.Targets;
 using NLog.Targets.ElasticSearch;
-using Pumpkin.Web.Configs;
+using Pumpkin.Web.Configuration;
 
 namespace Pumpkin.Core.Logging.NLog
 {

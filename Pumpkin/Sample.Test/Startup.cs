@@ -2,10 +2,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Pumpkin.Core.Registration;
-using Pumpkin.Web.Configs;
+using Pumpkin.Web.Configuration;
 using Pumpkin.Web.Hosting;
 using Sample.Test.Data;
+using Sample.Test.Web.Configuration;
 
 namespace Sample.Test
 {
@@ -18,6 +18,8 @@ namespace Sample.Test
         public override void ConfigureServices(IServiceCollection services)
         {
             base.ConfigureServices(services);
+            
+            services.AddCustomSwagger();
 
             services.AddDatabaseContext<ApplicationDbContext>(ConfigManager.GetConnectionString("SqlServer"));
         }
@@ -27,6 +29,13 @@ namespace Sample.Test
             app.InitializeDatabase<ApplicationDbContext>();
 
             base.Configure(app, env);
+        }
+
+        public override void UseBeforeMvc(IApplicationBuilder app)
+        {
+            base.UseBeforeMvc(app);
+            
+            app.UseSwaggerAndUi();
         }
     }
 }

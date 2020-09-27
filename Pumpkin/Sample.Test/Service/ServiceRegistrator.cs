@@ -1,6 +1,6 @@
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using Pumpkin.Contract.Registration;
+using Pumpkin.Contract.Domain;
 using Sample.Test.Domain.Service.Commands.AddUser;
 using Sample.Test.Domain.Service.Commands.EditUser;
 using Sample.Test.Domain.Service.Queries.GetUserById;

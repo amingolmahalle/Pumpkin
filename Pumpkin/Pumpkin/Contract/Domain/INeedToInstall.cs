@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Pumpkin.Contract.Registration
+namespace Pumpkin.Contract.Domain
 {
     public interface INeedToInstall
     {

@@ -2,9 +2,9 @@ using System;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Pumpkin.Contract.Caching;
-using Pumpkin.Contract.Registration;
+using Pumpkin.Contract.Domain;
 
-namespace Pumpkin.Core.Registration
+namespace Pumpkin.Web.Configuration
 {
     public static class DynamicallyInstallerExtensions
     {

@@ -7,7 +7,7 @@ using Pumpkin.Common.Helpers;
 using Pumpkin.Contract.Domain;
 using Pumpkin.Data;
 
-namespace Pumpkin.Core.Registration
+namespace Pumpkin.Web.Configuration
 {
     public static class ApplicationBuilderExtensions
     {
@@ -29,13 +29,22 @@ namespace Pumpkin.Core.Registration
 
             //Dos not use Migrations, just Create Database with latest changes
             //dbContext.Database.EnsureCreated();
+            
             //Applies any pending migrations for the context to the database like (Update-Database)
             dbContext.Database.Migrate();
 
             var dataInitializers = scope.ServiceProvider.GetServices<IDataInitializer>();
-            
+
             foreach (var dataInitializer in dataInitializers)
                 dataInitializer.SeedData();
+        }
+
+        public static void UseCustomCors(this IApplicationBuilder app)
+        {
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
         }
     }
 }

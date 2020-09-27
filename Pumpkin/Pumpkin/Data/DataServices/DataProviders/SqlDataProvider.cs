@@ -10,7 +10,7 @@ using Microsoft.SqlServer.Types;
 using Pumpkin.Common.Extensions;
 using Pumpkin.Contract.DataServices;
 using Pumpkin.Contract.Logging;
-using Pumpkin.Web.Configs;
+using Pumpkin.Web.Configuration;
 
 namespace Pumpkin.Data.DataServices.DataProviders
 {
