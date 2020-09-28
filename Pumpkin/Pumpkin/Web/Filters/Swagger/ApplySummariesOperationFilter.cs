@@ -6,7 +6,7 @@ using Pluralize.NET;
 using Pumpkin.Common.Extensions;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Pumpkin.Web.Swagger
+namespace Pumpkin.Web.Filters.Swagger
 {
     public class ApplySummariesOperationFilter : IOperationFilter
     {

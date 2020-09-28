@@ -36,7 +36,6 @@
       <Folder Include="Core\Serialization" />
       <Folder Include="Core\Transaction" />
       <Folder Include="Data\DataServices\DataProviders" />
-      <Folder Include="Web\Swagger" />
     </ItemGroup>
 
 </Project>

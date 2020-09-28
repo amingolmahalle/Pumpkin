@@ -1,7 +1,7 @@
 ﻿using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Pumpkin.Web.Swagger
+namespace Pumpkin.Web.Filters.Swagger
 {
     public class SetVersionInPaths : IDocumentFilter
     {
