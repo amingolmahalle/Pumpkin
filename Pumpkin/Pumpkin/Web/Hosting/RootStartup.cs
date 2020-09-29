@@ -12,14 +12,11 @@ namespace Pumpkin.Web.Hosting
 {
     public class RootStartup
     {
-        //private readonly SecuritySettings _securitySettings;
-
         protected readonly IConfiguration Configuration;
 
-        public RootStartup(IConfiguration configuration) //, SecuritySettings securitySettings)
+        public RootStartup(IConfiguration configuration)
         {
             Configuration = configuration;
-            // _securitySettings = securitySettings;
         }
 
         public virtual void ConfigureServices(IServiceCollection services)
@@ -29,13 +26,9 @@ namespace Pumpkin.Web.Hosting
                 throw new ArgumentNullException(nameof(services));
             }
 
-            //   services.Configure<SecuritySettings>(Configuration.GetSection(nameof(SecuritySettings)));
-
             services.AddCors();
 
             services.AddHttpContextAccessor();
-
-            // services.AddJwtAuthentication(_securitySettings.JwtSettings);
 
             services.AddCustomApiVersioning();
 
@@ -55,7 +48,7 @@ namespace Pumpkin.Web.Hosting
 
             app.UseHsts(env);
 
-            UseBeforeMvc(app);
+            ConfigureBeforeMvc(app);
 
             app.UseRouting();
 
@@ -66,7 +59,7 @@ namespace Pumpkin.Web.Hosting
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
 
-        public virtual void UseBeforeMvc(IApplicationBuilder app)
+        public virtual void ConfigureBeforeMvc(IApplicationBuilder app)
         {
         }
     }

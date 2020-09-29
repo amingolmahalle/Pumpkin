@@ -31,9 +31,9 @@ namespace Sample.Test
             base.Configure(app, env);
         }
 
-        public override void UseBeforeMvc(IApplicationBuilder app)
+        public override void ConfigureBeforeMvc(IApplicationBuilder app)
         {
-            base.UseBeforeMvc(app);
+            base.ConfigureBeforeMvc(app);
             
             app.UseSwaggerAndUi();
         }

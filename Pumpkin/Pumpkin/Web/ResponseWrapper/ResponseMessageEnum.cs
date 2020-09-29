@@ -4,7 +4,8 @@ namespace Pumpkin.Web.ResponseWrapper
 {
     public enum ResponseMessageEnum
     {
-        [Description("Request successful.")] Success = 0,
+        [Description("Request successful.")] 
+        Success = 0,
 
         [Description("Request not found. The specified uri does not exist.")]
         NotFound = 1,
@@ -21,8 +22,7 @@ namespace Pumpkin.Web.ResponseWrapper
         [Description("Request denied. Unauthorized access.")]
         UnAuthorized = 5,
 
-        [Description(
-            "Request responded with validation error(s). Please correct the specified validation errors and try again.")]
+        [Description("Request responded with validation error(s). Please correct the specified validation errors and try again.")]
         ValidationError = 6,
 
         [Description("Request cannot be processed. Please contact a support.")]
@@ -38,6 +38,6 @@ namespace Pumpkin.Web.ResponseWrapper
         Failure = 10,
 
         [Description("An error occurred on the server.")]
-        ServerError = 11,
+        ServerError = 11
     }
 }
