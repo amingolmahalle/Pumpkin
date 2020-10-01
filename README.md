@@ -9,8 +9,8 @@ How to Install <b>Redis</b> by Docker:
 
 How to Install <b>ElasticSearch</b> by Docker:
 
-  <code> sudo docker run -d -p 9200:9200 -p 9300:9300 -it -h elasticsearch --name elasticsearch elasticsearch:7.6.2 </code>
+  <code> sudo docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:7.9.2 </code>
   
 How to Install <b>Kibana</b> by Docker:
 
-  <code>sudo docker run -d -p 5601:5601 -h kibana --name kibana --link elasticsearch:elasticsearch kibana</code>
+  <code>sudo docker run -d -p 5601:5601 -h kibana --name kibana --link elasticsearch:elasticsearch kibana:7.9.2</code>
