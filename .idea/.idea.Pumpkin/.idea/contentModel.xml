@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/.cache/JetBrains/Rider2020.2/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/.cache/JetBrains/Rider2020.2/resharper-host/local/Transient/Rider/v202/SolutionCaches/_Pumpkin.-848981378.00" t="ExcludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p="Pumpkin" t="IncludeRecursive">
+        <e p="Common" t="Include">
+          <e p="AssemblyScanner.cs" t="Include" />
+          <e p="Constants.cs" t="Include" />
+          <e p="Extensions" t="Include">
+            <e p="Enum.cs" t="Include" />
+            <e p="Enumurable.cs" t="Include" />
+            <e p="Identity.cs" t="Include" />
+            <e p="Linq.cs" t="Include" />
+            <e p="ModelBuilder.cs" t="Include" />
+            <e p="SqlCommand.cs" t="Include" />
+            <e p="String.cs" t="Include" />
+            <e p="StringBuilder.cs" t="Include" />
+            <e p="Type.cs" t="Include" />
+          </e>
+          <e p="Helpers" t="Include">
+            <e p="Assert.cs" t="Include" />
+            <e p="Random.cs" t="Include" />
+            <e p="Security.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Contract" t="Include">
+          <e p="Caching" t="Include">
+            <e p="CacheGroup.cs" t="Include" />
+            <e p="CacheOptions.cs" t="Include" />
+            <e p="CacheProviderType.cs" t="Include" />
+            <e p="ICacheProvider.cs" t="Include" />
+            <e p="ICacheService.cs" t="Include" />
+          </e>
+          <e p="DataServices" t="Include">
+            <e p="DataResult.cs" t="Include" />
+            <e p="IDataResult.cs" t="Include" />
+          </e>
+          <e p="Domain" t="Include">
+            <e p="Entity.cs" t="Include" />
+            <e p="IAggregateRoot.cs" t="Include" />
+            <e p="ICachable.cs" t="Include" />
+            <e p="IConcurrencyToken.cs" t="Include" />
+            <e p="IDataInitializer.cs" t="Include" />
+            <e p="IEntity.cs" t="Include" />
+            <e p="IHasChangeHistory.cs" t="Include" />
+            <e p="INeedToInstall.cs" t="Include" />
+            <e p="IRepository.cs" t="Include" />
+            <e p="ISoftDelete.cs" t="Include" />
+          </e>
+          <e p="Listeners" t="Include">
+            <e p="IBeforeDeleteListener.cs" t="Include" />
+            <e p="IBeforeInsertListener.cs" t="Include" />
+            <e p="IBeforeUpdateListener.cs" t="Include" />
+          </e>
+          <e p="Logging" t="Include">
+            <e p="EmptyLogger.cs" t="Include" />
+            <e p="ILog.cs" t="Include" />
+            <e p="ILoggerFactory.cs" t="Include" />
+            <e p="LogManager.cs" t="Include" />
+            <e p="LoggingFactoryDefinition.cs" t="Include" />
+          </e>
+          <e p="Security" t="Include">
+            <e p="AuthenticationType.cs" t="Include" />
+            <e p="GatewayType.cs" t="Include" />
+            <e p="ICurrentRequest.cs" t="Include" />
+          </e>
+          <e p="Serialization" t="Include">
+            <e p="ISerializer.cs" t="Include" />
+          </e>
+          <e p="Transaction" t="Include">
+            <e p="ITransactionHandle.cs" t="Include" />
+            <e p="ITransactionService.cs" t="Include" />
+            <e p="TransactionAttribute.cs" t="Include" />
+            <e p="TransactionOptions.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Core" t="Include">
+          <e p="Caching" t="Include">
+            <e p="CacheService.cs" t="Include" />
+            <e p="Providers" t="Include">
+              <e p="Local" t="Include">
+                <e p="InMemoryCacheProvider.cs" t="Include" />
+              </e>
+              <e p="Shared" t="Include">
+                <e p="Redis" t="Include">
+                  <e p="RedisCacheProvider.cs" t="Include" />
+                  <e p="RedisConnectionEntry.cs" t="Include" />
+                  <e p="RedisConnectionFactory.cs" t="Include" />
+                </e>
+              </e>
+            </e>
+          </e>
+          <e p="CoreRegistrator.cs" t="Include" />
+          <e p="Logging" t="Include">
+            <e p="NLog" t="Include">
+              <e p="Logger.cs" t="Include" />
+              <e p="LoggerFactory.cs" t="Include" />
+              <e p="NLogConfigurationManager.cs" t="Include" />
+              <e p="NLogFactory.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Serialization" t="Include">
+            <e p="NewtonSoftSerializer.cs" t="Include" />
+          </e>
+          <e p="Transaction" t="Include">
+            <e p="NullTransactionService.cs" t="Include" />
+            <e p="TransactionHandle.cs" t="Include" />
+            <e p="TransactionService.cs" t="Include" />
+            <e p="TransactionServiceBase.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Data" t="Include">
+          <e p="DataRegistrator.cs" t="Include" />
+          <e p="DataServices" t="Include">
+            <e p="DataProviders" t="Include">
+              <e p="SqlDataProvider.cs" t="Include" />
+            </e>
+          </e>
+          <e p="DatabaseContext.cs" t="Include" />
+          <e p="Listeners" t="Include">
+            <e p="HistoryBeforeDelete.cs" t="Include" />
+            <e p="HistoryBeforeInsert.cs" t="Include" />
+            <e p="HistoryBeforeUpdate.cs" t="Include" />
+          </e>
+          <e p="Repositories" t="Include">
+            <e p="Repository.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Pumpkin.csproj" t="IncludeRecursive" />
+        <e p="Web" t="Include">
+          <e p="Authorization" t="Include">
+            <e p="CurrentRequest.cs" t="Include" />
+          </e>
+          <e p="Configuration" t="Include">
+            <e p="ApplicationBuilderExtensions.cs" t="Include" />
+            <e p="ConfigManager.cs" t="Include" />
+            <e p="DynamicallyInstallerExtensions.cs" t="Include" />
+            <e p="ServiceCollectionExtensions.cs" t="Include" />
+          </e>
+          <e p="Controller" t="Include">
+            <e p="BaseController.cs" t="Include" />
+          </e>
+          <e p="Filters" t="Include">
+            <e p="Swagger" t="Include">
+              <e p="ApplySummariesOperationFilter.cs" t="Include" />
+              <e p="RemoveVersionParameters.cs" t="Include" />
+              <e p="SetVersionInPaths.cs" t="Include" />
+              <e p="UnauthorizedResponsesOperationFilter.cs" t="Include" />
+            </e>
+            <e p="Transaction" t="Include">
+              <e p="ActionDescriptorExtension.cs" t="Include" />
+              <e p="TransactionActionFilter.cs" t="Include" />
+            </e>
+            <e p="Validator" t="Include">
+              <e p="Dto" t="Include">
+                <e p="ErrorFluentValidation.cs" t="Include" />
+              </e>
+              <e p="ValidatorActionFilter.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Hosting" t="Include">
+            <e p="RootProgram.cs" t="Include" />
+            <e p="RootProgramExtension.cs" t="Include" />
+            <e p="RootStartup.cs" t="Include" />
+          </e>
+          <e p="RequestWrapper" t="Include">
+            <e p="ApiRequestInterceptor.cs" t="Include" />
+            <e p="ApiRequestInterceptorExtension.cs" t="Include" />
+          </e>
+          <e p="ResponseWrapper" t="Include">
+            <e p="AdditionalData.cs" t="Include" />
+            <e p="ApiError.cs" t="Include" />
+            <e p="ApiException.cs" t="Include" />
+            <e p="ApiResponse.cs" t="Include" />
+            <e p="ResponseMessageEnum.cs" t="Include" />
+          </e>
+          <e p="WebRegistrator.cs" t="Include" />
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="Pumpkin.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="Pumpkin.sln" t="IncludeFlat" />
+      <e p="Sample.Test" t="IncludeRecursive">
+        <e p="Data" t="Include">
+          <e p="ApplicationDbContext.cs" t="Include" />
+          <e p="DataRegistrator.cs" t="Include" />
+          <e p="EntityConfig" t="Include">
+            <e p="UserConfig.cs" t="Include" />
+          </e>
+          <e p="MigrationScripts" t="Include">
+            <e p="20200419074407_CreateDatabase.sql" t="Include" />
+          </e>
+          <e p="Repositories" t="Include">
+            <e p="UserRepository.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Domain" t="Include">
+          <e p="Entity" t="Include">
+            <e p="UserAggregate" t="Include">
+              <e p="IUserRepository.cs" t="Include" />
+              <e p="User.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Service" t="Include">
+            <e p="Commands" t="Include">
+              <e p="AddUser" t="Include">
+                <e p="AddUserRequest.cs" t="Include" />
+                <e p="IAddUserService.cs" t="Include" />
+              </e>
+              <e p="EditUser" t="Include">
+                <e p="EditUserRequest.cs" t="Include" />
+                <e p="IEditUserService.cs" t="Include" />
+              </e>
+            </e>
+            <e p="Queries" t="Include">
+              <e p="GetUserById" t="Include">
+                <e p="GetUserByIdRequest.cs" t="Include" />
+                <e p="GetUserByIdResponse.cs" t="Include" />
+                <e p="IGetUserByIdService.cs" t="Include" />
+              </e>
+              <e p="GetUserByMobile" t="Include">
+                <e p="GetUserByMobileRequest.cs" t="Include" />
+                <e p="GetUserByMobileResponse.cs" t="Include" />
+                <e p="IGetUserByMobileService.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+        </e>
+        <e p="Helper" t="Include">
+          <e p="Messages.Designer.cs" t="Include" />
+          <e p="Messages.resx" t="Include" />
+        </e>
+        <e p="Migrations" t="Include">
+          <e p="20200419074407_CreateDatabase.Designer.cs" t="Include" />
+          <e p="20200419074407_CreateDatabase.cs" t="Include" />
+          <e p="ApplicationDbContextModelSnapshot.cs" t="Include" />
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="launchSettings.json" t="Include" />
+        </e>
+        <e p="Sample.Test.csproj" t="IncludeRecursive" />
+        <e p="Service" t="Include">
+          <e p="Commands" t="Include">
+            <e p="AddUser" t="Include">
+              <e p="AddUserFactory.cs" t="Include" />
+              <e p="AddUserService.cs" t="Include" />
+              <e p="AddUserValidator.cs" t="Include" />
+            </e>
+            <e p="EditUser" t="Include">
+              <e p="EditUserFactory.cs" t="Include" />
+              <e p="EditUserService.cs" t="Include" />
+              <e p="EditUserValidator.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Queries" t="Include">
+            <e p="GetUserById" t="Include">
+              <e p="GetUserByIdFactory.cs" t="Include" />
+              <e p="GetUserByIdService.cs" t="Include" />
+              <e p="GetUserByIdValidator.cs" t="Include" />
+            </e>
+            <e p="GetUserByMobile" t="Include">
+              <e p="GetUserByMobileFactory.cs" t="Include" />
+              <e p="GetUserByMobileService.cs" t="Include" />
+              <e p="GetUserByMobileValidator.cs" t="Include" />
+            </e>
+          </e>
+          <e p="ServiceRegistrator.cs" t="Include" />
+        </e>
+        <e p="Startup.cs" t="Include" />
+        <e p="Web" t="Include">
+          <e p="Configuration" t="Include">
+            <e p="ApplicationBuilderExtensions.cs" t="Include" />
+            <e p="ServiceCollectionExtensions.cs" t="Include" />
+          </e>
+          <e p="Controllers" t="Include">
+            <e p="RedisController.cs" t="Include" />
+            <e p="UserController.cs" t="Include" />
+          </e>
+        </e>
+        <e p="appsettings.Development.json" t="Include" />
+        <e p="appsettings.json" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="Sample.Test.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
