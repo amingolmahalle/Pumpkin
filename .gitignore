@@ -421,6 +421,9 @@ $RECYCLE.BIN/
 # JetBrains Rider
 .idea/
 *.sln.iml
+**/bin/*
+**/obj/*
+
 
 ##
 ## Visual Studio Code
