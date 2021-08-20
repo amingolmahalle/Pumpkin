@@ -50,18 +50,6 @@ namespace Sample.Test.Web.Configuration
 
                 options.EnableAnnotations();
 
-                #region DescribeAllEnumsAsStrings
-
-                //This method was Deprecated. 
-                options.DescribeAllEnumsAsStrings();
-
-                #endregion
-
-                options.DescribeAllParametersInCamelCase();
-                options.DescribeStringEnumsInCamelCase();
-                options.IgnoreObsoleteActions();
-                options.IgnoreObsoleteProperties();
-
                 options.SwaggerDoc("v1", new OpenApiInfo {Version = "v1", Title = "API V1"});
                 options.SwaggerDoc("v2", new OpenApiInfo {Version = "v2", Title = "API V2"});
 
