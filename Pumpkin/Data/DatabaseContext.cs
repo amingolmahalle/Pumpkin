@@ -113,7 +113,7 @@ namespace Pumpkin.Data
             var entries = entityEntries
                 .Where(e => e.Entity
                     .GetType()
-                    .IsAssignableFromGeneric(typeof(IEntity<>)))
+                    .IsAssignableFromGeneric(typeof(IEntity)))
                 .ToList();
 
             foreach (var entry in entries)
@@ -121,13 +121,13 @@ namespace Pumpkin.Data
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        beforeInsertListener.OnBeforeInsert(entry);
+                        beforeInsertListener?.OnBeforeInsert(entry);
                         break;
                     case EntityState.Modified:
-                        beforeUpdateListener.OnBeforeUpdate(entry);
+                        beforeUpdateListener?.OnBeforeUpdate(entry);
                         break;
                     case EntityState.Deleted:
-                        beforeDeleteListener.OnBeforeDelete(entry);
+                        beforeDeleteListener?.OnBeforeDelete(entry);
                         break;
                 }
             }

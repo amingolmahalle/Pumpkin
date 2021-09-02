@@ -1,7 +1,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Pumpkin.Contract.Domain;
+using Pumpkin.Contract.Domain.Auditable;
 using Pumpkin.Contract.Listeners;
 using Pumpkin.Contract.Security;
 
@@ -18,14 +18,14 @@ namespace Pumpkin.Data.Listeners
 
         public void OnBeforeDelete(EntityEntry entry)
         {
-            if (entry.Entity is ISoftDelete changeHistory)
+            if (entry.Entity is IRemovableEntity removableEntity)
             {
                 entry.State = EntityState.Modified;
-                
-                var history = changeHistory;
 
-                history.ArchiveTime = DateTime.UtcNow;
-                history.ArchiveUser = _currentRequest.UserId;
+                var history = removableEntity;
+
+                history.RemovedAt = DateTime.UtcNow;
+                history.RemovedBy = _currentRequest.UserId;
                 history.Deleted = true;
             }
         }

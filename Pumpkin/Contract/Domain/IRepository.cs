@@ -9,7 +9,7 @@ namespace Pumpkin.Contract.Domain
     public interface IRepository<TEntity, in TKey>
         where TEntity :
         class,
-        IEntity<TKey>,
+        IEntity,
         IAggregateRoot
     {
         DbSet<TEntity> Entities { get; }

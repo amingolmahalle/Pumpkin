@@ -15,7 +15,7 @@ namespace Pumpkin.Web.Controller
 
         protected IConfiguration Configuration { get; }
         
-        protected bool UserIsAuthenticated => HttpContext.User.Identity.IsAuthenticated;
+        protected bool UserIsAuthenticated => HttpContext.User.Identity is {IsAuthenticated: true};
 
         protected BaseController(IServiceProvider serviceProvider)
         {

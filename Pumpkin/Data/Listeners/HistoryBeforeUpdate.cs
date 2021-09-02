@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Pumpkin.Contract.Domain;
+using Pumpkin.Contract.Domain.Auditable;
 using Pumpkin.Contract.Listeners;
 using Pumpkin.Contract.Security;
 
@@ -17,12 +17,12 @@ namespace Pumpkin.Data.Listeners
 
         public void OnBeforeUpdate(EntityEntry entry)
         {
-            if (entry.Entity is IHasChangeHistory changeHistory)
+            if (entry.Entity is IModifiableEntity modifiableEntity)
             {
-                var history = changeHistory;
+                IModifiableEntity history = modifiableEntity;
 
-                history.LastUpdateTime = DateTime.UtcNow;
-                history.LastUpdateUser = _currentRequest.UserId;
+                history.ModifiedAt = DateTime.UtcNow;
+                history.ModifiedBy = _currentRequest.UserId;
             }
         }
     }

@@ -21,13 +21,12 @@ namespace Sample.Test.Service
             services.AddScoped<IGetUserByMobileService, GetUserByMobileService>();
             services.AddScoped<IAddUserService, AddUserService>();
             services.AddScoped<IEditUserService, EditUserService>();
-            // Services
 
             // Validator
             services.AddScoped<IValidator<AddUserRequest>, AddUserValidator>();
             services.AddScoped<IValidator<EditUserRequest>, EditUserValidator>();
             services.AddScoped<IValidator<GetUserByIdRequest>, GetUserByIdValidator>();
-            // Validator
+            services.AddScoped<IValidator<GetUserByMobileRequest>, GetUserByMobileValidator>();
         }
     }
 }

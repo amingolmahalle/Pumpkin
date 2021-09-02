@@ -11,7 +11,7 @@ namespace Pumpkin.Data.Repositories
     public class Repository<TEntity, TKey> : IRepository<TEntity, TKey>
         where TEntity :
         class,
-        IEntity<TKey>,
+        IEntity,
         IAggregateRoot
     {
         private readonly DatabaseContext _session;

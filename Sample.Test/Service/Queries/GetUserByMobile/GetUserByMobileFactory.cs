@@ -16,7 +16,7 @@ namespace Sample.Test.Service.Queries.GetUserByMobile
                 Status = user.Status,
                 BirthDate = user.BirthDate,
                 Email = user.Email,
-                SubmitTime = user.SubmitTime,
+                SubmitTime = user.CreatedAt,
             };
         }
     }

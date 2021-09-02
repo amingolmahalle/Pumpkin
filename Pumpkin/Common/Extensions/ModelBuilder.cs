@@ -33,6 +33,7 @@ namespace Pumpkin.Common.Extensions
                     !(it.IsAbstract || it.IsInterface) &&
                     it.GetInterfaces().Any(x =>
                         x.IsGenericType &&
+                        // !x.IsAbstract &&
                         x.GetGenericTypeDefinition() == typeof(T)))
                 .ToList();
 
