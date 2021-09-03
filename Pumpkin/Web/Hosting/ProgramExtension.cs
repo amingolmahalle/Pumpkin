@@ -1,18 +1,18 @@
 using System;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using NLog;
 
 namespace Pumpkin.Web.Hosting
 {
-    public static class RootProgramExtension
+    public static class ProgramExtension
     {
-        public static void Run(this IWebHostBuilder createWebHostBuilder)
+        public static void Run(this IHostBuilder createHostBuilder)
         {
             var logger = LogManager.GetCurrentClassLogger();
 
             try
             {
-                createWebHostBuilder.Build().Run();
+                createHostBuilder.Build().Run();
             }
             catch (Exception ex)
             {

@@ -45,8 +45,7 @@ namespace Pumpkin.Web.Configuration
                 {
                     fv.RegisterValidatorsFromAssemblyContaining<RootStartup>();
                     fv.ImplicitlyValidateChildProperties = true;
-                })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+                });
         }
 
         public static void AddCustomApiVersioning(this IServiceCollection services)

@@ -1,7 +1,6 @@
 using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pumpkin.Contract.Logging;
 using Pumpkin.Core.Logging.NLog;
@@ -12,13 +11,6 @@ namespace Pumpkin.Web.Hosting
 {
     public class RootStartup
     {
-        protected readonly IConfiguration Configuration;
-
-        public RootStartup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
         public virtual void ConfigureServices(IServiceCollection services)
         {
             if (services == null)

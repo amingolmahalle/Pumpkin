@@ -12,7 +12,7 @@ namespace Pumpkin.Core.Caching.Providers.Local
     {
         private readonly IMemoryCache _cacheEngine;
 
-        private static ConcurrentDictionary<string, string> Keys { get; } = new ConcurrentDictionary<string, string>();
+        private static ConcurrentDictionary<string, string> Keys { get; } = new();
 
         public InMemoryCacheProvider(IMemoryCache cacheEngine)
         {

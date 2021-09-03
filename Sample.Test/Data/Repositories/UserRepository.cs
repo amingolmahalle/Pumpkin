@@ -21,17 +21,17 @@ namespace Sample.Test.Data.Repositories
         {
             using var dataProvider = new SqlDataProvider();
             var query = $@"SELECT 
-                                                Id,
-                                                Fullname,
-                                                MobileNumber,
-                                                NationalCode,
-                                                Email,
-                                                BirthDate,
-                                                Status
-                                        FROM 
-                                                Users
-                                        WHERE 
-                                                MobileNumber = {mobileNumber}";
+                                  Id,
+                                  Fullname,
+                                  MobileNumber,
+                                  NationalCode,
+                                  Email,
+                                  BirthDate,
+                                  Status
+                          FROM 
+                                  Users
+                          WHERE 
+                                  MobileNumber = {mobileNumber}";
 
             return await dataProvider.ExecuteSingleRecordQueryCommandAsync<User>(query, cancellationToken);
         }
