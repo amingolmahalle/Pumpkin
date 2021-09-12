@@ -1,6 +1,7 @@
 using System;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -11,6 +12,7 @@ using Pumpkin.Data;
 using Pumpkin.Web.Filters.Transaction;
 using Pumpkin.Web.Filters.Validator;
 using Pumpkin.Web.Hosting;
+using Pumpkin.Web.Routing;
 
 namespace Pumpkin.Web.Configuration
 {
@@ -34,18 +36,22 @@ namespace Pumpkin.Web.Configuration
         public static void AddMinimalMvc(this IServiceCollection services)
         {
             services.AddControllers(options =>
-                {
-                    options.Filters.Add<TransactionActionFilter>();
-                    options.Filters.Add<ValidatorActionFilter>();
-                }).ConfigureApiBehaviorOptions(options =>
-                {
-                    options.SuppressConsumesConstraintForFormFileParameters = true;
-                    options.SuppressModelStateInvalidFilter = true;
-                }).AddFluentValidation(fv =>
-                {
-                    fv.RegisterValidatorsFromAssemblyContaining<RootStartup>();
-                    fv.ImplicitlyValidateChildProperties = true;
-                });
+            {
+                options.Conventions.Add(new RouteTokenTransformerConvention(new SnakeCaseRouter()));
+                options.Filters.Add<TransactionActionFilter>();
+                options.Filters.Add<ValidatorActionFilter>();
+            }).ConfigureApiBehaviorOptions(options =>
+            {
+                options.SuppressConsumesConstraintForFormFileParameters = true;
+                options.SuppressModelStateInvalidFilter = true;
+            }).AddFluentValidation(fv =>
+            {
+                fv.RegisterValidatorsFromAssemblyContaining<RootStartup>();
+                fv.ImplicitlyValidateChildProperties = true;
+            }).AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
         }
 
         public static void AddCustomApiVersioning(this IServiceCollection services)
