@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 
 namespace Pumpkin.Common.Extensions
@@ -57,6 +58,84 @@ namespace Pumpkin.Common.Extensions
                 .Replace("ھ", "ه"); //.Replace("ئ", "ی");
         }
 
+        public static string ToFormalPhoneNumber(this string input)
+        {
+            input = input?.Trim()?.Fa2En();
+
+            if (!IsMobileNumber(input))
+            {
+                return string.Empty;
+            }
+
+            if (input != null && input[0] != '0')
+            {
+                if (input[0] == '+')
+                {
+                    input = input.TrimStart('+');
+                }
+
+                if (input[0] == '9' && input[1] == '8' && input[2] == '9') //input.StartsWith("989")
+                {
+                    int len = input.Length - 3;
+                    input = "0" + input.Substring(2, len + 1);
+                }
+
+                if (input[0] != '0')
+                {
+                    input = "0" + input;
+                }
+            }
+
+            return input;
+        }
+
+
+        public static bool IsMobileNumber(this string input)
+        {
+            return !string.IsNullOrWhiteSpace(input) && Regex.IsMatch(input, Constants.MobileNumberPattern);
+        }
+
+
+        public static long ToFormalPhoneNumberWithoutZero(this string input)
+        {
+            string formal = ToFormalPhoneNumber(input);
+
+            if (string.IsNullOrWhiteSpace(formal))
+            {
+                // throw new FormalPhoneGenerationException();
+            }
+
+            return System.Convert.ToInt64(formal?.Substring(1, formal.Length - 1));
+        }
+
+        public static string ToFormalEmail(this string input)
+        {
+            var formal = input.Trim();
+
+            if (string.IsNullOrWhiteSpace(formal) || !formal.IsValidEmail())
+            {
+                // throw new FormalEmailGenerationException();
+            }
+
+            return formal;
+        }
+
+        public static bool IsValidEmail(this string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+                return false;
+            try
+            {
+                return Regex.IsMatch(input, Constants.EmailPattern,
+                    RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
         public static string NullIfEmpty(this string str)
         {
             return str?.Length == 0 ? null : str;
@@ -68,7 +147,7 @@ namespace Pumpkin.Common.Extensions
 
             return (T) res;
         }
-        
+
         public static bool HasValue(this string value, bool ignoreWhiteSpace = true)
         {
             return ignoreWhiteSpace ? !string.IsNullOrWhiteSpace(value) : !string.IsNullOrEmpty(value);
