@@ -1,22 +1,128 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Test", "Sample.Test\Sample.Test.csproj", "{BAD553E6-F578-4C33-B5AC-5A134858AEB1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{B71F8BC2-71ED-40A1-97C5-6C502DCB1DDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pumpkin", "Pumpkin\Pumpkin.csproj", "{E1D8443B-2471-40C2-9DD6-7F10D72E81B1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{0A7BFFB9-EE87-4C82-9EEF-A6233EF223CC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Technical", "Technical", "{F84C930F-ECF2-48BB-BF79-8784C79BF9A0}"
+ProjectSection(SolutionItems) = preProject
+	Documents\Technical\API response helpers.md = Documents\Technical\API response helpers.md
+	Documents\Technical\EF Migration Commands.md = Documents\Technical\EF Migration Commands.md
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ubiquitous Language", "Ubiquitous Language", "{6C8E1121-657A-4A6E-BE93-830E8D7CE104}"
+ProjectSection(SolutionItems) = preProject
+	Documents\Ubiquitous Language\Definitions.md = Documents\Ubiquitous Language\Definitions.md
+	Documents\Ubiquitous Language\Value Objects.md = Documents\Ubiquitous Language\Value Objects.md
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{6E0B19D7-597C-486B-8709-6260F3EA0856}"
+ProjectSection(SolutionItems) = preProject
+	Services\docker-compose.yml = Services\docker-compose.yml
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{269B7D49-9271-44D3-819E-0638F974B5AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "elk", "elk", "{46F98E75-AD4F-49E0-9EAC-6B25200708FB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mongodb", "mongodb", "{D42233BE-70EA-45F4-98A0-D80356401BFA}"
+ProjectSection(SolutionItems) = preProject
+	Services\images\mongodb\Dockerfile = Services\images\mongodb\Dockerfile
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mysql", "mysql", "{FA68FB3F-C8CA-469B-B139-B1DD342C4716}"
+ProjectSection(SolutionItems) = preProject
+	Services\images\mysql\Dockerfile = Services\images\mysql\Dockerfile
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "postgresql", "postgresql", "{6D70CF9D-2C2F-45A0-A47F-CBA9A2A76424}"
+ProjectSection(SolutionItems) = preProject
+	Services\images\postgresql\Dockerfile = Services\images\postgresql\Dockerfile
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rabbitmq", "rabbitmq", "{42D86A03-4419-4CF4-A622-98C93ADCF7A6}"
+ProjectSection(SolutionItems) = preProject
+	Services\images\rabbitmq\Dockerfile = Services\images\rabbitmq\Dockerfile
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "redis", "redis", "{4C6C0210-389E-43C6-9918-BDA27663A21B}"
+ProjectSection(SolutionItems) = preProject
+	Services\images\redis\Dockerfile = Services\images\redis\Dockerfile
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{B5FC8049-B590-415F-846D-37C63C384666}"
+ProjectSection(SolutionItems) = preProject
+	Services\images\rabbitmq\config\advanced.config = Services\images\rabbitmq\config\advanced.config
+	Services\images\rabbitmq\config\rabbitmq.conf = Services\images\rabbitmq\config\rabbitmq.conf
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "elasticsearch", "elasticsearch", "{81841855-6855-4110-8285-C7CDE7756637}"
+ProjectSection(SolutionItems) = preProject
+	Services\images\elk\elasticsearch\Dockerfile = Services\images\elk\elasticsearch\Dockerfile
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "kibana", "kibana", "{97F9CCCC-0F9B-44F7-B7AF-3F194F68EE13}"
+ProjectSection(SolutionItems) = preProject
+	Services\images\elk\kibana\Dockerfile = Services\images\elk\kibana\Dockerfile
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "logstash", "logstash", "{FCC52A67-E583-4938-B2FF-83A0ED54D1E0}"
+ProjectSection(SolutionItems) = preProject
+	Services\images\elk\logstash\Dockerfile = Services\images\elk\logstash\Dockerfile
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{435B85C9-556F-42FF-90D1-BC6CC46F3F53}"
+ProjectSection(SolutionItems) = preProject
+	Services\images\elk\logstash\config\log4j2.properties = Services\images\elk\logstash\config\log4j2.properties
+	Services\images\elk\logstash\config\logstash-full.yml = Services\images\elk\logstash\config\logstash-full.yml
+	Services\images\elk\logstash\config\logstash-oss.yml = Services\images\elk\logstash\config\logstash-oss.yml
+	Services\images\elk\logstash\config\pipelines.yml = Services\images\elk\logstash\config\pipelines.yml
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pipeline", "pipeline", "{E8BE7014-A0CA-43C0-ADC4-D731F6979F94}"
+ProjectSection(SolutionItems) = preProject
+	Services\images\elk\logstash\pipeline\default.conf = Services\images\elk\logstash\pipeline\default.conf
+EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pumpkin", "Src\Pumpkin\Pumpkin.csproj", "{DFF741ED-FEE3-4020-AB5A-C4F065DBABFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleWebApi", "Src\SampleWebApi\SampleWebApi.csproj", "{E2EB411E-4A49-4C89-98E1-C93BD8E2B47F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventStorming", "EventStorming", "{94FA0904-C268-42DC-B202-2FC11DAAF581}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F84C930F-ECF2-48BB-BF79-8784C79BF9A0} = {0A7BFFB9-EE87-4C82-9EEF-A6233EF223CC}
+		{6C8E1121-657A-4A6E-BE93-830E8D7CE104} = {0A7BFFB9-EE87-4C82-9EEF-A6233EF223CC}
+		{269B7D49-9271-44D3-819E-0638F974B5AF} = {6E0B19D7-597C-486B-8709-6260F3EA0856}
+		{46F98E75-AD4F-49E0-9EAC-6B25200708FB} = {269B7D49-9271-44D3-819E-0638F974B5AF}
+		{D42233BE-70EA-45F4-98A0-D80356401BFA} = {269B7D49-9271-44D3-819E-0638F974B5AF}
+		{FA68FB3F-C8CA-469B-B139-B1DD342C4716} = {269B7D49-9271-44D3-819E-0638F974B5AF}
+		{6D70CF9D-2C2F-45A0-A47F-CBA9A2A76424} = {269B7D49-9271-44D3-819E-0638F974B5AF}
+		{42D86A03-4419-4CF4-A622-98C93ADCF7A6} = {269B7D49-9271-44D3-819E-0638F974B5AF}
+		{4C6C0210-389E-43C6-9918-BDA27663A21B} = {269B7D49-9271-44D3-819E-0638F974B5AF}
+		{B5FC8049-B590-415F-846D-37C63C384666} = {42D86A03-4419-4CF4-A622-98C93ADCF7A6}
+		{81841855-6855-4110-8285-C7CDE7756637} = {46F98E75-AD4F-49E0-9EAC-6B25200708FB}
+		{97F9CCCC-0F9B-44F7-B7AF-3F194F68EE13} = {46F98E75-AD4F-49E0-9EAC-6B25200708FB}
+		{FCC52A67-E583-4938-B2FF-83A0ED54D1E0} = {46F98E75-AD4F-49E0-9EAC-6B25200708FB}
+		{435B85C9-556F-42FF-90D1-BC6CC46F3F53} = {FCC52A67-E583-4938-B2FF-83A0ED54D1E0}
+		{E8BE7014-A0CA-43C0-ADC4-D731F6979F94} = {FCC52A67-E583-4938-B2FF-83A0ED54D1E0}
+		{DFF741ED-FEE3-4020-AB5A-C4F065DBABFB} = {B71F8BC2-71ED-40A1-97C5-6C502DCB1DDF}
+		{E2EB411E-4A49-4C89-98E1-C93BD8E2B47F} = {B71F8BC2-71ED-40A1-97C5-6C502DCB1DDF}
+		{94FA0904-C268-42DC-B202-2FC11DAAF581} = {F84C930F-ECF2-48BB-BF79-8784C79BF9A0}
+	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BAD553E6-F578-4C33-B5AC-5A134858AEB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BAD553E6-F578-4C33-B5AC-5A134858AEB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BAD553E6-F578-4C33-B5AC-5A134858AEB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BAD553E6-F578-4C33-B5AC-5A134858AEB1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E1D8443B-2471-40C2-9DD6-7F10D72E81B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E1D8443B-2471-40C2-9DD6-7F10D72E81B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E1D8443B-2471-40C2-9DD6-7F10D72E81B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E1D8443B-2471-40C2-9DD6-7F10D72E81B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFF741ED-FEE3-4020-AB5A-C4F065DBABFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFF741ED-FEE3-4020-AB5A-C4F065DBABFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFF741ED-FEE3-4020-AB5A-C4F065DBABFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFF741ED-FEE3-4020-AB5A-C4F065DBABFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2EB411E-4A49-4C89-98E1-C93BD8E2B47F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2EB411E-4A49-4C89-98E1-C93BD8E2B47F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2EB411E-4A49-4C89-98E1-C93BD8E2B47F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2EB411E-4A49-4C89-98E1-C93BD8E2B47F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

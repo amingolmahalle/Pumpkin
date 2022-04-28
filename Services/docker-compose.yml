@@ -1,0 +1,199 @@
+version: "3.9"
+services:
+  # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
+  # > ELK - ELASTIC 01
+  # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
+  elk-es01:
+    build: ./images/elk/elasticsearch
+    container_name: elk-es01
+    restart: on-failure
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    environment:
+      - node.name=elk-es01
+      - discovery.seed_hosts=elk-es02,elk-es03
+      - cluster.initial_master_nodes=elk-es01,elk-es02,elk-es03
+    # volumes:
+    #   - ./volumes/elk/es01:/usr/share/elasticsearch/data
+    ports: 
+      - "22110:9200"
+    networks:
+      - devnet
+  # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
+  elk-es02:
+    build: ./images/elk/elasticsearch
+    container_name: elk-es02
+    restart: on-failure
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    environment:
+      - node.name=elk-es02
+      - discovery.seed_hosts=elk-es01,elk-es03
+      - cluster.initial_master_nodes=elk-es01,elk-es02,elk-es03
+    # volumes:
+    #   - ./volumes/elk/es02:/usr/share/elasticsearch/data
+    ports: 
+      - "22120:9200"
+    networks:
+      - devnet
+  # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
+  elk-es03:
+    build: ./images/elk/elasticsearch
+    container_name: elk-es03
+    restart: on-failure
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    environment:
+      - node.name=elk-es03
+      - discovery.seed_hosts=elk-es01,elk-es02
+      - cluster.initial_master_nodes=elk-es01,elk-es02,elk-es03
+    # volumes:
+    #   - ./volumes/elk/es01:/usr/share/elasticsearch/data
+    ports: 
+      - "22130:9200"
+    networks:
+      - devnet
+
+  # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
+  # > ELK - KIBANA
+  # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
+  elk-kibana:
+    build: ./images/elk/kibana
+    container_name: elk-kibana
+    restart: on-failure
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    depends_on: 
+      - elk-es01
+    ports: 
+      - "22210:5601"
+    networks:
+      - devnet
+
+  # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
+  # > ELK - LOGSTASH
+  # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
+  elk-logstash:
+    build: ./images/elk/logstash
+    container_name: elk-logstash
+    restart: on-failure
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    depends_on: 
+      - elk-es02
+    ports: 
+      - "22310:9600"
+      - "22320:8010"
+    networks:
+      - devnet
+
+  # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
+  # > POSTGRES
+  # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
+
+  mysql:
+    build: ./images/mysql
+    container_name: mysql
+    restart: on-failure
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./volumes/mysql/datadir:/var/lib/mysql
+    ports: 
+      - "33100:3306"
+    networks:
+      - devnet
+
+  # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
+  # > POSTGRES
+  # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
+
+  pgsql:
+    build: ./images/postgresql
+    container_name: pgsql
+    restart: on-failure
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./volumes/postgresql/backup:/var/lib/postgresql/backup
+      # - ./volumes/postgresql/data:/var/lib/postgresql/data
+    ports: 
+      - "33110:5432"
+    networks:
+      - devnet
+
+  # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
+  # > POSTGRES
+  # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
+
+  mongodb:
+    build: ./images/mongodb
+    container_name: mongodb
+    restart: on-failure
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./volumes/mongodb/backup:/data/backup
+      # - ./volumes/mongodb/data:/data/db
+      # - ./volumes/mongodb/config:/data/configdb
+    ports: 
+      - "33210:27017"
+    networks:
+      - devnet
+
+  # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
+  # > REDIS
+  # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
+  redis:
+    build: ./images/redis
+    container_name: redis
+    restart: on-failure
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    # volumes:
+    #   - ./volumes/redis/data:/data
+    ports: 
+      - "33310:6379"
+    networks:
+      - devnet
+
+  # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
+  # > RABBIT MQ
+  # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
+  rabbitmq:
+    build: ./images/rabbitmq
+    container_name: rabbitmq
+    restart: on-failure
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    # volumes:
+    #   - ./volumes/rabbitmq/data:/var/lib/rabbitmq
+    ports: 
+      - "33410:5672"
+      - "33415:15672"
+    networks:
+      - devnet
+
+
+networks:
+  devnet:
