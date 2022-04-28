@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SampleWebApi.Domain.Entity.UserAggregate;
 
-namespace SampleWebApi.Data.EntityConfig;
+namespace SampleWebApi.Data.SqlServer.EntityConfig;
 
 public class UserConfig : IEntityTypeConfiguration<User>
 {
