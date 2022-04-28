@@ -17,9 +17,6 @@ ProjectSection(SolutionItems) = preProject
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{6E0B19D7-597C-486B-8709-6260F3EA0856}"
-ProjectSection(SolutionItems) = preProject
-	Services\docker-compose.yml = Services\docker-compose.yml
-EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{269B7D49-9271-44D3-819E-0638F974B5AF}"
 EndProject
@@ -90,6 +87,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleWebApi", "Src\SampleW
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventStorming", "EventStorming", "{94FA0904-C268-42DC-B202-2FC11DAAF581}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sqlserver", "sqlserver", "{B3E08213-63FD-4EA6-ABB1-F663AE491BA9}"
+	ProjectSection(SolutionItems) = preProject
+		Services\images\sqlserver\Dockerfile = Services\images\sqlserver\Dockerfile
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -114,6 +116,7 @@ Global
 		{DFF741ED-FEE3-4020-AB5A-C4F065DBABFB} = {B71F8BC2-71ED-40A1-97C5-6C502DCB1DDF}
 		{E2EB411E-4A49-4C89-98E1-C93BD8E2B47F} = {B71F8BC2-71ED-40A1-97C5-6C502DCB1DDF}
 		{94FA0904-C268-42DC-B202-2FC11DAAF581} = {F84C930F-ECF2-48BB-BF79-8784C79BF9A0}
+		{B3E08213-63FD-4EA6-ABB1-F663AE491BA9} = {269B7D49-9271-44D3-819E-0638F974B5AF}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{DFF741ED-FEE3-4020-AB5A-C4F065DBABFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

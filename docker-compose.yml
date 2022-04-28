@@ -1,10 +1,56 @@
 version: "3.9"
 services:
   # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
+  # > APP - API
+  # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
+  webapi:
+    build:
+      context: ./
+      args:
+        PUB_ENV: Staging
+    container_name: webapi
+    restart: on-failure
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    environment:
+      - ASPNETCORE_URLS=http://*:80
+      - ASPNETCORE_ENVIRONMENT=Staging
+    volumes:
+      - /etc/localtime:/etc/localtime
+    depends_on:
+      - mssql-srv
+      - rabbitmq-srv
+      - redis-srv
+      - elk-es01
+      - elk-es02
+      - elk-es03
+      - elk-kibana
+
+    ports: 
+      - "2020:80"
+    networks:
+      - devnet
+
+  # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
+  # > SQLSERVER
+  # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
+  mssql-srv:
+    build: ./Containers/services/sqlserver
+    container_name: mssql-srv
+    volumes:
+      - ./Containers/volumes/sqlserver/data:/var/lib/mssqlql/data
+    ports:
+      - '1350:1433'
+    restart: always
+    networks:
+      - devnet
+  # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
   # > ELK - ELASTIC 01
   # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
   elk-es01:
-    build: ./images/elk/elasticsearch
+    build: ./Containers/services/elk/elasticsearch
     container_name: elk-es01
     restart: on-failure
     ulimits:
@@ -15,15 +61,16 @@ services:
       - node.name=elk-es01
       - discovery.seed_hosts=elk-es02,elk-es03
       - cluster.initial_master_nodes=elk-es01,elk-es02,elk-es03
-    # volumes:
-    #   - ./volumes/elk/es01:/usr/share/elasticsearch/data
+    volumes:
+      - /etc/localtime:/etc/localtime
+      # - ./Containers/volumes/elk/es01:/usr/share/elasticsearch/data
     ports: 
       - "22110:9200"
     networks:
       - devnet
   # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
   elk-es02:
-    build: ./images/elk/elasticsearch
+    build: ./Containers/services/elk/elasticsearch
     container_name: elk-es02
     restart: on-failure
     ulimits:
@@ -34,15 +81,16 @@ services:
       - node.name=elk-es02
       - discovery.seed_hosts=elk-es01,elk-es03
       - cluster.initial_master_nodes=elk-es01,elk-es02,elk-es03
-    # volumes:
-    #   - ./volumes/elk/es02:/usr/share/elasticsearch/data
+    volumes:
+      - /etc/localtime:/etc/localtime
+      # - ./Containers/volumes/elk/es02:/usr/share/elasticsearch/data
     ports: 
       - "22120:9200"
     networks:
       - devnet
   # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
   elk-es03:
-    build: ./images/elk/elasticsearch
+    build: ./Containers/services/elk/elasticsearch
     container_name: elk-es03
     restart: on-failure
     ulimits:
@@ -53,8 +101,9 @@ services:
       - node.name=elk-es03
       - discovery.seed_hosts=elk-es01,elk-es02
       - cluster.initial_master_nodes=elk-es01,elk-es02,elk-es03
-    # volumes:
-    #   - ./volumes/elk/es01:/usr/share/elasticsearch/data
+    volumes:
+      - /etc/localtime:/etc/localtime
+      # - ./Containers/volumes/elk/es01:/usr/share/elasticsearch/data
     ports: 
       - "22130:9200"
     networks:
@@ -64,7 +113,7 @@ services:
   # > ELK - KIBANA
   # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
   elk-kibana:
-    build: ./images/elk/kibana
+    build: ./Containers/services/elk/kibana
     container_name: elk-kibana
     restart: on-failure
     ulimits:
@@ -73,6 +122,8 @@ services:
         hard: -1
     depends_on: 
       - elk-es01
+    volumes:
+      - /etc/localtime:/etc/localtime
     ports: 
       - "22210:5601"
     networks:
@@ -82,7 +133,7 @@ services:
   # > ELK - LOGSTASH
   # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
   elk-logstash:
-    build: ./images/elk/logstash
+    build: ./Containers/services/elk/logstash
     container_name: elk-logstash
     restart: on-failure
     ulimits:
@@ -91,6 +142,8 @@ services:
         hard: -1
     depends_on: 
       - elk-es02
+    volumes:
+      - /etc/localtime:/etc/localtime
     ports: 
       - "22310:9600"
       - "22320:8010"
@@ -98,7 +151,7 @@ services:
       - devnet
 
   # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
-  # > POSTGRES
+  # > MYSQL
   # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
 
   mysql:

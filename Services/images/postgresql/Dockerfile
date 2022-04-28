@@ -1,9 +1,7 @@
 FROM postgres:latest
 
-LABEL title="DigiPay Dev Postgresql"
+LABEL title="Postgresql"
 LABEL description="Latest postgresql wrapper image for development use."
-LABEL "com.mydigipay.image.author"="Ehsan Maleki Zoeram"
-LABEL "com.mydigipay.image.vendor"="DigiPay Fintech Co."
 
 ENV POSTGRES_DB=postgres
 ENV POSTGRES_USER=postgres
