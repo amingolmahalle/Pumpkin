@@ -8,7 +8,7 @@ public static class DynamicallyInstallerExtensions
 {
     public static void NeedToInstallConfig(this IServiceCollection services)
     {
-        var typesToRegister = Common.AssemblyScanner.AllTypes
+        var typesToRegister = Common.AssemblyScanner.AllTypes()
             .Where(it => !(it.IsAbstract || it.IsInterface)
                          && typeof(INeedToInstall).IsAssignableFrom(it));
 
@@ -22,7 +22,7 @@ public static class DynamicallyInstallerExtensions
 
     public static void NeedToRegisterCacheProviderConfig(this IServiceCollection services)
     {
-        var typesToRegister = Common.AssemblyScanner.AllTypes
+        var typesToRegister = Common.AssemblyScanner.AllTypes()
             .Where(it => typeof(ICacheProvider).IsAssignableFrom(it) && !it.IsInterface && !it.IsAbstract)
             .ToList();
 

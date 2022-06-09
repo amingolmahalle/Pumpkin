@@ -8,7 +8,7 @@ public static partial class Extensions
 {
     public static void NeedToRegisterMappingConfig(this ModelBuilder modelBuilder)
     {
-        var typesToRegister = AssemblyScanner.AllTypes
+        var typesToRegister = AssemblyScanner.AllTypes()
             .Where(it =>
                 !(it.IsAbstract || it.IsInterface) &&
                 it.GetInterfaces().Any(x =>
@@ -26,7 +26,7 @@ public static partial class Extensions
 
     public static void NeedToRegisterEntitiesConfig<T>(this ModelBuilder modelBuilder)
     {
-        var typesToRegister = AssemblyScanner.AllTypes
+        var typesToRegister = AssemblyScanner.AllTypes()
             .Where(it =>
                 !(it.IsAbstract || it.IsInterface) &&
                 it.GetInterfaces().Any(x =>

@@ -1,4 +1,5 @@
-﻿using NetTopologySuite.Geometries;
+﻿using System.Text.Json;
+using NetTopologySuite.Geometries;
 using NetTopologySuite.IO;
 using Newtonsoft.Json;
 using Pumpkin.Contract.Serialization;
@@ -34,8 +35,15 @@ public class NewtonSoftSerializer : ISerializer
         return JsonConvert.DeserializeObject(value, type, Setting);
     }
 
-    public string Serialize(object message)
+    public string Serialize(object obj)
     {
-        return JsonConvert.SerializeObject(message, Setting);
+        try
+        {
+            return System.Text.Json.JsonSerializer.Serialize(obj, new JsonSerializerOptions(JsonSerializerDefaults.Web));
+        }
+        catch
+        {
+            return JsonConvert.SerializeObject(obj, Formatting.None, new JsonSerializerSettings {ReferenceLoopHandling = ReferenceLoopHandling.Ignore});
+        }
     }
 }

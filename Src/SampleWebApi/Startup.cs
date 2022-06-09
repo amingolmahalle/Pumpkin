@@ -1,3 +1,4 @@
+using Pumpkin.Common.Helpers;
 using Pumpkin.Web.Configuration;
 using Pumpkin.Web.Hosting;
 using SampleWebApi.Data;
@@ -7,6 +8,12 @@ namespace SampleWebApi
 {
     public class Startup : RootStartup
     {
+        private IConfiguration Configuration { get; } 
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+            GlobalConfig.Config = configuration;
+        }
         public override void ConfigureServices(IServiceCollection services)
         {
             base.ConfigureServices(services);

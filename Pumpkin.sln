@@ -16,7 +16,7 @@ ProjectSection(SolutionItems) = preProject
 	Documents\Ubiquitous Language\Value Objects.md = Documents\Ubiquitous Language\Value Objects.md
 EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{6E0B19D7-597C-486B-8709-6260F3EA0856}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Containers", "Containers", "{6E0B19D7-597C-486B-8709-6260F3EA0856}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{269B7D49-9271-44D3-819E-0638F974B5AF}"
 EndProject
