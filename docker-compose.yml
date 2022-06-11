@@ -21,8 +21,8 @@ services:
       - /etc/localtime:/etc/localtime
     depends_on:
       - mssql-srv
-      - rabbitmq-srv
       - redis-srv
+      - rabbitmq-srv
       - elk-es01
       - elk-es02
       - elk-es03
@@ -40,7 +40,7 @@ services:
     build: ./Containers/services/sqlserver
     container_name: mssql-srv
     volumes:
-      - ./Containers/volumes/sqlserver/data:/var/lib/mssqlql/data
+      - sqlserver_data:/var/lib/mssqlql/data
     ports:
       - '1350:1433'
     restart: always
@@ -154,16 +154,16 @@ services:
   # > MYSQL
   # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
 
-  mysql:
-    build: ./images/mysql
-    container_name: mysql
+  mysql-srv:
+    build: ./Containers/services/mysql
+    container_name: mysql-srv
     restart: on-failure
     ulimits:
       memlock:
         soft: -1
         hard: -1
-    volumes:
-      - ./volumes/mysql/datadir:/var/lib/mysql
+    # volumes:
+      # - ./volumes/mysql/datadir:/var/lib/mysql
     ports: 
       - "33100:3306"
     networks:
@@ -173,16 +173,16 @@ services:
   # > POSTGRES
   # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
 
-  pgsql:
-    build: ./images/postgresql
-    container_name: pgsql
+  pgsql-srv:
+    build: ./Containers/services/postgresql
+    container_name: pgsql-srv
     restart: on-failure
     ulimits:
       memlock:
         soft: -1
         hard: -1
-    volumes:
-      - ./volumes/postgresql/backup:/var/lib/postgresql/backup
+    # volumes:
+      # - ./volumes/postgresql/backup:/var/lib/postgresql/backup
       # - ./volumes/postgresql/data:/var/lib/postgresql/data
     ports: 
       - "33110:5432"
@@ -193,16 +193,16 @@ services:
   # > POSTGRES
   # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
 
-  mongodb:
-    build: ./images/mongodb
-    container_name: mongodb
+  mongodb-srv:
+    build: ./Containers/services/mongodb
+    container_name: mongodb-srv
     restart: on-failure
     ulimits:
       memlock:
         soft: -1
         hard: -1
-    volumes:
-      - ./volumes/mongodb/backup:/data/backup
+    # volumes:
+      # - ./volumes/mongodb/backup:/data/backup
       # - ./volumes/mongodb/data:/data/db
       # - ./volumes/mongodb/config:/data/configdb
     ports: 
@@ -213,16 +213,17 @@ services:
   # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
   # > REDIS
   # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
-  redis:
-    build: ./images/redis
-    container_name: redis
+  redis-srv:
+    build: ./Containers/services/redis
+    container_name: redis-srv
     restart: on-failure
     ulimits:
       memlock:
         soft: -1
         hard: -1
-    # volumes:
-    #   - ./volumes/redis/data:/data
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - redis_data:/data
     ports: 
       - "33310:6379"
     networks:
@@ -231,16 +232,17 @@ services:
   # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
   # > RABBIT MQ
   # ~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~
-  rabbitmq:
-    build: ./images/rabbitmq
-    container_name: rabbitmq
+  rabbitmq-srv:
+    build: ./Containers/services/rabbitmq
+    container_name: rabbitmq-srv
     restart: on-failure
     ulimits:
       memlock:
         soft: -1
         hard: -1
-    # volumes:
-    #   - ./volumes/rabbitmq/data:/var/lib/rabbitmq
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - rabbitmq_data:/var/lib/rabbitmq
     ports: 
       - "33410:5672"
       - "33415:15672"
@@ -250,3 +252,11 @@ services:
 
 networks:
   devnet:
+
+volumes:
+  sqlserver_data: {}
+  redis_data: {}
+  rabbitmq_data: {}
+  # elastic01_data: {}
+  # elastic02_data: {}
+  # elastic03_data: {}

@@ -18,68 +18,55 @@ EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Containers", "Containers", "{6E0B19D7-597C-486B-8709-6260F3EA0856}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{269B7D49-9271-44D3-819E-0638F974B5AF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{269B7D49-9271-44D3-819E-0638F974B5AF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "elk", "elk", "{46F98E75-AD4F-49E0-9EAC-6B25200708FB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mongodb", "mongodb", "{D42233BE-70EA-45F4-98A0-D80356401BFA}"
-ProjectSection(SolutionItems) = preProject
-	Services\images\mongodb\Dockerfile = Services\images\mongodb\Dockerfile
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		Containers\services\mongodb\Dockerfile = Containers\services\mongodb\Dockerfile
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mysql", "mysql", "{FA68FB3F-C8CA-469B-B139-B1DD342C4716}"
-ProjectSection(SolutionItems) = preProject
-	Services\images\mysql\Dockerfile = Services\images\mysql\Dockerfile
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		Containers\services\mysql\Dockerfile = Containers\services\mysql\Dockerfile
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "postgresql", "postgresql", "{6D70CF9D-2C2F-45A0-A47F-CBA9A2A76424}"
-ProjectSection(SolutionItems) = preProject
-	Services\images\postgresql\Dockerfile = Services\images\postgresql\Dockerfile
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		Containers\services\postgresql\Dockerfile = Containers\services\postgresql\Dockerfile
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rabbitmq", "rabbitmq", "{42D86A03-4419-4CF4-A622-98C93ADCF7A6}"
-ProjectSection(SolutionItems) = preProject
-	Services\images\rabbitmq\Dockerfile = Services\images\rabbitmq\Dockerfile
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		Containers\services\rabbitmq\Dockerfile = Containers\services\rabbitmq\Dockerfile
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "redis", "redis", "{4C6C0210-389E-43C6-9918-BDA27663A21B}"
-ProjectSection(SolutionItems) = preProject
-	Services\images\redis\Dockerfile = Services\images\redis\Dockerfile
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		Containers\services\redis\Dockerfile = Containers\services\redis\Dockerfile
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{B5FC8049-B590-415F-846D-37C63C384666}"
-ProjectSection(SolutionItems) = preProject
-	Services\images\rabbitmq\config\advanced.config = Services\images\rabbitmq\config\advanced.config
-	Services\images\rabbitmq\config\rabbitmq.conf = Services\images\rabbitmq\config\rabbitmq.conf
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		Containers\services\rabbitmq\config\advanced.config = Containers\services\rabbitmq\config\advanced.config
+		Containers\services\rabbitmq\config\rabbitmq.conf = Containers\services\rabbitmq\config\rabbitmq.conf
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "elasticsearch", "elasticsearch", "{81841855-6855-4110-8285-C7CDE7756637}"
 ProjectSection(SolutionItems) = preProject
-	Services\images\elk\elasticsearch\Dockerfile = Services\images\elk\elasticsearch\Dockerfile
+	Containers\services\elk\elasticsearch\Dockerfile = Containers\services\elk\elasticsearch\Dockerfile
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "kibana", "kibana", "{97F9CCCC-0F9B-44F7-B7AF-3F194F68EE13}"
-ProjectSection(SolutionItems) = preProject
-	Services\images\elk\kibana\Dockerfile = Services\images\elk\kibana\Dockerfile
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		Containers\services\elk\kibana\Dockerfile = Containers\services\elk\kibana\Dockerfile
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "logstash", "logstash", "{FCC52A67-E583-4938-B2FF-83A0ED54D1E0}"
-ProjectSection(SolutionItems) = preProject
-	Services\images\elk\logstash\Dockerfile = Services\images\elk\logstash\Dockerfile
-EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{435B85C9-556F-42FF-90D1-BC6CC46F3F53}"
-ProjectSection(SolutionItems) = preProject
-	Services\images\elk\logstash\config\log4j2.properties = Services\images\elk\logstash\config\log4j2.properties
-	Services\images\elk\logstash\config\logstash-full.yml = Services\images\elk\logstash\config\logstash-full.yml
-	Services\images\elk\logstash\config\logstash-oss.yml = Services\images\elk\logstash\config\logstash-oss.yml
-	Services\images\elk\logstash\config\pipelines.yml = Services\images\elk\logstash\config\pipelines.yml
-EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pipeline", "pipeline", "{E8BE7014-A0CA-43C0-ADC4-D731F6979F94}"
-ProjectSection(SolutionItems) = preProject
-	Services\images\elk\logstash\pipeline\default.conf = Services\images\elk\logstash\pipeline\default.conf
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		Containers\services\elk\logstash\Dockerfile = Containers\services\elk\logstash\Dockerfile
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pumpkin", "Src\Pumpkin\Pumpkin.csproj", "{DFF741ED-FEE3-4020-AB5A-C4F065DBABFB}"
 EndProject
@@ -89,7 +76,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventStorming", "EventStorm
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sqlserver", "sqlserver", "{B3E08213-63FD-4EA6-ABB1-F663AE491BA9}"
 	ProjectSection(SolutionItems) = preProject
-		Services\images\sqlserver\Dockerfile = Services\images\sqlserver\Dockerfile
+		Containers\services\sqlserver\Dockerfile = Containers\services\sqlserver\Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{23BAAC9B-E6AD-4467-B23F-1CAAA7CBDDDD}"
+	ProjectSection(SolutionItems) = preProject
+		Containers\services\elk\logstash\config\log4j2.properties = Containers\services\elk\logstash\config\log4j2.properties
+		Containers\services\elk\logstash\config\logstash-full.yml = Containers\services\elk\logstash\config\logstash-full.yml
+		Containers\services\elk\logstash\config\logstash-oss.yml = Containers\services\elk\logstash\config\logstash-oss.yml
+		Containers\services\elk\logstash\config\pipelines.yml = Containers\services\elk\logstash\config\pipelines.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pipeline", "pipeline", "{1FBABF07-4B7E-4AA2-8506-23BDE6306B0D}"
+	ProjectSection(SolutionItems) = preProject
+		Containers\services\elk\logstash\pipeline\default.conf = Containers\services\elk\logstash\pipeline\default.conf
 	EndProjectSection
 EndProject
 Global
@@ -111,12 +111,12 @@ Global
 		{81841855-6855-4110-8285-C7CDE7756637} = {46F98E75-AD4F-49E0-9EAC-6B25200708FB}
 		{97F9CCCC-0F9B-44F7-B7AF-3F194F68EE13} = {46F98E75-AD4F-49E0-9EAC-6B25200708FB}
 		{FCC52A67-E583-4938-B2FF-83A0ED54D1E0} = {46F98E75-AD4F-49E0-9EAC-6B25200708FB}
-		{435B85C9-556F-42FF-90D1-BC6CC46F3F53} = {FCC52A67-E583-4938-B2FF-83A0ED54D1E0}
-		{E8BE7014-A0CA-43C0-ADC4-D731F6979F94} = {FCC52A67-E583-4938-B2FF-83A0ED54D1E0}
 		{DFF741ED-FEE3-4020-AB5A-C4F065DBABFB} = {B71F8BC2-71ED-40A1-97C5-6C502DCB1DDF}
 		{E2EB411E-4A49-4C89-98E1-C93BD8E2B47F} = {B71F8BC2-71ED-40A1-97C5-6C502DCB1DDF}
 		{94FA0904-C268-42DC-B202-2FC11DAAF581} = {F84C930F-ECF2-48BB-BF79-8784C79BF9A0}
 		{B3E08213-63FD-4EA6-ABB1-F663AE491BA9} = {269B7D49-9271-44D3-819E-0638F974B5AF}
+		{23BAAC9B-E6AD-4467-B23F-1CAAA7CBDDDD} = {FCC52A67-E583-4938-B2FF-83A0ED54D1E0}
+		{1FBABF07-4B7E-4AA2-8506-23BDE6306B0D} = {FCC52A67-E583-4938-B2FF-83A0ED54D1E0}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{DFF741ED-FEE3-4020-AB5A-C4F065DBABFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
