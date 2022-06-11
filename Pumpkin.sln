@@ -8,6 +8,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Technical", "Technical", "{
 ProjectSection(SolutionItems) = preProject
 	Documents\Technical\API response helpers.md = Documents\Technical\API response helpers.md
 	Documents\Technical\EF Migration Commands.md = Documents\Technical\EF Migration Commands.md
+	Documents\Technical\Start_With_Dockerfile.md = Documents\Technical\Start_With_Dockerfile.md
+	Documents\Technical\Start_Without_Dockerfile.md = Documents\Technical\Start_Without_Dockerfile.md
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ubiquitous Language", "Ubiquitous Language", "{6C8E1121-657A-4A6E-BE93-830E8D7CE104}"

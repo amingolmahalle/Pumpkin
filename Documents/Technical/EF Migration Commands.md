@@ -1,12 +1,12 @@
 # EF Core Migrations
 These command would help you yo setup EF in this project and use migrations to
-change your database schema. The database engine is `Postgresql`, supported officially
+change your database schema. The database engine is `sqlserver`, supported officially
 by `.net core >= 3.1`.
 
 ## Check If EF is Enabled?
 To enable EF in persistence project of your solution, should enter to project
-path. As for this project is `Src/Persistence/Contexts` :
-> cd Src/Infrastructure/Contexts 
+path. As for this project is `Src/SampleWebApi/Data` :
+> cd Src/SampleWebApi/Data 
 
 Now you can check EF is enabled in you project by this command 
 >dotnet ef version
@@ -33,18 +33,14 @@ dotnet tool uninstall --global dotnet-ef
 ```
 
 ## Add Migrations
-Following command will make a new migration with name `Create_PricingSchema`
-on `PricingServiceContext` context and put C# file in `Migrations` folder of
-the `Contexts` project.
-ClientApi:
+
 ```
-dotnet ef migrations add initialize_database --context ApplicationDbContext --output-dir Data/SqlServer/Migrations --startup-project=../../SampleWebApi.csproj
+dotnet ef migrations add initialize_database --context ApplicationDbContext --output-dir SqlServer/Migrations --startup-project=../../SampleWebApi.csproj
 ```
 
 ## Update Database
-By running `database update` command of EF tools, all new migrations will be applied on specified context.
-As in this command the context is `PricingServiceContext`
+
 ```
-dotnet ef database update --context ApplicationDbContext --startup-project=../../SampleWebApi.csproj
+dotnet ef database update --context ApplicationDbContext --startup-project=../SampleWebApi.csproj
 
 ```

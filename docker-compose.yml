@@ -29,7 +29,7 @@ services:
       - elk-kibana
 
     ports: 
-      - "2020:80"
+      - "2030:80"
     networks:
       - devnet
 
