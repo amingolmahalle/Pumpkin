@@ -1,0 +1,7 @@
+using Framework.ValueObjects;
+
+namespace Domain.Framework.Entities.Contracts;
+
+public abstract class GuidAuditableEntity : AuditableEntity<EntityUuid>
+{
+}

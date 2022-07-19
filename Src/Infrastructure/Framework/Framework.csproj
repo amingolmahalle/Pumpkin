@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AssemblyName>Infrastructure.Framework</AssemblyName>
+        <RootNamespace>Infrastructure.Framework</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+        <PackageReference Include="NLog" Version="4.7.15" />
+        <PackageReference Include="NLog.Extensions.Logging" Version="1.7.4" />
+        <PackageReference Include="NLog.Targets.ElasticSearch" Version="7.7.0" />
+        <PackageReference Include="NLog.Web.AspNetCore" Version="4.14.0" />
+        <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
+        <PackageReference Include="StackExchange.Redis" Version="2.5.61" />
+        <PackageReference Include="MediatR" Version="10.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\Domain\Framework\Framework.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Documentation\Swagger" />
+    </ItemGroup>
+
+</Project>

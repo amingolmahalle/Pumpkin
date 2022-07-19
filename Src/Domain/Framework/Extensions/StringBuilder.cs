@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace Pumpkin.Common.Extensions;
+namespace Domain.Framework.Extensions;
 
 public static partial class Extensions
 {
