@@ -3,9 +3,9 @@
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <AssemblyName>Application.Queries</AssemblyName>
-        <RootNamespace>Application.Queries</RootNamespace>
+        <Nullable>disable</Nullable>
+        <AssemblyName>Pumpkin.Application.Queries</AssemblyName>
+        <RootNamespace>Pumpkin.Application.Queries</RootNamespace>
     </PropertyGroup>
 
 </Project>

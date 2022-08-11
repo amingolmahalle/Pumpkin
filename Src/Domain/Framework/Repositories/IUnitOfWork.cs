@@ -1,4 +1,4 @@
-namespace ALBB_SpaceTravel.Domain.Framework.Repositories;
+namespace Domain.Framework.Repositories;
 
 public interface IUnitOfWork : IDisposable
 {

@@ -3,9 +3,9 @@
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <AssemblyName>Domain.Models</AssemblyName>
-        <RootNamespace>Domain.Models</RootNamespace>
+        <Nullable>disable</Nullable>
+        <AssemblyName>Pumpkin.Domain.Models</AssemblyName>
+        <RootNamespace>Pumpkin.Domain.Models</RootNamespace>
     </PropertyGroup>
 
 </Project>

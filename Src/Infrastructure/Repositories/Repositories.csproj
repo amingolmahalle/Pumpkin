@@ -3,9 +3,16 @@
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <AssemblyName>Infrastructure.Repositories</AssemblyName>
-        <RootNamespace>Infrastructure.Repositories</RootNamespace>
+        <Nullable>disable</Nullable>
+        <AssemblyName>Pumpkin.Infrastructure.Repositories</AssemblyName>
+        <RootNamespace>Pumpkin.Infrastructure.Repositories</RootNamespace>
     </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Domain\Framework\Framework.csproj" />
+      <ProjectReference Include="..\..\Domain\Repositories\Repositories.csproj" />
+      <ProjectReference Include="..\Contexts\Contexts.csproj" />
+      <ProjectReference Include="..\Framework\Framework.csproj" />
+    </ItemGroup>
 
 </Project>

@@ -3,15 +3,9 @@
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <AssemblyName>Domain.Contracts</AssemblyName>
-        <RootNamespace>Domain.Contracts</RootNamespace>
+        <Nullable>disable</Nullable>
+        <AssemblyName>Pumpkin.Domain.Contracts</AssemblyName>
+        <RootNamespace>Pumpkin.Domain.Contracts</RootNamespace>
     </PropertyGroup>
-
-    <ItemGroup>
-      <Folder Include="API" />
-      <Folder Include="Commands" />
-      <Folder Include="Queries" />
-    </ItemGroup>
 
 </Project>

@@ -3,9 +3,9 @@
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <AssemblyName>Infrastructure.Framework</AssemblyName>
-        <RootNamespace>Infrastructure.Framework</RootNamespace>
+        <Nullable>disable</Nullable>
+        <AssemblyName>Pumpkin.Infrastructure.Framework</AssemblyName>
+        <RootNamespace>Pumpkin.Infrastructure.Framework</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -24,6 +24,7 @@
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.1" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.4" />
     </ItemGroup>
 
     <ItemGroup>
@@ -33,6 +34,9 @@
     <ItemGroup>
       <Reference Include="Microsoft.AspNetCore.Mvc.Versioning">
         <HintPath>..\..\..\..\..\..\.nuget\packages\microsoft.aspnetcore.mvc.versioning\5.0.0\lib\net5.0\Microsoft.AspNetCore.Mvc.Versioning.dll</HintPath>
+      </Reference>
+      <Reference Include="Microsoft.EntityFrameworkCore.Relational">
+        <HintPath>..\..\..\..\..\..\.nuget\packages\microsoft.entityframeworkcore.relational\6.0.4\lib\net6.0\Microsoft.EntityFrameworkCore.Relational.dll</HintPath>
       </Reference>
     </ItemGroup>
 

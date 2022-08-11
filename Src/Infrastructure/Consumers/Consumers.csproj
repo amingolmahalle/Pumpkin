@@ -3,9 +3,14 @@
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <AssemblyName>Infrastructure.Consumers</AssemblyName>
-        <RootNamespace>Infrastructure.Consumers</RootNamespace>
+        <Nullable>disable</Nullable>
+        <AssemblyName>Pumpkin.Infrastructure.Consumers</AssemblyName>
+        <RootNamespace>Pumpkin.Infrastructure.Consumers</RootNamespace>
     </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Domain\Consumers\Consumers.csproj" />
+      <ProjectReference Include="..\..\Domain\Framework\Framework.csproj" />
+    </ItemGroup>
 
 </Project>
