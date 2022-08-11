@@ -1,4 +1,4 @@
-namespace Domain.Framework.Models;
+namespace Pumpkin.Domain.Framework.Models;
 
 public interface IQueryModel : IModel
 {

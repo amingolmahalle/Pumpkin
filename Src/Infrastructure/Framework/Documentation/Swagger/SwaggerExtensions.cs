@@ -5,7 +5,7 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 
-namespace Infrastructure.Framework.Documentation.Swagger;
+namespace Pumpkin.Infrastructure.Framework.Documentation.Swagger;
 
 public static class SwaggerExtensions
 {

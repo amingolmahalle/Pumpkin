@@ -1,7 +1,7 @@
-﻿using Domain.Framework.Logging;
-using NLog;
+﻿using NLog;
+using Pumpkin.Domain.Framework.Logging;
 
-namespace Infrastructure.Framework.Logging.NLog;
+namespace Pumpkin.Infrastructure.Framework.Logging.NLog;
 
 internal class Logger : ILog
 {

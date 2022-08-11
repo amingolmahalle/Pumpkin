@@ -1,6 +1,6 @@
-using Framework.ValueObjects;
+using Pumpkin.Domain.Framework.ValueObjects;
 
-namespace Domain.Framework.Entities.Contracts.AggregateRoots;
+namespace Pumpkin.Domain.Framework.Entities.Contracts.AggregateRoots;
 
 public abstract class GuidAuditableAggregateRoot : AuditableAggregateRoot<EntityUuid>
 {

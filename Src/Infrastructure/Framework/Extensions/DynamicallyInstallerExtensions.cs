@@ -1,9 +1,9 @@
-using Domain.Framework.Services;
-using Framework.Helpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Pumpkin.Domain.Framework.Helpers;
+using Pumpkin.Domain.Framework.Services;
 
-namespace Infrastructure.Framework.Extensions;
+namespace Pumpkin.Infrastructure.Framework.Extensions;
 
 public static class DynamicallyInstallerExtensions
 {

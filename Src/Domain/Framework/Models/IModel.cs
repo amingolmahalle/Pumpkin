@@ -1,6 +1,6 @@
-using Domain.Framework.Logging;
+using Pumpkin.Domain.Framework.Logging;
 
-namespace Domain.Framework.Models;
+namespace Pumpkin.Domain.Framework.Models;
 
 public interface IModel
 {

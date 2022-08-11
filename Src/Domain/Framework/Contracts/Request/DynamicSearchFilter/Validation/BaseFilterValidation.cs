@@ -1,7 +1,8 @@
-using Domain.Framework.Extensions;
 using Framework.Exceptions;
+using Pumpkin.Domain.Framework.Exceptions;
+using Pumpkin.Domain.Framework.Extensions;
 
-namespace Framework.Contracts.Request.DynamicSearchFilter.Validation;
+namespace Pumpkin.Domain.Framework.Contracts.Request.DynamicSearchFilter.Validation;
 
 public abstract class BaseFilterValidation
 {

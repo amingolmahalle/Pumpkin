@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Framework.Helpers;
+namespace Pumpkin.Domain.Framework.Helpers;
 
 public static class Crypto
 {

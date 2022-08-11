@@ -1,5 +1,5 @@
 
-namespace Domain.Framework.Entities.Auditable;
+namespace Pumpkin.Domain.Framework.Entities.Auditable;
 
 public interface IAuditableEntity : ICreatableEntity, IModifiableEntity, IRemovableEntity
 {

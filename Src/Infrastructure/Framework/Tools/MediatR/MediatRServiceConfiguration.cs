@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Infrastructure.Framework.Tools.MediatR;
+namespace Pumpkin.Infrastructure.Framework.Tools.MediatR;
 
 public class MediatRServiceConfiguration
 {

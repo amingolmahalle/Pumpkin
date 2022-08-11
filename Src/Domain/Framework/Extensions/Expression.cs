@@ -2,9 +2,9 @@ using System.Collections;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Reflection;
-using Framework.ValueObjects;
+using Pumpkin.Domain.Framework.ValueObjects;
 
-namespace Domain.Framework.Extensions;
+namespace Pumpkin.Domain.Framework.Extensions;
 
 public static partial class Extensions
 {

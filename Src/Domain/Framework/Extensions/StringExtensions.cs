@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace Domain.Framework.Extensions;
+namespace Pumpkin.Domain.Framework.Extensions;
 
 public static partial class Extensions
 {

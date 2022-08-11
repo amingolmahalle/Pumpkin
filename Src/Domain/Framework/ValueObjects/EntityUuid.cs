@@ -1,6 +1,7 @@
 using Framework.Exceptions;
+using Pumpkin.Domain.Framework.Exceptions;
 
-namespace Framework.ValueObjects;
+namespace Pumpkin.Domain.Framework.ValueObjects;
 
 public sealed record EntityUuid(Guid Value) : ValueObject
 {

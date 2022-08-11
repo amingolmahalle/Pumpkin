@@ -1,12 +1,11 @@
 using System.Text;
-using Domain.Framework.Events;
-using Domain.Framework.Helpers;
-using Domain.Framework.Logging;
-using Domain.Framework.Serialization;
-using Framework.Serialization;
+using Pumpkin.Domain.Framework.Events;
+using Pumpkin.Domain.Framework.Helpers;
+using Pumpkin.Domain.Framework.Logging;
+using Pumpkin.Domain.Framework.Serialization;
 using RabbitMQ.Client;
 
-namespace Infrastructure.Framework.Events.RabbitMq;
+namespace Pumpkin.Infrastructure.Framework.Events.RabbitMq;
 
 public class RabbitMqPublisher : IMessagePublisher
 {

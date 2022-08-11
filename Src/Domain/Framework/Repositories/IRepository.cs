@@ -1,7 +1,6 @@
+using Pumpkin.Domain.Framework.Logging;
 
-using Domain.Framework.Logging;
-
-namespace Framework.Repositories;
+namespace Pumpkin.Domain.Framework.Repositories;
 
 public interface IRepository
 {

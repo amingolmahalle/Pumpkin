@@ -1,8 +1,8 @@
 ﻿using System.Collections.Concurrent;
-using Domain.Framework.Caching;
 using Microsoft.Extensions.Caching.Memory;
+using Pumpkin.Domain.Framework.Caching;
 
-namespace Infrastructure.Framework.Caching.Providers.Local;
+namespace Pumpkin.Infrastructure.Framework.Caching.Providers.Local;
 
 public class InMemoryCacheProvider : ICacheProvider
 {

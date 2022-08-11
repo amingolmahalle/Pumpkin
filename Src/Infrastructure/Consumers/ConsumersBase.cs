@@ -1,5 +1,5 @@
-using Domain.Framework.Events;
 using Pumpkin.Domain.Consumers;
+using Pumpkin.Domain.Framework.Events;
 
 namespace Pumpkin.Infrastructure.Consumers;
 

@@ -1,6 +1,6 @@
-using Domain.Framework.Logging;
+using Pumpkin.Domain.Framework.Logging;
 
-namespace Domain.Framework.Services.Handlers;
+namespace Pumpkin.Domain.Framework.Services.Handlers;
 
 public interface IHandler
 {

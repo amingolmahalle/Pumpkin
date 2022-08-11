@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace Domain.Framework.Contexts.Listeners;
+namespace Pumpkin.Domain.Framework.Contexts.Listeners;
 
 public interface IBeforeDeleteListener
 {

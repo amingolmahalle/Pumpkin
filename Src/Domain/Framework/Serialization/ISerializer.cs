@@ -1,4 +1,4 @@
-namespace Domain.Framework.Serialization;
+namespace Pumpkin.Domain.Framework.Serialization;
 
 public interface ISerializer
 {

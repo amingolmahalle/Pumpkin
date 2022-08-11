@@ -1,4 +1,4 @@
-namespace Domain.Framework.Events;
+namespace Pumpkin.Domain.Framework.Events;
 
 public abstract class DomainEvent
 {

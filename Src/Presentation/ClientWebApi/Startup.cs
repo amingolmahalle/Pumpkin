@@ -1,12 +1,10 @@
 using ClientWebApi.Middlewares;
-using Domain.Framework.Caching;
-using Domain.Framework.Events;
-using Domain.Framework.Helpers;
 using Framework.Exceptions;
-using Infrastructure.Framework.Documentation.Swagger;
-using Infrastructure.Framework.Events.RabbitMq;
-using Infrastructure.Framework.Extensions;
-using Infrastructure.Framework.Logging.NLog;
+using Pumpkin.Domain.Framework.Events;
+using Pumpkin.Domain.Framework.Exceptions;
+using Pumpkin.Domain.Framework.Helpers;
+using Pumpkin.Infrastructure.Framework.Documentation.Swagger;
+using Pumpkin.Infrastructure.Framework.Extensions;
 
 namespace ClientWebApi;
 

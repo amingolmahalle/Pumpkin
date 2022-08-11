@@ -1,7 +1,7 @@
-using Domain.Framework.Entities.Auditable;
 using Microsoft.EntityFrameworkCore;
+using Pumpkin.Domain.Framework.Entities.Auditable;
 
-namespace Domain.Framework.Repositories;
+namespace Pumpkin.Domain.Framework.Repositories;
 
 public interface ICreatableCommandRepository<TEntity, TKey> : ICommandRepositoryBase 
     where TEntity : class, ICreatableEntity

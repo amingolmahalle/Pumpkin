@@ -1,4 +1,4 @@
-namespace Domain.Framework.Entities;
+namespace Pumpkin.Domain.Framework.Entities;
 
 public interface IEntity
 {

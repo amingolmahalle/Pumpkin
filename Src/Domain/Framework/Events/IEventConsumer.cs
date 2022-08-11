@@ -1,6 +1,6 @@
-using Domain.Framework.Logging;
+using Pumpkin.Domain.Framework.Logging;
 
-namespace Domain.Framework.Events;
+namespace Pumpkin.Domain.Framework.Events;
 
 public interface IEventConsumer
 {

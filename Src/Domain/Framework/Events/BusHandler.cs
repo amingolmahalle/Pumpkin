@@ -1,7 +1,7 @@
-using Framework.Helpers;
 using Microsoft.Extensions.DependencyInjection;
+using Pumpkin.Domain.Framework.Helpers;
 
-namespace Domain.Framework.Events;
+namespace Pumpkin.Domain.Framework.Events;
 
 public abstract class BusHandler
 {

@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Pumpkin.Infrastructure.Framework.Caching.Providers.Shared.Redis;
 using StackExchange.Redis;
 
-namespace Infrastructure.Framework.Caching.Providers.Shared.Redis;
+namespace Pumpkin.Infrastructure.Framework.Caching.Providers.Shared.Redis;
 
 public class RedisConnectionFactory
 {

@@ -1,10 +1,10 @@
 using Framework.Contracts.Response;
-using Infrastructure.Framework.HttpResults.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Pumpkin.Infrastructure.Framework.HttpResults.Contracts;
 
-namespace Infrastructure.Framework.HttpResults;
+namespace Pumpkin.Infrastructure.Framework.HttpResults;
 
 [DefaultStatusCode(DefaultStatusCode)]
 public class StandardForcedPageResponse : ObjectResult

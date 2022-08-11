@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using System.Net;
 using System.Text.Json;
-using Framework.Exceptions;
-using Infrastructure.Framework.HttpResults.Contracts;
+using Pumpkin.Domain.Framework.Exceptions;
+using Pumpkin.Infrastructure.Framework.HttpResults.Contracts;
 
 namespace ClientWebApi.Middlewares;
 

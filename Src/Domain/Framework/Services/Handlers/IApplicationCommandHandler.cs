@@ -1,7 +1,7 @@
-using Domain.Framework.Logging;
 using MediatR;
+using Pumpkin.Domain.Framework.Logging;
 
-namespace Domain.Framework.Services.Handlers;
+namespace Pumpkin.Domain.Framework.Services.Handlers;
 
 public interface IApplicationCommandHandler<in TRequest, TResult> : IRequestHandler<TRequest, TResult>
     where TRequest : IApplicationCommand<TResult>

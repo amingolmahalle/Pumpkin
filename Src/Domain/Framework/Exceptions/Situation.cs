@@ -1,4 +1,5 @@
 using System.Net;
+using Pumpkin.Domain.Framework.Exceptions;
 
 namespace Framework.Exceptions;
 

@@ -1,6 +1,6 @@
-using Domain.Framework.Events;
+using Pumpkin.Domain.Framework.Events;
 
-namespace Domain.Framework.Entities.Contracts.AggregateRoots;
+namespace Pumpkin.Domain.Framework.Entities.Contracts.AggregateRoots;
 
 public abstract class AggregateRoot : IEntity
 {

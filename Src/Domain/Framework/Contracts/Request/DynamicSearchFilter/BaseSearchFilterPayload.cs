@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using Framework.Contracts.Request.DynamicSearchFilter.Validation;
+using Pumpkin.Domain.Framework.Contracts.Request.DynamicSearchFilter.Validation;
 
-namespace Framework.Contracts.Request.DynamicSearchFilter;
+namespace Pumpkin.Domain.Framework.Contracts.Request.DynamicSearchFilter;
 
 public class BaseSearchFilterPayload : BaseFilterValidation, IValidatableObject
 {

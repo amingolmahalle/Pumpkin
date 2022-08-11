@@ -1,6 +1,6 @@
-using Domain.Framework.Entities.Auditable;
+using Pumpkin.Domain.Framework.Entities.Auditable;
 
-namespace Domain.Framework.Entities.Contracts;
+namespace Pumpkin.Domain.Framework.Entities.Contracts;
 
 public abstract class CreatableEntity : EntityBase, ICreatableEntity
 {

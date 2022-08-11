@@ -1,10 +1,11 @@
 using System.Linq.Expressions;
 using System.Reflection;
-using Domain.Framework.Extensions;
-using Framework.Contracts.Request.DynamicSearchFilter;
 using Framework.Exceptions;
+using Pumpkin.Domain.Framework.Contracts.Request.DynamicSearchFilter;
+using Pumpkin.Domain.Framework.Exceptions;
+using Pumpkin.Domain.Framework.Extensions;
 
-namespace Domain.Framework.Helpers.DynamicSearchFilter;
+namespace Pumpkin.Domain.Framework.Helpers.DynamicSearchFilter;
 
 public static class Filter
 {
@@ -33,7 +34,7 @@ public static class Filter
         foreach (var item in filteringModel.Restrictions)
         {
             Expression<Func<TEntity, bool>> expression = null;
-            var properties = Framework.Extensions.Extensions.FindDomainProperties(entityProperties, subPropertyNames, item.Field);
+            var properties = global::Pumpkin.Domain.Framework.Extensions.Extensions.FindDomainProperties(entityProperties, subPropertyNames, item.Field);
 
             if (properties is null || properties.Count == 0)
                 continue;
@@ -77,14 +78,14 @@ public static class Filter
         {
             if (value.MinValue.HasValue() && value.MaxValue.HasValue())
             {
-                Expression<Func<TEntity, bool>> from = Extensions.Extensions.AddPredicate<TEntity>(
+                Expression<Func<TEntity, bool>> from = global::Pumpkin.Domain.Framework.Extensions.Extensions.AddPredicate<TEntity>(
                     "greaterthanorequal",
-                    Framework.Extensions.Extensions.ChangeType(value.MinValue, properties[properties.Length - 1].PropertyType),
+                    global::Pumpkin.Domain.Framework.Extensions.Extensions.ChangeType(value.MinValue, properties[properties.Length - 1].PropertyType),
                     properties.ToArray());
 
-                Expression<Func<TEntity, bool>> to = Extensions.Extensions.AddPredicate<TEntity>(
+                Expression<Func<TEntity, bool>> to = global::Pumpkin.Domain.Framework.Extensions.Extensions.AddPredicate<TEntity>(
                     "lessthanorequal",
-                    Extensions.Extensions.ChangeType(value.MaxValue, properties[properties.Length - 1].PropertyType),
+                    global::Pumpkin.Domain.Framework.Extensions.Extensions.ChangeType(value.MaxValue, properties[properties.Length - 1].PropertyType),
                     properties.ToArray());
 
                 expression = from.AndAlso(to);
@@ -105,9 +106,9 @@ public static class Filter
 
             foreach (var item in value.Values)
             {
-                Expression<Func<TEntity, bool>> condition = Extensions.Extensions.AddPredicate<TEntity>(
+                Expression<Func<TEntity, bool>> condition = global::Pumpkin.Domain.Framework.Extensions.Extensions.AddPredicate<TEntity>(
                     "equals",
-                    Extensions.Extensions.ChangeType(item, properties[properties.Length - 1].PropertyType), //global::
+                    global::Pumpkin.Domain.Framework.Extensions.Extensions.ChangeType(item, properties[properties.Length - 1].PropertyType), //global::
                     properties.ToArray());
 
                 expression = expression is null ? condition : expression.OrElse(condition);
@@ -118,41 +119,41 @@ public static class Filter
             switch (value.Operation)
             {
                 case "eq":
-                    Expression<Func<TEntity, bool>> eqExpression = Extensions.Extensions.AddPredicate<TEntity>(
+                    Expression<Func<TEntity, bool>> eqExpression = global::Pumpkin.Domain.Framework.Extensions.Extensions.AddPredicate<TEntity>(
                         "equals",
-                        Extensions.Extensions.ChangeType(value.Value, properties[properties.Length - 1].PropertyType),
+                        global::Pumpkin.Domain.Framework.Extensions.Extensions.ChangeType(value.Value, properties[properties.Length - 1].PropertyType),
                         properties.ToArray());
 
                     expression = eqExpression;
                     break;
                 case "gt":
-                    Expression<Func<TEntity, bool>> gtExpression = Extensions.Extensions.AddPredicate<TEntity>(
+                    Expression<Func<TEntity, bool>> gtExpression = global::Pumpkin.Domain.Framework.Extensions.Extensions.AddPredicate<TEntity>(
                         "greaterthan",
-                        Extensions.Extensions.ChangeType(value.Value, properties[properties.Length - 1].PropertyType),
+                        global::Pumpkin.Domain.Framework.Extensions.Extensions.ChangeType(value.Value, properties[properties.Length - 1].PropertyType),
                         properties.ToArray());
 
                     expression = gtExpression;
                     break;
                 case "ge":
-                    Expression<Func<TEntity, bool>> geExpression = Extensions.Extensions.AddPredicate<TEntity>(
+                    Expression<Func<TEntity, bool>> geExpression = global::Pumpkin.Domain.Framework.Extensions.Extensions.AddPredicate<TEntity>(
                         "greaterthanorequal",
-                        Extensions.Extensions.ChangeType(value.Value, properties[properties.Length - 1].PropertyType),
+                        global::Pumpkin.Domain.Framework.Extensions.Extensions.ChangeType(value.Value, properties[properties.Length - 1].PropertyType),
                         properties.ToArray());
 
                     expression = geExpression;
                     break;
                 case "lt":
-                    Expression<Func<TEntity, bool>> ltExpression = Extensions.Extensions.AddPredicate<TEntity>(
+                    Expression<Func<TEntity, bool>> ltExpression = global::Pumpkin.Domain.Framework.Extensions.Extensions.AddPredicate<TEntity>(
                         "lessthan",
-                        Extensions.Extensions.ChangeType(value.Value, properties[properties.Length - 1].PropertyType),
+                        global::Pumpkin.Domain.Framework.Extensions.Extensions.ChangeType(value.Value, properties[properties.Length - 1].PropertyType),
                         properties.ToArray());
 
                     expression = ltExpression;
                     break;
                 case "le":
-                    Expression<Func<TEntity, bool>> leExpression = Extensions.Extensions.AddPredicate<TEntity>(
+                    Expression<Func<TEntity, bool>> leExpression = global::Pumpkin.Domain.Framework.Extensions.Extensions.AddPredicate<TEntity>(
                         "lessthanorequal",
-                        Extensions.Extensions.ChangeType(value.Value, properties[properties.Length - 1].PropertyType),
+                        global::Pumpkin.Domain.Framework.Extensions.Extensions.ChangeType(value.Value, properties[properties.Length - 1].PropertyType),
                         properties.ToArray());
 
                     expression = leExpression;

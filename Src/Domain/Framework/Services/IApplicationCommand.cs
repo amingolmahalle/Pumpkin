@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Domain.Framework.Services;
+namespace Pumpkin.Domain.Framework.Services;
 
 public interface IApplicationCommand : IRequest
 {

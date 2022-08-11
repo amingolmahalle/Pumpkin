@@ -1,7 +1,7 @@
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Routing;
 
-namespace Infrastructure.Framework.HttpRouting;
+namespace Pumpkin.Infrastructure.Framework.HttpRouting;
 
 public class SnakeCaseRouter : IOutboundParameterTransformer
 {

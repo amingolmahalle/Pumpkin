@@ -1,9 +1,8 @@
 using System.Reflection;
-using Domain.Framework.Extensions;
-using Domain.Framework.Helpers.DynamicSearchFilter;
-using Framework.Contracts.Request.DynamicSearchFilter;
+using Pumpkin.Domain.Framework.Contracts.Request.DynamicSearchFilter;
+using Pumpkin.Domain.Framework.Extensions;
 
-namespace Framework.Helpers.DynamicSearchFilter;
+namespace Pumpkin.Domain.Framework.Helpers.DynamicSearchFilter;
 
 public static  class Order
 {
@@ -38,7 +37,7 @@ public static  class Order
         {
             foreach (var item in filteringModel.Orders)
             {
-                List<PropertyInfo> properties = Extensions.FindDomainProperties(entityProperties, subPropertyNames, item.Field);
+                List<PropertyInfo> properties = Extensions.Extensions.FindDomainProperties(entityProperties, subPropertyNames, item.Field);
 
                 if (properties is null || properties.Count == 0)
                     continue;

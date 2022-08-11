@@ -1,9 +1,10 @@
 using System.Reflection;
 using Framework.Exceptions;
-using Framework.Helpers;
 using Microsoft.Extensions.DependencyInjection;
+using Pumpkin.Domain.Framework.Exceptions;
+using Pumpkin.Domain.Framework.Helpers;
 
-namespace Infrastructure.Framework.Tools.MediatR;
+namespace Pumpkin.Infrastructure.Framework.Tools.MediatR;
 
 public static class MediatRExtensions
 {

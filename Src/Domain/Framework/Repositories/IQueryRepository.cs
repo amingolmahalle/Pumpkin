@@ -1,7 +1,6 @@
-using Domain.Framework.Entities;
-using Framework.Repositories;
+using Pumpkin.Domain.Framework.Entities;
 
-namespace Domain.Framework.Repositories;
+namespace Pumpkin.Domain.Framework.Repositories;
 
 public interface IQueryRepository<TEntity, TKey> : IRepository
     where TEntity : class, IEntity

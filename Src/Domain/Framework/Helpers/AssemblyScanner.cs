@@ -1,9 +1,9 @@
 using System.Reflection;
 using System.Text.RegularExpressions;
-using Domain.Framework.Logging;
 using Microsoft.AspNetCore.Http;
+using Pumpkin.Domain.Framework.Logging;
 
-namespace Framework.Helpers;
+namespace Pumpkin.Domain.Framework.Helpers;
 
 public static class AssemblyScanner
 {

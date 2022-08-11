@@ -1,8 +1,7 @@
 using System.Data;
-using Framework.Repositories;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace Domain.Framework.Repositories;
+namespace Pumpkin.Domain.Framework.Repositories;
 
 public interface ICommandRepositoryBase : IRepository
 {

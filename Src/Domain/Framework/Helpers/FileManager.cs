@@ -1,8 +1,8 @@
-using Domain.Framework.Helpers;
 using Framework.Exceptions;
 using Microsoft.AspNetCore.Http;
+using Pumpkin.Domain.Framework.Exceptions;
 
-namespace Framework.Helpers;
+namespace Pumpkin.Domain.Framework.Helpers;
 
 public class FileManager
 {

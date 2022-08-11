@@ -1,6 +1,6 @@
-using Domain.Framework.Logging;
 using Polly;
 using Polly.CircuitBreaker;
+using Pumpkin.Domain.Framework.Logging;
 
 namespace Pumpkin.Infrastructure.ExternalServices.Helpers.Polly.CircuitBreaker;
 

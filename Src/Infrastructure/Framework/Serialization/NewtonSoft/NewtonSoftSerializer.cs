@@ -1,6 +1,6 @@
 using System.Text.Json;
-using Domain.Framework.Serialization;
 using Newtonsoft.Json;
+using Pumpkin.Domain.Framework.Serialization;
 
 namespace Framework.Serialization.NewtonSoft;
 

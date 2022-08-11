@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace Infrastructure.Framework.Extensions;
+namespace Pumpkin.Infrastructure.Framework.Extensions;
 
 public static class ApplicationBuilderExtensions
 {

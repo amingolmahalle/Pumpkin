@@ -1,7 +1,7 @@
-using Domain.Framework.Logging;
 using Microsoft.AspNetCore.Http;
+using Pumpkin.Domain.Framework.Logging;
 
-namespace Domain.Framework.Models;
+namespace Pumpkin.Domain.Framework.Models;
 
 public class QueryModelBase : IQueryModel
 {

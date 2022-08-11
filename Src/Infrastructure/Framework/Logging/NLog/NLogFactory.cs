@@ -1,6 +1,6 @@
-﻿using Domain.Framework.Logging;
+﻿using Pumpkin.Domain.Framework.Logging;
 
-namespace Infrastructure.Framework.Logging.NLog;
+namespace Pumpkin.Infrastructure.Framework.Logging.NLog;
 
 public class NLogFactory : LoggingFactoryDefinition
 {

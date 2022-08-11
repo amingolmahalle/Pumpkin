@@ -1,4 +1,4 @@
-namespace Domain.Framework.Entities.Auditable;
+namespace Pumpkin.Domain.Framework.Entities.Auditable;
 
 public interface ICreatableEntity
 {

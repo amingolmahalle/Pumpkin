@@ -1,14 +1,14 @@
 using System.Text;
 using System.Timers;
-using Domain.Framework.Events;
-using Domain.Framework.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Pumpkin.Domain.Framework.Events;
+using Pumpkin.Domain.Framework.Logging;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
-namespace Infrastructure.Framework.Events.RabbitMq;
+namespace Pumpkin.Infrastructure.Framework.Events.RabbitMq;
 
 public class RabbitMqBusHandler : BusHandler
 {

@@ -1,4 +1,4 @@
-namespace Infrastructure.Framework.HttpResults.Contracts;
+namespace Pumpkin.Infrastructure.Framework.HttpResults.Contracts;
 
 public class StandardForcedResponseContract
 {

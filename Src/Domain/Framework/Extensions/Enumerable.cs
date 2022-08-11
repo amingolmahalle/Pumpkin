@@ -1,4 +1,4 @@
-namespace Domain.Framework.Extensions;
+namespace Pumpkin.Domain.Framework.Extensions;
 
 public static partial class Extensions
 {

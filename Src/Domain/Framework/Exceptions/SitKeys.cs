@@ -1,4 +1,4 @@
-namespace Framework.Exceptions;
+namespace Pumpkin.Domain.Framework.Exceptions;
 
 public static class SitKeys
 {

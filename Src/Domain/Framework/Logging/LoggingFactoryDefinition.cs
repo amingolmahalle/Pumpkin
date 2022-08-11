@@ -1,4 +1,4 @@
-﻿namespace Domain.Framework.Logging;
+﻿namespace Pumpkin.Domain.Framework.Logging;
 
 public abstract class LoggingFactoryDefinition
 {

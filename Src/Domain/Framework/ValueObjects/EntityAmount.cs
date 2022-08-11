@@ -1,4 +1,4 @@
-namespace Framework.ValueObjects;
+namespace Pumpkin.Domain.Framework.ValueObjects;
 
 public sealed record EntityAmount(decimal Amount) : ValueObject
 {

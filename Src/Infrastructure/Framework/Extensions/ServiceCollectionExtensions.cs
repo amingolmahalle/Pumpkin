@@ -1,13 +1,13 @@
 using System.Globalization;
-using Infrastructure.Framework.HttpRouting;
-using Infrastructure.Framework.Tools.MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.Extensions.DependencyInjection;
+using Pumpkin.Infrastructure.Framework.HttpRouting;
+using Pumpkin.Infrastructure.Framework.Tools.MediatR;
 
-namespace Infrastructure.Framework.Extensions;
+namespace Pumpkin.Infrastructure.Framework.Extensions;
 
 public static class ServiceCollectionExtensions
 {

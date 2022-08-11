@@ -1,5 +1,5 @@
 
-namespace Domain.Framework.Entities.Contracts;
+namespace Pumpkin.Domain.Framework.Entities.Contracts;
 
 public abstract class EntityBase : IEntity
 {

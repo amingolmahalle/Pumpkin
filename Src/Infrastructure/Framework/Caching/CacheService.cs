@@ -1,9 +1,9 @@
 ﻿using System.Collections.Concurrent;
-using Domain.Framework.Caching;
-using Domain.Framework.Extensions;
 using Microsoft.Extensions.DependencyInjection;
+using Pumpkin.Domain.Framework.Caching;
+using Pumpkin.Domain.Framework.Extensions;
 
-namespace Infrastructure.Framework.Caching;
+namespace Pumpkin.Infrastructure.Framework.Caching;
 
 public class CacheService : ICacheService
 {

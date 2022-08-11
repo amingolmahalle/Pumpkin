@@ -4,7 +4,7 @@ using MediatR.Pipeline;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace Infrastructure.Framework.Tools.MediatR;
+namespace Pumpkin.Infrastructure.Framework.Tools.MediatR;
 
 public static class MediatRServiceRegistrar
 {

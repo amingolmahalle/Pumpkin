@@ -1,4 +1,4 @@
-﻿namespace Domain.Framework.Caching;
+﻿namespace Pumpkin.Domain.Framework.Caching;
 
 public interface ICacheProvider
 {

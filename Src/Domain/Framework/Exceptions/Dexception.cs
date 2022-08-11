@@ -1,8 +1,8 @@
-#nullable enable
 using System.Diagnostics;
 using System.Net;
+using Framework.Exceptions;
 
-namespace Framework.Exceptions;
+namespace Pumpkin.Domain.Framework.Exceptions;
 
 public sealed class Dexception : Exception
 {

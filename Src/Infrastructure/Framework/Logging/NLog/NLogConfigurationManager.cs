@@ -1,6 +1,4 @@
 ﻿using System.Reflection;
-using Domain.Framework.Helpers;
-using Framework.Helpers;
 using Microsoft.Extensions.Configuration;
 using NLog;
 using NLog.Common;
@@ -8,8 +6,9 @@ using NLog.Config;
 using NLog.Layouts;
 using NLog.Targets;
 using NLog.Targets.ElasticSearch;
+using Pumpkin.Domain.Framework.Helpers;
 
-namespace Infrastructure.Framework.Logging.NLog;
+namespace Pumpkin.Infrastructure.Framework.Logging.NLog;
 
 public static class NLogConfigurationManager
 {

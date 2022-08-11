@@ -1,6 +1,6 @@
-using Domain.Framework.Entities.Auditable;
+using Pumpkin.Domain.Framework.Entities.Auditable;
 
-namespace Domain.Framework.Entities.Contracts.AggregateRoots;
+namespace Pumpkin.Domain.Framework.Entities.Contracts.AggregateRoots;
 
 public abstract class CreatableAggregateRoot : AggregateRoot, ICreatableEntity
 {

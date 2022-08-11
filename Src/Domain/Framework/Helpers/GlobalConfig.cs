@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Configuration;
 
-namespace Domain.Framework.Helpers;
+namespace Pumpkin.Domain.Framework.Helpers;
 
 public static class GlobalConfig
 {

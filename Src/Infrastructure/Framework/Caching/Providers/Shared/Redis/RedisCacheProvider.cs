@@ -1,11 +1,10 @@
-﻿using Domain.Framework.Caching;
-using Domain.Framework.Extensions;
-using Domain.Framework.Logging;
-using Domain.Framework.Serialization;
-using Framework.Serialization;
+﻿using Pumpkin.Domain.Framework.Caching;
+using Pumpkin.Domain.Framework.Extensions;
+using Pumpkin.Domain.Framework.Logging;
+using Pumpkin.Domain.Framework.Serialization;
 using StackExchange.Redis;
 
-namespace Infrastructure.Framework.Caching.Providers.Shared.Redis;
+namespace Pumpkin.Infrastructure.Framework.Caching.Providers.Shared.Redis;
 
 public class RedisCacheProvider : ICacheProvider
 {

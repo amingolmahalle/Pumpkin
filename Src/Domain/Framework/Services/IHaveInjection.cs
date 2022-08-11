@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Domain.Framework.Services;
+namespace Pumpkin.Domain.Framework.Services;
 
 public interface IHaveInjection
 {

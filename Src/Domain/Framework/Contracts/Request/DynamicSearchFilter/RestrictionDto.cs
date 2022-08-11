@@ -1,4 +1,4 @@
-namespace Framework.Contracts.Request.DynamicSearchFilter;
+namespace Pumpkin.Domain.Framework.Contracts.Request.DynamicSearchFilter;
 
 public class RestrictionDto
 {
