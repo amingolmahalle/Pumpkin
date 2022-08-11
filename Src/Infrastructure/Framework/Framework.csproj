@@ -17,6 +17,13 @@
         <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
         <PackageReference Include="StackExchange.Redis" Version="2.5.61" />
         <PackageReference Include="MediatR" Version="10.0.1" />
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.2.3" />
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.2.3" />
+        <PackageReference Include="Microsoft.AspNetCore.Localization" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -24,7 +31,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Documentation\Swagger" />
+      <Reference Include="Microsoft.AspNetCore.Mvc.Versioning">
+        <HintPath>..\..\..\..\..\..\.nuget\packages\microsoft.aspnetcore.mvc.versioning\5.0.0\lib\net5.0\Microsoft.AspNetCore.Mvc.Versioning.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>

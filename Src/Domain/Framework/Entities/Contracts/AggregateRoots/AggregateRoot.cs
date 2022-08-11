@@ -1,4 +1,4 @@
-using Domain.Framework.MessageHandlers;
+using Domain.Framework.Events;
 
 namespace Domain.Framework.Entities.Contracts.AggregateRoots;
 

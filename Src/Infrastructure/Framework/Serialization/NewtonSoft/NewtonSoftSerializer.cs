@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Domain.Framework.Serialization;
 using Newtonsoft.Json;
 
 namespace Framework.Serialization.NewtonSoft;

@@ -1,4 +1,4 @@
-namespace Framework.Serialization;
+namespace Domain.Framework.Serialization;
 
 public interface ISerializer
 {

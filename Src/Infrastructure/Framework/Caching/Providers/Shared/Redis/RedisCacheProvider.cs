@@ -1,6 +1,7 @@
 ﻿using Domain.Framework.Caching;
 using Domain.Framework.Extensions;
 using Domain.Framework.Logging;
+using Domain.Framework.Serialization;
 using Framework.Serialization;
 using StackExchange.Redis;
 

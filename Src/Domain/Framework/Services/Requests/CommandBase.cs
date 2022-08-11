@@ -1,4 +1,4 @@
-using Domain.Framework.MessageHandlers;
+using Domain.Framework.Events;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Domain.Framework.Services.Requests;

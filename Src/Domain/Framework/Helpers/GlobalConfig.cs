@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Configuration;
 
-namespace Framework.Helpers;
+namespace Domain.Framework.Helpers;
 
 public static class GlobalConfig
 {

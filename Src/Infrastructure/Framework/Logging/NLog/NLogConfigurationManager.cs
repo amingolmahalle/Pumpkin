@@ -1,4 +1,7 @@
 ﻿using System.Reflection;
+using Domain.Framework.Helpers;
+using Framework.Helpers;
+using Microsoft.Extensions.Configuration;
 using NLog;
 using NLog.Common;
 using NLog.Config;
@@ -34,7 +37,7 @@ public static class NLogConfigurationManager
             Name = "ElasticTarget",
             Index = "platform-log-${date:format=yyyy.MM.dd}",
             Layout = "${message}",
-            Uri = ConfigManager.GetConnectionString("SearchEngine")
+            Uri = GlobalConfig.Config.GetConnectionString("SearchEngine")
         };
 
         target.Fields.Add(new Field
