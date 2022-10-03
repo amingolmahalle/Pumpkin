@@ -1,6 +1,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pumpkin.Domain.Framework.Services;
+using Pumpkin.Domain.Models.Policy;
+using Pumpkin.Infrastructure.Models.Policy;
 
 namespace Pumpkin.Infrastructure.Models;
 
@@ -11,6 +13,6 @@ public class ModelHasInjection : IHaveInjection
         //Queries:
 
         //Commands:
-        // collection.AddScoped<IWeatherCommandModel, WeatherCommandModel>();
+        collection.AddScoped<IPolicyQueryModel, PolicyQueryModel>();
     }
 }

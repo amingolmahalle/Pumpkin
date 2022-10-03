@@ -8,4 +8,8 @@
         <RootNamespace>Pumpkin.Domain.Entities</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Framework\Framework.csproj" />
+    </ItemGroup>
+
 </Project>

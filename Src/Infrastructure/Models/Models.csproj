@@ -10,6 +10,8 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Domain\Framework\Framework.csproj" />
+      <ProjectReference Include="..\..\Domain\Models\Models.csproj" />
+      <ProjectReference Include="..\..\Domain\Repositories\Repositories.csproj" />
     </ItemGroup>
 
 </Project>
