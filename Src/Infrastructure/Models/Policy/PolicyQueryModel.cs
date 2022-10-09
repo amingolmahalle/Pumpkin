@@ -21,7 +21,7 @@ public class PolicyQueryModel : QueryModelBase, IPolicyQueryModel
 
     public async Task<ListResponse<GetUserPoliciesResultContract>> GetUserPoliciesAsync(GetUserPoliciesQuery query, CancellationToken cancellationToken)
     {
-        var policies = await _policyQueryRepository.GetPoliciesAsync(p => p.BuyerId == query.BuyerId, cancellationToken);
+        var policies = await _policyQueryRepository.FindPoliciesAsync(p => p.BuyerId == query.BuyerId, cancellationToken);
 
         if (policies is null || !policies.Any())
             throw new Dexception(Situation.Make(SitKeys.NotFound));

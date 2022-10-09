@@ -12,10 +12,10 @@ public class PolicyQueryRepository : QueryRepository<Domain.Entities.Policy.Poli
     {
     }
 
-    public async Task<Domain.Entities.Policy.Policy> GetPolicyAsync(Expression<Func<Domain.Entities.Policy.Policy, bool>> predicate, CancellationToken cancellationToken)
+    public async Task<Domain.Entities.Policy.Policy> FindPolicyAsync(Expression<Func<Domain.Entities.Policy.Policy, bool>> predicate, CancellationToken cancellationToken)
         => await TableNoTracking.FirstOrDefaultAsync(predicate, cancellationToken);
 
-    public async Task<ICollection<Domain.Entities.Policy.Policy>> GetPoliciesAsync(Expression<Func<Domain.Entities.Policy.Policy, bool>> predicate, CancellationToken cancellationToken)
+    public async Task<ICollection<Domain.Entities.Policy.Policy>> FindPoliciesAsync(Expression<Func<Domain.Entities.Policy.Policy, bool>> predicate, CancellationToken cancellationToken)
         => await TableNoTracking
             .Where(predicate)
             .ToListAsync(cancellationToken);

@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Pumpkin.Domain.Contracts.Commands.Policy;
 using Pumpkin.Domain.Repositories.Policy;
 using Pumpkin.Infrastructure.Contexts;
 
@@ -12,6 +13,6 @@ public class PolicyCommandRepository : CommandRepository<Domain.Entities.Policy.
     {
     }
 
-    public async Task<Domain.Entities.Policy.Policy> GetPolicyAsync(Expression<Func<Domain.Entities.Policy.Policy, bool>> predicate, CancellationToken cancellationToken)
+    public async Task<Domain.Entities.Policy.Policy> FindPolicyAsync(Expression<Func<Domain.Entities.Policy.Policy, bool>> predicate, CancellationToken cancellationToken)
         => await Entities.FirstOrDefaultAsync(predicate, cancellationToken);
 }
