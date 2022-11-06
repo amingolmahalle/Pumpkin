@@ -4,7 +4,7 @@ namespace Pumpkin.Domain.Entities.Policy;
 
 public partial class Policy
 {
-    private Policy()
+    public Policy()
     {
         // DO NOT REMOVE
     }

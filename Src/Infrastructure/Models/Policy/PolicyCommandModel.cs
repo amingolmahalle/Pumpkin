@@ -23,6 +23,7 @@ public class PolicyCommandModel : CommandModelBase, IPolicyCommandModel
     public async Task<EmptyResponse> PolicyRegisterAsync(PolicyRegisterCommand command, CancellationToken cancellationToken)
     {
        // await _policyCommandRepository.RegisterAsync(command, cancellationToken);
+       var policy = new Domain.Entities.Policy.Policy().CreatePolicy();
 
         return EmptyResponse.Instance();
     }
