@@ -71,6 +71,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "logstash", "logstash", "{FC
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventStorming", "EventStorming", "{94FA0904-C268-42DC-B202-2FC11DAAF581}"
+	ProjectSection(SolutionItems) = preProject
+		.gitkeep = .gitkeep
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sqlserver", "sqlserver", "{B3E08213-63FD-4EA6-ABB1-F663AE491BA9}"
 	ProjectSection(SolutionItems) = preProject
