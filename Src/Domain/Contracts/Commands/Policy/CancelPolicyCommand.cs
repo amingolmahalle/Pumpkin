@@ -4,6 +4,6 @@ using Pumpkin.Domain.Framework.Services.Requests;
 
 namespace Pumpkin.Domain.Contracts.Commands.Policy;
 
-public class PayPolicyCommand : CommandBase, IApplicationCommand<EmptyResponse>
+public class CancelPolicyCommand : CommandBase, IApplicationCommand<EmptyResponse>
 {
 }

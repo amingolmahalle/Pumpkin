@@ -14,6 +14,26 @@ public class PolicyCommands : CommandsBase, IPolicyCommands
         _policyCommandModel = policyCommandModel;
     }
 
-    public async Task<EmptyResponse> Handle(PolicyRegisterCommand command, CancellationToken cancellationToken)
+    public async Task<EmptyResponse> Handle(RegisterPolicyCommand command, CancellationToken cancellationToken)
         => await _policyCommandModel.PolicyRegisterAsync(command, cancellationToken);
+
+    public async Task<EmptyResponse> Handle(PayPolicyCommand request, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<EmptyResponse> Handle(ConfirmPolicyCommand request, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<EmptyResponse> Handle(CancelPolicyCommand request, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<EmptyResponse> Handle(RefundPolicyCommand request, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
 }

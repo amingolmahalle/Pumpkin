@@ -4,7 +4,7 @@ using Pumpkin.Domain.Framework.Services.Requests;
 
 namespace Pumpkin.Domain.Contracts.Commands.Policy;
 
-public class PolicyRegisterCommand: CommandBase, IApplicationCommand<EmptyResponse>
+public class RegisterPolicyCommand: CommandBase, IApplicationCommand<EmptyResponse>
 {
     
 }

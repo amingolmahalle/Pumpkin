@@ -20,7 +20,7 @@ public class PolicyCommandModel : CommandModelBase, IPolicyCommandModel
         _policyCommandRepository = policyCommandRepository;
     }
 
-    public async Task<EmptyResponse> PolicyRegisterAsync(PolicyRegisterCommand command, CancellationToken cancellationToken)
+    public async Task<EmptyResponse> PolicyRegisterAsync(RegisterPolicyCommand command, CancellationToken cancellationToken)
     {
        // await _policyCommandRepository.RegisterAsync(command, cancellationToken);
        var policy = new Domain.Entities.Policy.Policy().CreatePolicy();

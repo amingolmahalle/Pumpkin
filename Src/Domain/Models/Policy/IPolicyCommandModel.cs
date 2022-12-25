@@ -6,5 +6,5 @@ namespace Pumpkin.Domain.Models.Policy;
 
 public interface IPolicyCommandModel: ICommandModel
 {
-    Task<EmptyResponse> PolicyRegisterAsync (PolicyRegisterCommand command, CancellationToken cancellationToken);
+    Task<EmptyResponse> PolicyRegisterAsync (RegisterPolicyCommand command, CancellationToken cancellationToken);
 }
