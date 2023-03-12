@@ -1,18 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>disable</Nullable>
         <AssemblyName>Pumpkin.Domain.Contracts</AssemblyName>
         <RootNamespace>Pumpkin.Domain.Contracts</RootNamespace>
     </PropertyGroup>
-
-    <ItemGroup>
-      <Reference Include="Newtonsoft.Json">
-        <HintPath>..\..\..\..\..\..\.nuget\packages\newtonsoft.json\13.0.1\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
-      </Reference>
-    </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\..\Domain\Framework\Framework.csproj" />

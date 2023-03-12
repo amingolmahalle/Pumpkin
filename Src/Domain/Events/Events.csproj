@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>disable</Nullable>
         <AssemblyName>Pumpkin.Domain.Events</AssemblyName>
@@ -9,13 +9,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Reference Include="Newtonsoft.Json">
-        <HintPath>..\..\..\..\..\..\.nuget\packages\newtonsoft.json\13.0.1\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
-      </Reference>
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+      <ProjectReference Include="..\Framework\Framework.csproj" />
     </ItemGroup>
 
 </Project>

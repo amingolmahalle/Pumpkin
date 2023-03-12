@@ -9,5 +9,5 @@ public partial class User: GuidAuditableAggregateRoot
     public string MobileNumber { get; set; }
     public string NationalCode { get; set; }
     public string Address { get; set; }
-    public bool Gender { get; set; }
+    public bool? Gender { get; set; }
 }

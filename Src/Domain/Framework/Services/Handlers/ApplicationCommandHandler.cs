@@ -5,7 +5,7 @@ using Pumpkin.Domain.Framework.Models;
 
 namespace Pumpkin.Domain.Framework.Services.Handlers;
 
-public abstract class ApplicationCommandHandler<TRequest> : AsyncRequestHandler<TRequest>, IHandler
+public abstract class ApplicationCommandHandler<TRequest> //: AsyncRequestHandler<TRequest>, IHandler
     where TRequest : IApplicationCommand
 {
     public ILog Logger { get; }

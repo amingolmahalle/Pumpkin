@@ -1,8 +1,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pumpkin.Domain.Framework.Services;
-using Pumpkin.Domain.Models.Policy;
-using Pumpkin.Infrastructure.Models.Policy;
+using Pumpkin.Domain.Models.Order;
+using Pumpkin.Infrastructure.Models.Order;
 
 namespace Pumpkin.Infrastructure.Models;
 
@@ -13,6 +13,6 @@ public class ModelHasInjection : IHaveInjection
         //Queries:
 
         //Commands:
-        collection.AddScoped<IPolicyQueryModel, PolicyQueryModel>();
+        collection.AddScoped<IOrderQueryModel, OrderQueryModel>();
     }
 }

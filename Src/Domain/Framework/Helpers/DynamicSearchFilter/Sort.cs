@@ -4,7 +4,7 @@ using Pumpkin.Domain.Framework.Extensions;
 
 namespace Pumpkin.Domain.Framework.Helpers.DynamicSearchFilter;
 
-public static  class Order
+public static class Sort
 {
     public static IQueryable<TEntity> DynamicOrderBy<TEntity, TQuery>(IQueryable<TEntity> query, TQuery request)
     {
