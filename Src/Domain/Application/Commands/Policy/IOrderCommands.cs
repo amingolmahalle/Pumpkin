@@ -8,7 +8,6 @@ public interface IOrderCommands :
     IApplicationCommandHandler<RegisterOrderCommand, EmptyResponse>,
     IApplicationCommandHandler<PayOrderCommand, EmptyResponse>,
     IApplicationCommandHandler<ConfirmOrderCommand, EmptyResponse>,
-    IApplicationCommandHandler<CancelOrderCommand, EmptyResponse>,
-    IApplicationCommandHandler<RefundOrderCommand, EmptyResponse>
+    IApplicationCommandHandler<CancelOrderCommand, EmptyResponse>
 {
 }

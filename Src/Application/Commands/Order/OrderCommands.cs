@@ -21,7 +21,7 @@ public class OrderCommands : CommandsBase, IOrderCommands
 
     public async Task<EmptyResponse> Handle(RegisterOrderCommand command, CancellationToken cancellationToken)
     {
-        // TODO: Transaction here on inside Model !!??
+        // TODO: Transaction here on inside Model ...
         var createOrGrabCustomerCommand = new CreateOrGrabCustomerCommand
         {
             FirstName = command.CustomerFirstName,
@@ -45,11 +45,6 @@ public class OrderCommands : CommandsBase, IOrderCommands
         => await _orderCommandModel.ConfirmOrderAsync(command, cancellationToken);
 
     public async Task<EmptyResponse> Handle(CancelOrderCommand command, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<EmptyResponse> Handle(RefundOrderCommand request, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
