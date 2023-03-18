@@ -1,5 +1,5 @@
 using System.Linq.Expressions;
-using Pumpkin.Domain.Framework.Repositories;
+using Pumpkin.Domain.Framework.Data.Repositories;
 
 namespace Pumpkin.Domain.Repositories.Order;
 

@@ -5,7 +5,7 @@ using Pumpkin.Domain.Framework.Entities;
 using Pumpkin.Domain.Framework.Helpers;
 using Pumpkin.Infrastructure.Framework.Extensions;
 
-namespace Pumpkin.Infrastructure.Contexts;
+namespace Pumpkin.Infrastructure.Framework.Data.Context;
 
 public class DbContextBase : DbContext
 {

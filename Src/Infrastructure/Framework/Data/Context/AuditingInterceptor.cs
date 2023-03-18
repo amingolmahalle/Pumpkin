@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Pumpkin.Domain.Framework.Extensions;
 
-namespace Pumpkin.Infrastructure.Contexts;
+namespace Pumpkin.Infrastructure.Framework.Data.Context;
 
 public class AuditingInterceptor : ISaveChangesInterceptor
 {

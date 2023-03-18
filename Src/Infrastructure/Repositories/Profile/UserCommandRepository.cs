@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Pumpkin.Domain.Entities.Profile;
 using Pumpkin.Domain.Repositories.Profile;
 using Pumpkin.Infrastructure.Contexts;
+using Pumpkin.Infrastructure.Framework.Data.Context;
+using Pumpkin.Infrastructure.Framework.Data.Repositories;
 
 namespace Pumpkin.Infrastructure.Repositories.Profile;
 

@@ -1,4 +1,4 @@
-namespace Pumpkin.Domain.Framework.Repositories;
+namespace Pumpkin.Domain.Framework.Data.Repositories;
 
 public interface IUnitOfWork : IDisposable
 {

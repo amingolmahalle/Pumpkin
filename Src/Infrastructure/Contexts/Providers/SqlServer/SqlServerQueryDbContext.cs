@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Pumpkin.Domain.Framework.Helpers;
+using Pumpkin.Infrastructure.Framework.Data.Context;
 
 namespace Pumpkin.Infrastructure.Contexts.Providers.SqlServer;
 

@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Pumpkin.Domain.Framework.Entities.Auditable;
+using Pumpkin.Domain.Framework.Specifications;
 
-namespace Pumpkin.Domain.Framework.Repositories;
+namespace Pumpkin.Domain.Framework.Data.Repositories;
 
 public interface ICreatableCommandRepository<TEntity, TKey> : ICommandRepositoryBase 
     where TEntity : class, ICreatableEntity
@@ -11,4 +12,5 @@ public interface ICreatableCommandRepository<TEntity, TKey> : ICommandRepository
     Task AddAsync(TEntity entity, CancellationToken cancellationToken);
     void PhysicalRemove(TKey id);
     void PhysicalRemove(TEntity entity);
+    IEnumerable<TEntity> FindWithSpecificationPattern(ISpecification<TEntity> specification = null);
 }

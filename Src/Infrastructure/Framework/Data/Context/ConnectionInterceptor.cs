@@ -2,7 +2,7 @@ using System.Data.Common;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Pumpkin.Domain.Framework.Helpers;
 
-namespace Pumpkin.Infrastructure.Contexts.Providers;
+namespace Pumpkin.Infrastructure.Framework.Data.Context;
 
 public class ConnectionInterceptor : DbConnectionInterceptor
 {

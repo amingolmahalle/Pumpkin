@@ -1,6 +1,6 @@
 using Pumpkin.Domain.Framework.Entities.Auditable;
 
-namespace Pumpkin.Domain.Framework.Repositories;
+namespace Pumpkin.Domain.Framework.Data.Repositories;
 
 public interface ICommandRepository<TEntity, TKey> : ICreatableCommandRepository<TEntity, TKey> 
     where TEntity : class, IAuditableEntity

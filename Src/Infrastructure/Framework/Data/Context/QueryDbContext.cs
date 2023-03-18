@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
-namespace Pumpkin.Infrastructure.Contexts.Providers;
+namespace Pumpkin.Infrastructure.Framework.Data.Context;
 
 public class QueryDbContext : DbContextBase
 {
