@@ -28,6 +28,6 @@ public class QueryRepository<TEntity, TKey> : IQueryRepository<TEntity, TKey>
     public async Task<TEntity> FindAsync(TKey id, CancellationToken cancellationToken)
         => await Entities.FindAsync(id, cancellationToken);
 
-    public IEnumerable<TEntity> FindWithSpecificationPattern(ISpecification<TEntity> specification = null)
-        => SpecificationEvaluator<TEntity>.GetQuery(Entities.AsQueryable(), specification);
+   public IQueryable<TEntity> ApplySpecification(ISpecification<TEntity> specification = null)
+          => SpecificationEvaluator<TEntity>.GetQuery(Entities, specification);
 }

@@ -58,10 +58,10 @@ public class OrderCommandModel : CommandModelBase, IOrderCommandModel
 
     public async Task<EmptyResponse> SetPaymentStateAsync(PayOrderCommand command, CancellationToken cancellationToken)
     {
-        var order = await _orderCommandRepository.FindOrderAsync(o => o.BasketCode == command.BasketCode, cancellationToken);
+        var order = await _orderCommandRepository.FindOrderByBasketIdAsync(command.BasketCode, cancellationToken);
 
         if (order is null)
-            throw new Dexception(Situation.Make("Order not found.")); //SitKeys.SchCartNotFound
+            throw new Dexception(Situation.Make("Order not found.")); 
 
         order.Apply(new OrderPayed
         {
@@ -77,13 +77,12 @@ public class OrderCommandModel : CommandModelBase, IOrderCommandModel
 
     public async Task<EmptyResponse> ConfirmOrderAsync(ConfirmOrderCommand command, CancellationToken cancellationToken)
     {
-        var orderWithSerialNumber = await _orderCommandRepository
-            .FindOrderAsync(o =>
-                o.OrderItems.Any(oi => oi.DeviceSerialNumber == command.DeviceSerialNumber), cancellationToken);
-        if (orderWithSerialNumber is not null)
-            throw new Dexception(Situation.Make("شماره سریال در سیستم موجود است."));
+        bool hasExistSerialNumber = await _orderCommandRepository.HasOrderByDeviceSerialNumberAsync(command.DeviceSerialNumber, cancellationToken);
 
-        var order = await _orderCommandRepository.FindOrderAsync(o => o.BasketCode == command.BasketCode, cancellationToken);
+        if (hasExistSerialNumber)
+            throw new Dexception(Situation.Make("Device serial number is Duplicate."));
+
+        var order = await _orderCommandRepository.FindOrderByBasketIdAsync(command.BasketCode, cancellationToken);
 
         if (order is null)
             throw new Dexception(Situation.Make("Order not found.")); //SitKeys.SchCartNotFound

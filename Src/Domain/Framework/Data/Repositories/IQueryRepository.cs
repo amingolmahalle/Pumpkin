@@ -7,5 +7,5 @@ public interface IQueryRepository<TEntity, TKey> : IRepository
     where TEntity : class, IEntity
 {
     Task<TEntity> FindAsync(TKey id, CancellationToken cancellationToken);
-    IEnumerable<TEntity> FindWithSpecificationPattern(ISpecification<TEntity> specification = null);
+    IQueryable<TEntity> ApplySpecification(ISpecification<TEntity> specification = null);
 }

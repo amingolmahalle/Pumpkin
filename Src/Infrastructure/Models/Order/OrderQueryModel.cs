@@ -21,7 +21,7 @@ public class OrderQueryModel : QueryModelBase, IOrderQueryModel
 
     public async Task<ListResponse<GetCustomerPoliciesResultContract>> GetCustomerPoliciesAsync(GetCustomerPoliciesQuery query, CancellationToken cancellationToken)
     {
-        var policies = await _orderQueryRepository.FindPoliciesAsync(p => p.CustomerId == query.CustomerId, cancellationToken);
+        var policies = await _orderQueryRepository.FindPoliciesAsync(query.CustomerId, cancellationToken);
 
         if (policies is null || !policies.Any())
             throw new Dexception(Situation.Make(SitKeys.NotFound));
@@ -29,7 +29,7 @@ public class OrderQueryModel : QueryModelBase, IOrderQueryModel
         var result = policies.Select(policy => new GetCustomerPoliciesResultContract
         {
             PolicyDraftNo = policy.PolicyNumber,
-            // SerialNo = policy.SerialNumber,
+            SerialNo = policy.OrderItem?.DeviceSerialNumber,
             FirstName = policy.CustomerFirstName,
             LastName = policy.CustomerLastName,
             MobileNumber = policy.CustomerMobileNumber,

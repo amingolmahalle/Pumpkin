@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Pumpkin.Domain.Framework.Services;
 using Pumpkin.Domain.Repositories.Order;
 using Pumpkin.Infrastructure.Repositories.Order;
+using Pumpkin.Infrastructure.Repositories.Order.Commands;
+using Pumpkin.Infrastructure.Repositories.Order.Queries;
 
 namespace Pumpkin.Infrastructure.Repositories;
 

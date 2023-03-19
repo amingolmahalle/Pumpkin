@@ -56,8 +56,8 @@ public class CommandRepository<TEntity, TKey> : ICommandRepository<TEntity, TKey
         Entities.Update(entity);
     }
 
-    public IEnumerable<TEntity> FindWithSpecificationPattern(ISpecification<TEntity> specification = null)
-        => SpecificationEvaluator<TEntity>.GetQuery(Entities.AsQueryable(), specification);
+    public IQueryable<TEntity> ApplySpecification(ISpecification<TEntity> specification = null)
+        => SpecificationEvaluator<TEntity>.GetQuery(Entities, specification);
 
     public void Restore(TEntity entity)
     {

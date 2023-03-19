@@ -12,5 +12,5 @@ public interface ICreatableCommandRepository<TEntity, TKey> : ICommandRepository
     Task AddAsync(TEntity entity, CancellationToken cancellationToken);
     void PhysicalRemove(TKey id);
     void PhysicalRemove(TEntity entity);
-    IEnumerable<TEntity> FindWithSpecificationPattern(ISpecification<TEntity> specification = null);
+    IQueryable<TEntity> ApplySpecification(ISpecification<TEntity> specification = null);
 }
