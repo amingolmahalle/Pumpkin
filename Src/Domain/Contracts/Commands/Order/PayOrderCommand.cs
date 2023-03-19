@@ -7,6 +7,6 @@ namespace Pumpkin.Domain.Contracts.Commands.Order;
 public class PayOrderCommand : CommandBase, IApplicationCommand<EmptyResponse>
 {
     public string BasketCode { get; set; }
-    public string TrackingCode { get; set; }
+    public string PaymentTrackingCode { get; set; }
     public bool IsPaid { get; set; }
 }

@@ -11,7 +11,6 @@ public partial class OrderItem : GuidAuditableEntity
     public string ProductModel { get; set; }
     public string DeviceSerialNumber { get; set; }
     public EntityAmount ProductPrice { get; set; }
-
     public EntityUuid OrderId { get; set; }
 
     #region :: REPLATIONS ::

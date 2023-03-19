@@ -20,6 +20,7 @@
     </ItemGroup>
     
     <ItemGroup>
+      <ProjectReference Include="..\..\Domain\Entities\Entities.csproj" />
       <ProjectReference Include="..\..\Domain\Framework\Framework.csproj" />
       <ProjectReference Include="..\Framework\Framework.csproj" />
     </ItemGroup>

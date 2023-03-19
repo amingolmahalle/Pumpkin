@@ -16,7 +16,7 @@ public class RegisterOrderContract : IValidatableObject
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
         if (string.IsNullOrWhiteSpace(BasketCode))
-            throw new Dexception(Situation.Make(SitKeys.Unprocessable, message: "Basket code has not been sent."));
+            throw new Dexception(Situation.Make(SitKeys.Unprocessable, message: "BasketCode has not been sent."));
 
         if (Customer is null)
             throw new Dexception(Situation.Make(SitKeys.Unprocessable, message: "The Customer's profile has not been sent."));

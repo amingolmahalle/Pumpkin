@@ -65,7 +65,7 @@ public class OrderCommandModel : CommandModelBase, IOrderCommandModel
 
         order.Apply(new OrderPayed
         {
-            TrackingCode = command.TrackingCode,
+            TrackingCode = command.PaymentTrackingCode,
             IsPaid = command.IsPaid,
         });
 
