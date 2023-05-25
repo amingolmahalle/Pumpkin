@@ -22,11 +22,11 @@ services:
     depends_on:
       - mssql-srv
       - redis-srv
-      - rabbitmq-srv
-      - elk-es01
-      - elk-es02
-      - elk-es03
-      - elk-kibana
+#      - rabbitmq-srv
+#      - elk-es01
+#      - elk-es02
+#      - elk-es03
+#      - elk-kibana
 
     ports: 
       - "2030:80"
@@ -40,7 +40,7 @@ services:
     build: ./Containers/services/sqlserver
     container_name: mssql-srv
     volumes:
-      - sqlserver_data:/var/lib/mssqlql/data
+      - sqlserver_data:/var/lib/mssql/data
     ports:
       - '1350:1433'
     restart: always
