@@ -61,7 +61,7 @@ public class PolicyConfig : IEntityTypeConfiguration<Policy>
             .IsRequired(false);
 
         builder.Property(c => c.IsActive)
-            .HasColumnType("BOOLEAN")
+            .HasColumnType("BIT")
             .HasDefaultValue(false)
             .IsRequired();
 

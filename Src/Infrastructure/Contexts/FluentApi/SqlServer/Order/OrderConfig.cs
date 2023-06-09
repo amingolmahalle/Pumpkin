@@ -66,12 +66,12 @@ public class OrderConfig : IEntityTypeConfiguration<Domain.Entities.Order.Order>
             .IsRequired();
 
         builder.Property(c => c.IsConfirmed)
-            .HasColumnType("BOOLEAN")
+            .HasColumnType("BIT")
             .HasDefaultValue(false)
             .IsRequired();
 
         builder.Property(c => c.IsPaid)
-            .HasColumnType("BOOLEAN")
+            .HasColumnType("BIT")
             .HasDefaultValue(false)
             .IsRequired();
 
@@ -84,7 +84,7 @@ public class OrderConfig : IEntityTypeConfiguration<Domain.Entities.Order.Order>
         
         builder.HasIndex(x => x.BasketCode).IsUnique();
 
-        SeedData(builder);
+       // SeedData(builder);
     }
 
     private void SeedData(EntityTypeBuilder<Domain.Entities.Order.Order> builder)

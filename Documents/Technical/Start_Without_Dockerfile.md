@@ -10,9 +10,9 @@ Please see [SqlServer DockerFile](../../Containers/services/sqlserver/Dockerfile
 Now just execute below codes in master database:
 
 ~~~~sql
-CREATE database TestDb;
+CREATE database TinyShopDb;
 GO
-USE TestDb;
+USE TinyShopDb;
 GO
 CREATE LOGIN human WITH PASSWORD = '123$%^789qaz'
 GO

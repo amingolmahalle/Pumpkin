@@ -39,7 +39,7 @@ public class UserConfig : IEntityTypeConfiguration<Domain.Entities.Profile.User>
             .IsRequired(false);
 
         builder.Property(c => c.Gender)
-            .HasColumnType("BOOLEAN")
+            .HasColumnType("BIT")
             .IsRequired();
     }
 }
