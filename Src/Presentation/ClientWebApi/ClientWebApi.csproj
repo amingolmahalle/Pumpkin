@@ -9,6 +9,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Domain\Contracts\Contracts.csproj" />
       <ProjectReference Include="..\..\Domain\Framework\Framework.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\Contexts\Contexts.csproj" />
       <ProjectReference Include="..\..\Infrastructure\Framework\Framework.csproj" />
     </ItemGroup>
 
@@ -30,6 +31,14 @@
             <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
             <DependentUpon>appsettings.json</DependentUpon>
         </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="HttpClientToCurl" Version="2.0.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
     </ItemGroup>
 
 </Project>

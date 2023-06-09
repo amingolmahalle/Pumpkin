@@ -8,9 +8,9 @@ Then we should create user and database Ourselves according to what that is in [
 see [SqlServer DockerFile](../../Containers/services/sqlserver/Dockerfile) to get master database config.
 just execute below codes in master database:
 ~~~~sql
-CREATE database TestDb;
+CREATE database TinyShop;
 GO
-USE TestDb;
+USE TinyShop;
 GO
 CREATE LOGIN human WITH PASSWORD = '123$%^789qaz'
 GO
