@@ -44,3 +44,10 @@ dotnet ef migrations add initialize_database --context SqlServerCommandDbContext
 dotnet ef database update --context SqlServerCommandDbContext --startup-project=../../Presentation/ClientWebApi/ClientWebApi.csproj
 
 ```
+
+## Get Script
+
+```
+dotnet ef database script --context SqlServerCommandDbContext --startup-project=../../Presentation/ClientWebApi/ClientWebApi.csproj
+
+```

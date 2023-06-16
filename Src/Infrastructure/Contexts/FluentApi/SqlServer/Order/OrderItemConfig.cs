@@ -51,10 +51,11 @@ public class OrderItemConfig : IEntityTypeConfiguration<OrderItem>
             .WithMany(c => c.OrderItems)
             .HasForeignKey(c => c.OrderId)
             .OnDelete(DeleteBehavior.Restrict)
-            .HasConstraintName("FK_Order_OrderItem");
+            .HasConstraintName("fk_order_orderItem");
 
         builder.HasOne(s => s.Policy)
             .WithOne(ad => ad.OrderItem)
-            .HasForeignKey<Policy>(ad => ad.OrderItemId);
+            .HasForeignKey<Policy>(ad => ad.OrderItemId)
+            .HasConstraintName("fk_Policy_orderItem");
     }
 }

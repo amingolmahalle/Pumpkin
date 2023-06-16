@@ -1,7 +1,7 @@
 # Start Project Step By Step Without Dockerfile:
 
 First we should up [docker-compose](../../docker-compose.yml) that is next to the project:
->sudo docker-compose up -d mssql-srv redis-srv rabbitmq-srv elk-es01 elk-es02 elk-es03 elk-kibana
+> sudo docker-compose up -d mssql-srv redis-srv rabbitmq-srv elk-es01 elk-es02 elk-es03 elk-kibana
 
 Then we should create user and database Ourselves according to what that is in [appsetting.json](../../Src/Presentation/WebApi/appsettings.json)
 
@@ -22,7 +22,7 @@ GRANT CREATE TABLE TO human;
 GO
 GRANT SELECT, INSERT, UPDATE, DELETE  TO human;
 GO
-GRANT ALTER ON SCHEMA::dbo TO human;
+GRANT CONTROL,ALTER ON SCHEMA::dbo TO human;
 ~~~~
 
 After we should apply migration on database:

@@ -19,10 +19,6 @@ ProjectSection(SolutionItems) = preProject
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Containers", "Containers", "{6E0B19D7-597C-486B-8709-6260F3EA0856}"
-	ProjectSection(SolutionItems) = preProject
-		Containers\Dockerfile = Containers\Dockerfile
-		Containers\docker-compose.yml = Containers\docker-compose.yml
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{269B7D49-9271-44D3-819E-0638F974B5AF}"
 EndProject

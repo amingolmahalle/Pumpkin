@@ -1,7 +1,7 @@
 # Start Project Step By Step With Dockerfile:
 
 First we should up [docker-compose](../../docker-compose.yml) that is next to the project:
->sudo docker-compose up -d webapi
+> sudo docker-compose up -d webapi
 
 Then we should create user and database Ourselves according to what that is in [appsettings.json](../../Src/Presentation/WebApi/appsettings.json)
 
@@ -20,7 +20,7 @@ GRANT CREATE TABLE TO human;
 GO
 GRANT SELECT, INSERT, UPDATE, DELETE  TO human;
 GO
-GRANT ALTER ON SCHEMA::dbo TO human;
+GRANT CONTROL,ALTER ON SCHEMA::dbo TO human;
 ~~~~
 
 After we should apply migration on database:
