@@ -7,10 +7,18 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Application\Commands\Commands.csproj" />
+      <ProjectReference Include="..\..\Application\Queries\Queries.csproj" />
+      <ProjectReference Include="..\..\Domain\Consumers\Consumers.csproj" />
       <ProjectReference Include="..\..\Domain\Contracts\Contracts.csproj" />
+      <ProjectReference Include="..\..\Domain\ExternalServices\ExternalServices.csproj" />
       <ProjectReference Include="..\..\Domain\Framework\Framework.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\Consumers\Consumers.csproj" />
       <ProjectReference Include="..\..\Infrastructure\Contexts\Contexts.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\ExternalServices\ExternalServices.csproj" />
       <ProjectReference Include="..\..\Infrastructure\Framework\Framework.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\Models\Models.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\Repositories\Repositories.csproj" />
     </ItemGroup>
 
     <ItemGroup>

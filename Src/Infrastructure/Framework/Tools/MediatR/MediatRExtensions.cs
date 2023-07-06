@@ -61,7 +61,7 @@ public static class MediatRExtensions
 
     public static IServiceCollection AddMediatR(this IServiceCollection services, string nameSpace)
     {
-        var handlerAssemblyMarkerTypes = AssemblyScanner.AllTypes(nameSpace, "(.*)")
+        var handlerAssemblyMarkerTypes = AssemblyScanner.AllTypes(nameSpace, "(Application.[Commands|Queries])")
             .Where(it => !(it.IsAbstract || it.IsInterface));
         return services.AddMediatR(handlerAssemblyMarkerTypes, configuration: null);
     }

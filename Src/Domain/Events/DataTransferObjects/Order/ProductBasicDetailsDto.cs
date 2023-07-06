@@ -1,10 +1,8 @@
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 namespace Pumpkin.Domain.Events.DataTransferObjects.Order;
 
-[DataContract]
-public class ProductBasicDetailDto
+public record ProductBasicDetailsDto
 {
     [JsonProperty("basketItemCode")] public string BasketItemCode { get; set; }
     [JsonProperty("category")] public string Category { get; set; }

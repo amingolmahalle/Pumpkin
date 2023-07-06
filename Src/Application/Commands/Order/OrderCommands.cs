@@ -13,7 +13,10 @@ public class OrderCommands : CommandsBase, IOrderCommands
     private readonly IOrderCommandModel _orderCommandModel;
     private readonly IUserCommandModel _userCommandModel;
 
-    public OrderCommands(IHttpContextAccessor accessor, IOrderCommandModel orderCommandModel, IUserCommandModel userCommandModel) : base(accessor)
+    public OrderCommands(
+        IHttpContextAccessor accessor, 
+        IOrderCommandModel orderCommandModel, 
+        IUserCommandModel userCommandModel) : base(accessor)
     {
         _orderCommandModel = orderCommandModel;
         _userCommandModel = userCommandModel;

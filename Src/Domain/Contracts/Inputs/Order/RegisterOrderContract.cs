@@ -7,11 +7,11 @@ using Pumpkin.Domain.Framework.Exceptions;
 
 namespace Pumpkin.Domain.Contracts.Inputs.Order;
 
-public class RegisterOrderContract : IValidatableObject
+public record RegisterOrderContract : IValidatableObject
 {
     [JsonProperty("providerId")] public string BasketCode { get; set; }
     [JsonProperty("policyHolder")] public PolicyHolderDetailDto Customer { get; set; }
-    [JsonProperty("policies")] public ProductBasicDetailDto[] Products { get; set; }
+    [JsonProperty("products")] public ProductBasicDetailsDto[] Products { get; set; }
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {

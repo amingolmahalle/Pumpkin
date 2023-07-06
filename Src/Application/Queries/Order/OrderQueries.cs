@@ -7,7 +7,7 @@ using Pumpkin.Domain.Models.Order;
 
 namespace Pumpkin.Application.Queries.Order;
 
-public class OrderQueries : QueriesBase, IPolicyQueries
+public class OrderQueries : QueriesBase, IOrderQueries
 {
     private readonly IOrderQueryModel _orderQueryModel;
 

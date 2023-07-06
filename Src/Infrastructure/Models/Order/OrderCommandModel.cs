@@ -17,7 +17,10 @@ public class OrderCommandModel : CommandModelBase, IOrderCommandModel
 {
     private readonly IOrderCommandRepository _orderCommandRepository;
 
-    public OrderCommandModel(ICommandRepositoryBase repository, IMessagePublisher publisher, IHttpContextAccessor accessor, ISerializer serializer,
+    public OrderCommandModel(
+        ICommandRepositoryBase repository, 
+        IMessagePublisher publisher, IHttpContextAccessor accessor, 
+        ISerializer serializer,
         IOrderCommandRepository orderCommandRepository) : base(repository, publisher, accessor, serializer)
     {
         _orderCommandRepository = orderCommandRepository;

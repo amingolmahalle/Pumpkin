@@ -16,7 +16,11 @@ public class UserCommandModel : CommandModelBase, IUserCommandModel
 {
     private readonly IUserCommandRepository _userCommandRepository;
 
-    public UserCommandModel(ICommandRepositoryBase repository, IMessagePublisher publisher, IHttpContextAccessor accessor, ISerializer serializer,
+    public UserCommandModel(
+        ICommandRepositoryBase repository, 
+        IMessagePublisher publisher,
+        IHttpContextAccessor accessor, 
+        ISerializer serializer,
         IUserCommandRepository userCommandRepository) : base(repository, publisher, accessor, serializer)
     {
         _userCommandRepository = userCommandRepository;

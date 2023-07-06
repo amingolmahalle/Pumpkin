@@ -1,5 +1,4 @@
 using System.Data;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Pumpkin.Domain.Framework.Data.Repositories;
@@ -29,7 +28,7 @@ public class CommandRepository<TEntity, TKey> : ICommandRepository<TEntity, TKey
         select e;
 
 
-    public CommandRepository(IHttpContextAccessor accessor, DbContextBase context)
+    public CommandRepository( DbContextBase context)
     {
         Context = context;
         Entities = context.Set<TEntity>();

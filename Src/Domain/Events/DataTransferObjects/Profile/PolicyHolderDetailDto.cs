@@ -1,10 +1,8 @@
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 namespace Pumpkin.Domain.Events.DataTransferObjects.Profile;
 
-[DataContract]
-public class PolicyHolderDetailDto
+public record PolicyHolderDetailDto
 {
     [JsonProperty("firstname")] public string FirstName { get; set; }
     [JsonProperty("LastName")] public string LastName { get; set; }

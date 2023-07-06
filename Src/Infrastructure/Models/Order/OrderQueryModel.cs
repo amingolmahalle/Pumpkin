@@ -14,7 +14,9 @@ public class OrderQueryModel : QueryModelBase, IOrderQueryModel
 {
     private readonly IOrderQueryRepository _orderQueryRepository;
 
-    public OrderQueryModel(IHttpContextAccessor accessor, IOrderQueryRepository orderQueryRepository) : base(accessor)
+    public OrderQueryModel(
+        IHttpContextAccessor accessor,
+        IOrderQueryRepository orderQueryRepository) : base(accessor)
     {
         _orderQueryRepository = orderQueryRepository;
     }

@@ -13,7 +13,6 @@
       <ProjectReference Include="..\..\Domain\Repositories\Repositories.csproj" />
       <ProjectReference Include="..\Contexts\Contexts.csproj" />
       <ProjectReference Include="..\Framework\Framework.csproj" />
-      <ProjectReference Include="..\Models\Models.csproj" />
     </ItemGroup>
 
 </Project>

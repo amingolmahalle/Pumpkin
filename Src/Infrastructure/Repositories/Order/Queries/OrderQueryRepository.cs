@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Pumpkin.Domain.Entities.Order;
 using Pumpkin.Domain.Repositories.Order;
@@ -12,7 +11,8 @@ public class OrderQueryRepository : QueryRepository<Domain.Entities.Order.Order,
 {
     private readonly DbSet<Policy> _policies;
 
-    protected OrderQueryRepository(IHttpContextAccessor accessor, DbContextBase context) : base(accessor, context)
+    public OrderQueryRepository(
+        DbContextBase context) : base(context)
     {
         _policies = context.Set<Policy>();
     }

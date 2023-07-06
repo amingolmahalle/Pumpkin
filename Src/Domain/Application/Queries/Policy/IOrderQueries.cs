@@ -5,7 +5,7 @@ using Pumpkin.Domain.Framework.Services.Handlers;
 
 namespace Pumpkin.Domain.Application.Queries.Policy;
 
-public interface IPolicyQueries:
+public interface IOrderQueries:
     IApplicationQueryHandler<GetCustomerPoliciesQuery, ListResponse<GetCustomerPoliciesResultContract>>
 {
 }

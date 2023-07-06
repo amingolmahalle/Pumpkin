@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Pumpkin.Domain.Framework.Data.Repositories;
 using Pumpkin.Domain.Framework.Entities;
@@ -16,7 +15,7 @@ public class QueryRepository<TEntity, TKey> : IQueryRepository<TEntity, TKey>
     private readonly DbContext _context;
     protected readonly DbSet<TEntity> Entities;
 
-    protected QueryRepository(IHttpContextAccessor accessor, DbContextBase context)
+    public QueryRepository(DbContextBase context)
     {
         _context = context;
         Entities = context.Set<TEntity>();

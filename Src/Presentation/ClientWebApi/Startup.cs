@@ -1,3 +1,4 @@
+using System.Reflection;
 using ClientWebApi.Middlewares;
 using Framework.Exceptions;
 using Pumpkin.Domain.Framework.Events;

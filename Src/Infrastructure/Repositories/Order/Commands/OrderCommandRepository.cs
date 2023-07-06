@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Pumpkin.Domain.Repositories.Order;
 using Pumpkin.Infrastructure.Framework.Data.Context;
@@ -9,7 +8,7 @@ namespace Pumpkin.Infrastructure.Repositories.Order.Commands;
 
 public class OrderCommandRepository : CommandRepository<Domain.Entities.Order.Order, Guid>, IOrderCommandRepository
 {
-    public OrderCommandRepository(IHttpContextAccessor accessor, DbContextBase context) : base(accessor, context)
+    public OrderCommandRepository(DbContextBase context) : base(context)
     {
     }
 

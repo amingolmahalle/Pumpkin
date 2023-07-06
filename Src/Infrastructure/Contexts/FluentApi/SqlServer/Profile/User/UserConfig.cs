@@ -51,7 +51,7 @@ public class UserConfig : IEntityTypeConfiguration<Domain.Entities.Profile.User>
         {
             new()
             {
-                Id = EntityUuid.FromString("ff9ca67a1-9bbc-4889-8fa7-21c4847fa51f"),
+                Id = EntityUuid.FromString("f9ca67a1-9bbc-4889-8fa7-21c4847fa51f"),
                 FirstName = "Amin",
                 LastName = "Golmahalleh",
                 MobileNumber = "09365545252",
@@ -71,7 +71,7 @@ public class UserConfig : IEntityTypeConfiguration<Domain.Entities.Profile.User>
                 FirstName = "Jason",
                 LastName = "Momoa",
                 MobileNumber = "09123456789",
-                NationalCode = "99999999999",
+                NationalCode = "9999999999",
                 Address = "Westerville, 2044 Winding Way Street",
                 Gender = true,
                 CreatedAt = DateTime.Now,

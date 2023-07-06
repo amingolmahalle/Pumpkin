@@ -6,10 +6,10 @@ using Pumpkin.Domain.Framework.Services;
 
 namespace Pumpkin.Application.Queries;
 
-public class AppQueryHasInjection : IHaveInjection
+public class ApplicationQueryHasInjection : IHaveInjection
 {
     public void Inject(IServiceCollection collection, IConfiguration configuration)
     {
-        collection.AddScoped<IPolicyQueries, OrderQueries>();
+        collection.AddScoped<IOrderQueries, OrderQueries>();
     }
 }
