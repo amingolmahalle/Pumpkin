@@ -3,11 +3,9 @@ using Framework.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Pumpkin.Domain.Contracts.Commands.Order;
 using Pumpkin.Domain.Events.DomainEvents.Order;
-using Pumpkin.Domain.Framework.Data.Repositories;
 using Pumpkin.Domain.Framework.Events;
 using Pumpkin.Domain.Framework.Exceptions;
 using Pumpkin.Domain.Framework.Models;
-using Pumpkin.Domain.Framework.Serialization;
 using Pumpkin.Domain.Models.Order;
 using Pumpkin.Domain.Repositories.Order;
 
@@ -18,10 +16,9 @@ public class OrderCommandModel : CommandModelBase, IOrderCommandModel
     private readonly IOrderCommandRepository _orderCommandRepository;
 
     public OrderCommandModel(
-        ICommandRepositoryBase repository, 
-        IMessagePublisher publisher, IHttpContextAccessor accessor, 
-        ISerializer serializer,
-        IOrderCommandRepository orderCommandRepository) : base(repository, publisher, accessor, serializer)
+        IMessagePublisher publisher,
+        IHttpContextAccessor accessor,
+        IOrderCommandRepository orderCommandRepository) : base(orderCommandRepository, publisher, accessor)
     {
         _orderCommandRepository = orderCommandRepository;
     }
@@ -64,7 +61,7 @@ public class OrderCommandModel : CommandModelBase, IOrderCommandModel
         var order = await _orderCommandRepository.FindOrderByBasketIdAsync(command.BasketCode, cancellationToken);
 
         if (order is null)
-            throw new Dexception(Situation.Make("Order not found.")); 
+            throw new Dexception(Situation.Make("Order not found."));
 
         order.Apply(new OrderPayed
         {
@@ -83,7 +80,7 @@ public class OrderCommandModel : CommandModelBase, IOrderCommandModel
         bool hasExistSerialNumber = await _orderCommandRepository.HasOrderByDeviceSerialNumberAsync(command.DeviceSerialNumber, cancellationToken);
 
         if (hasExistSerialNumber)
-            throw new Dexception(Situation.Make("Device serial number is Duplicate."));
+            throw new Dexception(Situation.Make("Device serial number is duplicate."));
 
         var order = await _orderCommandRepository.FindOrderByBasketIdAsync(command.BasketCode, cancellationToken);
 

@@ -1,5 +1,4 @@
 using Pumpkin.Domain.Events.DomainEvents.Profile;
-using Pumpkin.Domain.Framework.Entities.Contracts.AggregateRoots;
 
 namespace Pumpkin.Domain.Entities.Profile;
 
@@ -7,7 +6,6 @@ public partial class User
 {
     protected override void EnsureReadyState(object @event)
     {
-        throw new NotImplementedException();
     }
 
     protected override void When(object @event)
@@ -26,6 +24,5 @@ public partial class User
 
     protected override void EnsureValidState()
     {
-        throw new NotImplementedException();
     }
 }

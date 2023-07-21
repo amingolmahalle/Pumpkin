@@ -8,7 +8,7 @@ namespace Pumpkin.Infrastructure.Repositories.Order.Commands;
 
 public class OrderCommandRepository : CommandRepository<Domain.Entities.Order.Order, Guid>, IOrderCommandRepository
 {
-    public OrderCommandRepository(DbContextBase context) : base(context)
+    public OrderCommandRepository(CommandDbContext context) : base(context)
     {
     }
 

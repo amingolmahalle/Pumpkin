@@ -9,8 +9,7 @@ namespace Pumpkin.Infrastructure.Repositories.Profile;
 
 public class UserCommandRepository : CommandRepository<User, Guid>, IUserCommandRepository
 {
-    public UserCommandRepository(
-        DbContextBase context) : base(context)
+    public UserCommandRepository(CommandDbContext context) : base(context)
     {
     }
 

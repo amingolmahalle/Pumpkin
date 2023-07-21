@@ -1,7 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pumpkin.Domain.Framework.Services;
-using Pumpkin.Infrastructure.Contexts.Providers;
 using Pumpkin.Infrastructure.Contexts.Providers.InMemory;
 using Pumpkin.Infrastructure.Contexts.Providers.SqlServer;
 using Pumpkin.Infrastructure.Framework.Data.Context;
@@ -21,18 +20,18 @@ public class ContextHasInjection : IHaveInjection
         switch (context)
         {
            case "ORIGINAL":
-                collection.AddDbContext<SqlServerQueryDbContext>(ServiceLifetime.Transient);
+                collection.AddDbContext<SqlServerQueryDbContext>(ServiceLifetime.Scoped);
                 collection.AddScoped<QueryDbContext, SqlServerQueryDbContext>();
                 
-                collection.AddDbContext<SqlServerCommandDbContext>(ServiceLifetime.Transient);
+                collection.AddDbContext<SqlServerCommandDbContext>(ServiceLifetime.Scoped);
                 collection.AddScoped<CommandDbContext, SqlServerCommandDbContext>();
                 break;
 
             case "NONE":
-                collection.AddDbContext<MemoryQueryDbContext>();
+                collection.AddDbContext<MemoryQueryDbContext>(ServiceLifetime.Scoped);
                 collection.AddScoped<QueryDbContext, MemoryQueryDbContext>();
 
-                collection.AddDbContext<MemoryCommandDbContext>();
+                collection.AddDbContext<MemoryCommandDbContext>(ServiceLifetime.Scoped);
                 collection.AddScoped<CommandDbContext, MemoryCommandDbContext>();
                 break;
         }

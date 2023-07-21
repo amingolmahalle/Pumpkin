@@ -1,7 +1,7 @@
-﻿using Pumpkin.Domain.Framework.Caching;
+﻿using System.Text;
+using Pumpkin.Domain.Framework.Caching;
 using Pumpkin.Domain.Framework.Extensions;
 using Pumpkin.Domain.Framework.Logging;
-using Pumpkin.Domain.Framework.Serialization;
 using StackExchange.Redis;
 
 namespace Pumpkin.Infrastructure.Framework.Caching.Providers.Shared.Redis;
@@ -12,16 +12,14 @@ public class RedisCacheProvider : ICacheProvider
 
     private readonly RedisConnectionFactory _connectionFactory;
 
-    private readonly ISerializer _serializer;
 
     private static ILog _logger;
 
     public CacheProviderType ProviderType => CacheProviderType.Shared;
 
-    public RedisCacheProvider(RedisConnectionFactory connectionFactory, ISerializer serializer)
+    public RedisCacheProvider(RedisConnectionFactory connectionFactory)
     {
         _connectionFactory = connectionFactory;
-        _serializer = serializer;
         _logger = LogManager.GetLogger<RedisCacheProvider>();
 
     }
@@ -31,7 +29,8 @@ public class RedisCacheProvider : ICacheProvider
         var resultFromCache = _connectionFactory.GetRandomDatabase().Database.StringGet(CreateKey(key, group));
         if (resultFromCache == default)
             return default;
-        return _serializer.Deserialize<T>(resultFromCache);
+        var jsonValue = Encoding.UTF8.GetString(resultFromCache);
+        return jsonValue.Deserialize<T>();
     }
 
     public async Task<T> GetAsync<T>(string key, string group)
@@ -40,7 +39,8 @@ public class RedisCacheProvider : ICacheProvider
             await _connectionFactory.GetRandomDatabase().Database.StringGetAsync(CreateKey(key, group));
         if (resultFromCache == default)
             return default;
-        return _serializer.Deserialize<T>(resultFromCache);
+        var jsonValue = Encoding.UTF8.GetString(resultFromCache);
+        return jsonValue.Deserialize<T>();
     }
 
     public IDictionary<string, T> GetMany<T>(IEnumerable<string> keys, string group)
@@ -56,7 +56,7 @@ public class RedisCacheProvider : ICacheProvider
             {
                 result.Add(keysArray[i],
                     resultFromCache[i] != default
-                        ? _serializer.Deserialize<T>(resultFromCache[i])
+                        ? Encoding.UTF8.GetString(resultFromCache[i]).Deserialize<T>()
                         : null);
             }
         }
@@ -77,7 +77,7 @@ public class RedisCacheProvider : ICacheProvider
             {
                 result.Add(keysArray[i],
                     resultFromCache[i] != default
-                        ? _serializer.Deserialize<object>(resultFromCache[i])
+                        ? Encoding.UTF8.GetString(resultFromCache[i]).Deserialize<object>()
                         : null);
             }
         }
@@ -98,7 +98,7 @@ public class RedisCacheProvider : ICacheProvider
             {
                 result.Add(keysArray[i],
                     resultFromCache[i] != default
-                        ? _serializer.Deserialize<T>(resultFromCache[i])
+                        ? Encoding.UTF8.GetString(resultFromCache[i]).Deserialize<T>()
                         : null);
             }
         }
@@ -119,7 +119,7 @@ public class RedisCacheProvider : ICacheProvider
             {
                 result.Add(keysArray[i],
                     resultFromCache[i] != default
-                        ? _serializer.Deserialize<object>(resultFromCache[i])
+                        ? Encoding.UTF8.GetString(resultFromCache[i]).Deserialize<object>()
                         : null);
             }
         }
@@ -212,7 +212,7 @@ public class RedisCacheProvider : ICacheProvider
     {
         try
         {
-            _connectionFactory.GetMaster().Database.StringSet(CreateKey(key, group), _serializer.Serialize(data),
+            _connectionFactory.GetMaster().Database.StringSet(CreateKey(key, group), data.Serialize(),
                 expiry.TimeOfDay);
         }
         catch (Exception ex)
@@ -228,7 +228,7 @@ public class RedisCacheProvider : ICacheProvider
         try
         {
             await _connectionFactory.GetMaster().Database.StringSetAsync(CreateKey(key, group),
-                _serializer.Serialize(data), expiry.TimeOfDay);
+                data.Serialize(), expiry.TimeOfDay);
         }
         catch (Exception ex)
         {

@@ -5,7 +5,7 @@ using Pumpkin.Domain.Framework.Extensions;
 
 namespace Pumpkin.Infrastructure.Framework.Caching;
 
-public class CacheService : ICacheService
+public class RedisService : ICacheService
 {
     private readonly IServiceProvider _serviceProvider;
         
@@ -13,7 +13,7 @@ public class CacheService : ICacheService
 
     private static ConcurrentDictionary<CacheProviderType, List<ICacheProvider>> _providers;
 
-    public CacheService(IServiceProvider serviceProvider)
+    public RedisService(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;
         if (_allProviders == null)

@@ -19,7 +19,7 @@ public class RegisterOrderCommand : CommandBase, IApplicationCommand<EmptyRespon
     [NotMapped] public Guid? CustomerId { get; set; }
     public decimal TotalProductPrice { get; set; }
     public List<OrderItemsDto> OrderItems { get; set; } = new();
-
+    
     public RegisterOrderCommand(RegisterOrderContract request)
     {
         BasketCode = request.BasketCode;

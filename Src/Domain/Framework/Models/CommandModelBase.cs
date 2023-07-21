@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Http;
 using Pumpkin.Domain.Framework.Data.Repositories;
 using Pumpkin.Domain.Framework.Entities.Contracts.AggregateRoots;
 using Pumpkin.Domain.Framework.Events;
+using Pumpkin.Domain.Framework.Extensions;
 using Pumpkin.Domain.Framework.Logging;
-using Pumpkin.Domain.Framework.Serialization;
 using Pumpkin.Domain.Framework.Services.Requests;
 
 namespace Pumpkin.Domain.Framework.Models;
@@ -12,18 +12,15 @@ public class CommandModelBase : ICommandModel
 {
     private readonly ICommandRepositoryBase _repository;
     private readonly IMessagePublisher _publisher;
-    private readonly ISerializer _serializer;
     public ILog Logger { get; }
 
     public CommandModelBase(
         ICommandRepositoryBase repository,
         IMessagePublisher publisher,
-        IHttpContextAccessor accessor,
-        ISerializer serializer)
+        IHttpContextAccessor accessor)
     {
         _repository = repository;
         _publisher = publisher;
-        _serializer = serializer;
         Logger = LogManager.GetLogger<CommandModelBase>();
     }
 
@@ -35,7 +32,7 @@ public class CommandModelBase : ICommandModel
                 ExchangeName = @event.ExchangeName,
                 Routes = @event.Routes,
                 EventType = @event.GetType().ToString(),
-                Payload = _serializer.Serialize(@event),
+                Payload = @event.Serialize(),
                 Retry = 1
             });
     }

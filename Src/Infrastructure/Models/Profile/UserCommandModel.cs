@@ -3,10 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Pumpkin.Domain.Contracts.Commands.Profile;
 using Pumpkin.Domain.Entities.Profile;
 using Pumpkin.Domain.Events.DomainEvents.Profile;
-using Pumpkin.Domain.Framework.Data.Repositories;
 using Pumpkin.Domain.Framework.Events;
 using Pumpkin.Domain.Framework.Models;
-using Pumpkin.Domain.Framework.Serialization;
 using Pumpkin.Domain.Models.Profile;
 using Pumpkin.Domain.Repositories.Profile;
 
@@ -17,11 +15,9 @@ public class UserCommandModel : CommandModelBase, IUserCommandModel
     private readonly IUserCommandRepository _userCommandRepository;
 
     public UserCommandModel(
-        ICommandRepositoryBase repository, 
         IMessagePublisher publisher,
-        IHttpContextAccessor accessor, 
-        ISerializer serializer,
-        IUserCommandRepository userCommandRepository) : base(repository, publisher, accessor, serializer)
+        IHttpContextAccessor accessor,
+        IUserCommandRepository userCommandRepository) : base(userCommandRepository, publisher, accessor)
     {
         _userCommandRepository = userCommandRepository;
     }
@@ -59,7 +55,7 @@ public class UserCommandModel : CommandModelBase, IUserCommandModel
             _userCommandRepository.Modify(customer);
 
         await HandleTransactionAsync(command, customer, cancellationToken);
-        
+
         return DataResponse<Guid>.Instance(customer.Id);
     }
 }

@@ -11,8 +11,7 @@ public class OrderQueryRepository : QueryRepository<Domain.Entities.Order.Order,
 {
     private readonly DbSet<Policy> _policies;
 
-    public OrderQueryRepository(
-        DbContextBase context) : base(context)
+    public OrderQueryRepository(QueryDbContext context) : base(context)
     {
         _policies = context.Set<Policy>();
     }
