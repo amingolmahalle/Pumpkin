@@ -8,4 +8,8 @@
         <RootNamespace>Pumpkin.Domain.ExternalServices</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="HttpClientToCurl" Version="2.0.5" />
+    </ItemGroup>
+
 </Project>

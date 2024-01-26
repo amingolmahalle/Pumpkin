@@ -18,8 +18,9 @@ public class OrderController : BaseController
         _mediator = mediator;
     }
 
-    [HttpGet("get_customer_policies")]
-    public async Task<ActionResult<ListResponse<GetCustomerPoliciesResultContract>>> GetCustomerPolicies(GetCustomerPoliciesContract request, CancellationToken cancellationToken)
+    [HttpGet("get_customer_policies/{CustomerId}")]
+    public async Task<ActionResult<ListResponse<GetCustomerPoliciesResultContract>>> GetCustomerPolicies([FromRoute] GetCustomerPoliciesContract request,
+        CancellationToken cancellationToken)
         => Dynamic(await _mediator.Send(new GetCustomerPoliciesQuery(request), cancellationToken));
 
     [HttpPost("register-order")]
